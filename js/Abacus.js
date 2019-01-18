@@ -529,7 +529,6 @@ class Abacus {
             (function () {
                 let inp = document.querySelectorAll('input'),
                     mas = [];
-
                 function save() {
                     for (let i = 0; i < inp.length; i++) {
                         mas[i] = +inp[i].value;
@@ -537,7 +536,6 @@ class Abacus {
                     console.log(mas);
                     console.log(Abacus.checkValue(mas, Arr.sumArr))
                 }
-
                 save();
             })();
         });
