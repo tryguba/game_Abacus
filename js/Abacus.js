@@ -519,7 +519,6 @@ class Abacus {
 
         });
 
-
         showAnswer.addEventListener('click', function () {
             let answer = document.querySelectorAll('.answer');
             answer.forEach(function (item) {

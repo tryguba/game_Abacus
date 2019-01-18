@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8bef0da-7042-494c-b8e4-00b8b9d9ba06" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Abacus.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Abacus.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +110,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/steps/step_9.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="656">
+                <state relative-caret-position="535">
                   <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
                   <folding>
                     <element signature="e#496#1766#0" />
@@ -126,11 +125,11 @@
         <splitter split-orientation="horizontal" split-proportion="0.6266067">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file pinned="false" current-in-tab="false">
+              <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/js/Abacus.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="399">
-                      <caret line="521" lean-forward="true" selection-start-line="521" selection-end-line="521" />
+                    <state relative-caret-position="383">
+                      <caret line="520" selection-start-line="520" selection-end-line="520" />
                       <folding>
                         <element signature="n#!!block;n#genAbacusSimple#0;n#Abacus#0" />
                         <element signature="n#!!block;n#getAbacusSimple#0;n#Abacus#0" />
@@ -148,15 +147,6 @@
                         <element signature="n#!!block;n#getAbacusSimpleDouble#0;n#Abacus#0" />
                         <element signature="n#!!block;n#checkValue#0;n#Abacus#0" />
                       </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/.gitignore">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="32">
-                      <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
                     </state>
                   </provider>
                 </entry>
@@ -253,8 +243,8 @@
         <option value="$PROJECT_DIR$/steps/step_7_8.html" />
         <option value="$PROJECT_DIR$/steps/step_9.html" />
         <option value="$PROJECT_DIR$/sass/main.scss" />
-        <option value="$PROJECT_DIR$/js/Abacus.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/js/Abacus.js" />
       </list>
     </option>
   </component>
@@ -283,21 +273,6 @@
             <path>
               <item name="GAME" type="b2602c69:ProjectViewProjectNode" />
               <item name="GAME" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAME" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAME" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAME" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAME" type="462c0819:PsiDirectoryNode" />
-              <item name="sass" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAME" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAME" type="462c0819:PsiDirectoryNode" />
-              <item name="steps" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -430,12 +405,12 @@
       <workItem from="1547712695285" duration="16742000" />
       <workItem from="1547793257794" duration="11112000" />
       <workItem from="1547806320641" duration="53000" />
-      <workItem from="1547806398503" duration="1987000" />
+      <workItem from="1547806398503" duration="2974000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="428364000" />
+    <option name="totallyTimeSpent" value="429351000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -448,9 +423,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6552198" visible="true" weight="0.06399046" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6552198" visible="true" weight="0.06399046" />
       <window_info id="Structure" order="1" sideWeight="0.3447802" side_tool="true" weight="0.12100213" />
       <window_info id="Favorites" order="2" sideWeight="0.50137365" side_tool="true" weight="0.119936034" />
       <window_info anchor="bottom" id="File Transfer" order="0" sideWeight="0.4997199" weight="0.27128264" />
@@ -464,7 +438,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49615806" weight="0.20885357" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49615806" visible="true" weight="0.20885357" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50384194" side_tool="true" weight="0.28440368" />
       <window_info anchor="right" id="Remote Host" order="0" visible="true" weight="0.09618442" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
@@ -731,7 +705,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/steps/step_9.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="656">
+        <state relative-caret-position="535">
           <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
           <folding>
             <element signature="e#496#1766#0" />
@@ -739,10 +713,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/Abacus.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="521" lean-forward="true" selection-start-line="521" selection-end-line="521" />
+        <state relative-caret-position="383">
+          <caret line="520" selection-start-line="520" selection-end-line="520" />
           <folding>
             <element signature="n#!!block;n#genAbacusSimple#0;n#Abacus#0" />
             <element signature="n#!!block;n#getAbacusSimple#0;n#Abacus#0" />
@@ -760,13 +741,6 @@
             <element signature="n#!!block;n#getAbacusSimpleDouble#0;n#Abacus#0" />
             <element signature="n#!!block;n#checkValue#0;n#Abacus#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
         </state>
       </provider>
     </entry>
