@@ -1,5 +1,33 @@
+@font-face {
+  font-family: "GothamPro";
+  src: url("../fonts/GothamPro.ttf");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GothamProBold";
+  src: url("../fonts/GothamPro-Bold.ttf");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GothamProMedium";
+  src: url("../fonts/GothamPro-Medium.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "GothamProBlack";
+  src: url("../fonts/GothamPro-Black.ttf");
+  font-style: normal;
+}
+
+$reg: 'GothamPro';
+$bold: 'GothamProBold';
+$med: 'GothamProMedium';
+$black: 'GothamProBlack';
+
 body {
-  background: url("../img/wood.jpg") no-repeat center top;
+  background: url("../img/bacground-game.jpg") no-repeat center top;
   text-align: center;
   font-size: 20px;
   height: 100vh;
@@ -8,42 +36,73 @@ body {
 }
 
 #app_abacus {
-  width: 98%;
+  background: url("../img/bacground-fon.png") no-repeat center center;
+  position: relative;
+  width: 1195px;
+  height: 628px;
   margin: 0 auto;
+  padding: 50px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   color: white;
   .column {
     margin: 0 10px;
-    border: 1px solid green;
     padding: 5px;
-    background-color: rgba(255, 255, 255, .6);
     &__count {
-      padding: 0 10px;
-      min-width: 50px;
-      height: 40px;
+      margin-bottom: 10px;
+      min-width: 56px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid lightgreen;
-      margin-bottom: 5px;
-      background-color: rgba(0, 0, 0, .6);
+      background-color: #b7d6e3;
+      color: #96294d;
+      font-family: $med;
+      font-size: 46px;
+      font-weight: 500;
+      line-height: 5.58px;
     }
+  }
+  .title{
+    color: #eae1d3;
+    font-family: $black;
+    font-size: 46px;
+    font-weight: 400;
+    line-height: 5.56px;
+    text-transform: uppercase;
+    border-radius: 24px;
+    background-color: #ac8341;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100px;
+    margin-bottom: 40px;
   }
 }
 
 input {
-  width: 100%;
-  padding: 5px;
-  font-size: 15px;
+  width: 56px;
+  height: 56px;
+  border: none;
+  padding: 0 10px;
+  color: #711111;
+  font-family: $med;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 7px;
 }
 
 #button {
-  width: 30%;
-  background: aquamarine;
+  width: 218px;
+  height: 51px;
   padding: 10px;
   cursor: pointer;
-  margin: 7% auto 40px;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  border-radius: 26px;
+  background-color: #eb6969;
+  box-shadow: 6px 5px #941b1b;
 }
 
 .answer {

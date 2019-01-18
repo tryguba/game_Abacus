@@ -500,7 +500,7 @@ class Abacus {
             cell.classList.add('inp');
             answer.classList.add('answer', 'd-none');
             input.setAttribute("type", "text");
-            input.setAttribute("placeholder", "Введите ответ");
+            // input.setAttribute("placeholder", "Введите ответ");
 
             rowData.forEach(function (cellData) {
                 let cell = document.createElement('div');
@@ -522,7 +522,7 @@ class Abacus {
         showAnswer.addEventListener('click', function () {
             let answer = document.querySelectorAll('.answer');
             answer.forEach(function (item) {
-                item.classList.add('d-block');
+                item.classList.toggle('d-block');
             });
 
             // создаем масив введенных ответов
