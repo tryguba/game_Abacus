@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Abacus_game Simulator</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src='js/abacus_game.js'></script>
+    <script type="text/javascript">
+        function run() {
+            let abacus = new Abacus_game("myAbacus", 0);
+            abacus.init();
+        }
+    </script>
+</head>
+<body onload="run();">
+<a href="index.html" class="simulator">На главную</a>
+
+<h1>Abacus_game Simulator</h1>
+<div id="myAbacus"></div>
+</body>
+</html>
