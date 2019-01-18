@@ -502,7 +502,7 @@ class Abacus {
             input.setAttribute("type", "text");
             input.setAttribute("placeholder", "Введите ответ");
 
-            rowData.forEach(function (cellData, i) {
+            rowData.forEach(function (cellData) {
                 let cell = document.createElement('div');
                 cell.classList.add('column__count');
                 cell.appendChild(document.createTextNode(cellData));
