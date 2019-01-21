@@ -217,13 +217,17 @@ class Abacus {
 // =============================проверка============================
             console.log(`6-9| ${remainder} [${randArr}] res= ${result}`);
         }
-
-        if (operation) {
+        else {
+            let count = 2;
+            result = this.genAbacusSimpleStep_4(count);
+            console.log(`---| ${result % 10}| ${10 - remainder} | ${count}`);
+        }
+        /*if (operation) {
             if ((result % 10) - 9 === 0) {
                 result = this.genAbacusSimpleStep_4(count);
                 console.log(`---| ${result % 10}| ${10 - remainder} | ${count}`);
             }
-        }
+        }*/
         return result;
     }
 
@@ -242,18 +246,19 @@ class Abacus {
             result[i] = [];
 
             let res = function (first, second) {
-                let min = first - second;
+
+                let min = first - second * -1;
+                console.log(`${first}${second}=${min}`);
                 return Abacus.genAbacusSimpleStep_4(min, true);
             };
 
             result[i][0] = randArr[Math.floor((Math.random() * (randArr.length - 1)) + 1)];
-            result[i][1] = Abacus.genAbacusSimpleStep_4(result[i][0], true) * -1;
-            result[i][2] = res(result[i][0], result[i][1]) * -1;
+            result[i][1] = Abacus.genAbacusSimpleStep_4(result[i][0], true) * (-1);
+            result[i][2] = res(result[i][0], result[i][1]) * (-1);
 
             let sum = result[i].reduce(function (a, b) {
                 return a + b;
             });
-
             sums[i] = sum;
         }
         return {
@@ -539,7 +544,7 @@ class Abacus {
         showAnswer.addEventListener('click', function () {
             let answer = document.querySelectorAll('.answer');
             answer.forEach(function (item) {
-                item.classList.add('d-block');
+                item.classList.toggle('d-block');
             });
 
             // создаем масив введенных ответов
@@ -566,6 +571,7 @@ let step_3 = new Abacus();
 let step_4 = new Abacus();
 let step_5_6 = new Abacus();
 let step_7_8 = new Abacus();
+let step_9 = new Abacus(1, 9);
 
 let level_2 = new Abacus(1, 9);
 let level_3 = new Abacus(1, 9);
@@ -576,5 +582,3 @@ let level_7 = new Abacus(0, 9);
 let level_8 = new Abacus(0, 99);
 let level_9 = new Abacus(10, 99);
 let level_10 = new Abacus(10, 999);
-
-// price1 = price1.replace(".", ",")
