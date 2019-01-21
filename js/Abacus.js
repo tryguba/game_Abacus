@@ -247,7 +247,7 @@ class Abacus {
             };
 
             result[i][0] = randArr[Math.floor((Math.random() * (randArr.length - 1)) + 1)];
-            result[i][1] = Abacus.genAbacusSimpleStep_4(result[i][0], false) * -1;
+            result[i][1] = Abacus.genAbacusSimpleStep_4(result[i][0], true) * -1;
             result[i][2] = res(result[i][0], result[i][1]) * -1;
 
             let sum = result[i].reduce(function (a, b) {
@@ -561,6 +561,11 @@ class Abacus {
     }
 
 }
+
+let step_3 = new Abacus();
+let step_4 = new Abacus();
+let step_5_6 = new Abacus();
+let step_7_8 = new Abacus();
 
 let level_2 = new Abacus(1, 9);
 let level_3 = new Abacus(1, 9);
