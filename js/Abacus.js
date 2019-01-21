@@ -242,7 +242,6 @@ class Abacus {
             result[i] = [];
 
             let res = function (first, second) {
-                // console.log(`first=${first} second=${second}`);
                 let min = first - second;
                 return Abacus.genAbacusSimpleStep_4(min, true);
             };
@@ -251,8 +250,8 @@ class Abacus {
             result[i][1] = Abacus.genAbacusSimpleStep_4(result[i][0], false) * -1;
             result[i][2] = res(result[i][0], result[i][1]) * -1;
 
-            let sum = result[i].reduce(function (previousValue, currentValue) {
-                return currentValue + previousValue;
+            let sum = result[i].reduce(function (a, b) {
+                return a + b;
             });
 
             sums[i] = sum;
@@ -387,20 +386,27 @@ class Abacus {
 
     genAbacusSimpleStep_9(prevCount, operation) {
         let result = 0;
-        let count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
+        let count;
+        if (prevCount % 2 === 0) {
+            count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
+        } else {
+            count = Math.floor((Math.random() * 9) + 1);
+        }
+
+
         if (prevCount >= count) {
             if (operation) {
                 result = count;
-                // console.log(prevCount + ' |+++| ' + ' count=' + count + ' result= ' + result);
+                console.log(prevCount + ' |+++| ' + ' count=' + count + ' result= ' + result);
             }
             else {
                 result = count * (-1);
-                // console.log(prevCount + ' |---| ' + ' count=' + count + ' result= ' + result);
+                console.log(prevCount + ' |---| ' + ' count=' + count + ' result= ' + result);
             }
         }
         else {
             result = count;
-            // console.log(prevCount + ' |???| ' + ' count=' + count + ' result= ' + result);
+            console.log(prevCount + ' |???| ' + ' count=' + count + ' result= ' + result);
         }
         return result;
     }
@@ -444,7 +450,7 @@ class Abacus {
             result = count;
             console.log(prevCount + ' |???| ' + ' count=' + count + ' result= ' + result);
         }
-        return result;
+        return result.toString().replace(".", ",");
     }
 
     getAbacusSimpleDouble(columns, rows) {
@@ -453,16 +459,28 @@ class Abacus {
 
         for (let i = 0; i < columns; i++) {
             result[i] = [];
+            let sumArr = [];
             let operation = Math.random() >= 0.5;
             for (let j = 0; j < rows; j++) {
-                result[i][j] = +this.genAbacusSimpleDouble(result[i][j - 1], operation);
-
+                result[i][j] = this.genAbacusSimpleDouble(result[i][j - 1], operation);
             }
-            let sum = result[i].reduce(function (a, b) {
-                return b + a;
+
+// =========================================================================
+
+            result[i].forEach(function (item) {
+                item = parseFloat(item.replace(",", "."));
+                sumArr.push(item);
+            });
+
+// =========================================================================
+
+            console.log(result[i]);
+            let sum = sumArr.reduce(function (a, b) {
+                return a + b;
             });
             // (плюс) -  для того чтобы скрыть все (нули) после целого числа
-            sums[i] = +sum.toFixed(2);
+            sums[i] = sum.toFixed(2);
+            // console.log(`sums=${sums[i]} sum=${sum}`);
         }
         return {
             countsArr: result,
@@ -490,7 +508,7 @@ class Abacus {
         let showAnswer = document.querySelector('#button');
         let answerText;
 
-        tableData.forEach(function (rowData, i) {
+        tableData.forEach(function (item, index) {
             let row = document.createElement('div');
             let cell = document.createElement('div');
             let input = document.createElement("input");
@@ -502,14 +520,14 @@ class Abacus {
             input.setAttribute("type", "text");
             input.setAttribute("placeholder", "Введите ответ");
 
-            rowData.forEach(function (cellData) {
+            item.forEach(function (cellData) {
                 let cell = document.createElement('div');
                 cell.classList.add('column__count');
                 cell.appendChild(document.createTextNode(cellData));
                 row.appendChild(cell);
             });
 
-            answerText = document.createTextNode(Arr.sumArr[i]);
+            answerText = document.createTextNode(Arr.sumArr[index]);
 
             table.appendChild(row);
             row.appendChild(cell);
@@ -518,7 +536,6 @@ class Abacus {
             answer.appendChild(answerText);
 
         });
-
         showAnswer.addEventListener('click', function () {
             let answer = document.querySelectorAll('.answer');
             answer.forEach(function (item) {
@@ -529,6 +546,7 @@ class Abacus {
             (function () {
                 let inp = document.querySelectorAll('input'),
                     mas = [];
+
                 function save() {
                     for (let i = 0; i < inp.length; i++) {
                         mas[i] = +inp[i].value;
@@ -536,9 +554,22 @@ class Abacus {
                     console.log(mas);
                     console.log(Abacus.checkValue(mas, Arr.sumArr))
                 }
+
                 save();
             })();
         });
     }
 
 }
+
+let level_2 = new Abacus(1, 9);
+let level_3 = new Abacus(1, 9);
+let level_4 = new Abacus(1, 99);
+let level_5 = new Abacus(10, 89);
+let level_6 = new Abacus(10, 89);
+let level_7 = new Abacus(0, 9);
+let level_8 = new Abacus(0, 99);
+let level_9 = new Abacus(10, 99);
+let level_10 = new Abacus(10, 999);
+
+// price1 = price1.replace(".", ",")
