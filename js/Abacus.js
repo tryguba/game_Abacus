@@ -181,7 +181,7 @@ class Abacus {
         };
     }
 
-    static genAbacusSimpleStep_4(count, operation) {
+    static genAbacusSimpleStep_4(count) {
         let remainder = count % 10;
         let result = 0;
 
@@ -218,7 +218,7 @@ class Abacus {
             console.log(`6-9| ${remainder} [${randArr}] res= ${result}`);
         }
         else {
-            let count = 2;
+            let count = Math.floor(Math.random() * 8) + 1  ;
             result = this.genAbacusSimpleStep_4(count);
             console.log(`---| ${result % 10}| ${10 - remainder} | ${count}`);
         }
@@ -246,14 +246,15 @@ class Abacus {
             result[i] = [];
 
             let res = function (first, second) {
-
                 let min = first - second * -1;
+
                 console.log(`${first}${second}=${min}`);
-                return Abacus.genAbacusSimpleStep_4(min, true);
+
+                return Abacus.genAbacusSimpleStep_4(min);
             };
 
             result[i][0] = randArr[Math.floor((Math.random() * (randArr.length - 1)) + 1)];
-            result[i][1] = Abacus.genAbacusSimpleStep_4(result[i][0], true) * (-1);
+            result[i][1] = Abacus.genAbacusSimpleStep_4(result[i][0]) * (-1);
             result[i][2] = res(result[i][0], result[i][1]) * (-1);
 
             let sum = result[i].reduce(function (a, b) {
