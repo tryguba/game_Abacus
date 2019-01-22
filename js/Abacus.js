@@ -1,8 +1,9 @@
 class Abacus {
 
-    constructor(firstCountArr, lastCountArr) {
+    constructor(firstCountArr, lastCountArr, digit) {
         this.firstCountArr = firstCountArr;
         this.lastCountArr = lastCountArr;
+        this.digit = digit;
     }
 
     static genAbacusSimple(lastItem, operation) {
@@ -229,7 +230,6 @@ class Abacus {
                 }
                 result = arr[Math.floor((Math.random() * (arr.length - 1)) + 1)];
                 console.log(`arr=[${arr}] NewRes=${result}`);
-
             }
         }
         return result;
@@ -254,7 +254,7 @@ class Abacus {
 
                 console.log(`${first}${second}=${min}`);
 
-                return Abacus.genAbacusSimpleStep_4(min, true);
+                return Abacus.genAbacusSimpleStep_4(min, false);
             };
 
             result[i][0] = randArr[Math.floor((Math.random() * (randArr.length - 1)) + 1)];
@@ -397,11 +397,13 @@ class Abacus {
     genAbacusSimpleStep_9(prevCount, operation) {
         let result = 0;
         let count;
-        if (prevCount % 2 === 0) {
-            count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
-        } else {
+
+        if (this.digit === null && prevCount % 2 === 0) {
             count = Math.floor((Math.random() * 89) + 10);
+        } else {
+            count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
         }
+
 
         if (prevCount >= count) {
             if (operation) {
@@ -570,11 +572,12 @@ class Abacus {
 
 }
 
+
 let step_3 = new Abacus();
 let step_4 = new Abacus();
 let step_5_6 = new Abacus();
 let step_7_8 = new Abacus();
-let step_9 = new Abacus(1, 9);
+let step_9 = new Abacus(1, 9, null);
 
 let level_2 = new Abacus(1, 9);
 let level_3 = new Abacus(1, 9);
