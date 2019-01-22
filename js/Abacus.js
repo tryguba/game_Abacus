@@ -181,7 +181,7 @@ class Abacus {
         };
     }
 
-    static genAbacusSimpleStep_4(count) {
+    static genAbacusSimpleStep_4(count, operation) {
         let remainder = count % 10;
         let result = 0;
 
@@ -217,17 +217,18 @@ class Abacus {
 // =============================проверка============================
             console.log(`6-9| ${remainder} [${randArr}] res= ${result}`);
         }
-        else {
-            let count = Math.floor(Math.random() * 8) + 1  ;
+       /* else {
+            let count = Math.floor(Math.random() * 8) + 1;
             result = this.genAbacusSimpleStep_4(count);
             console.log(`---| ${result % 10}| ${10 - remainder} | ${count}`);
-        }
-        /*if (operation) {
-            if ((result % 10) - 9 === 0) {
+        }*/
+
+        if (operation) {
+            if (((count - result) % 10) - 9 === 0) {
                 result = this.genAbacusSimpleStep_4(count);
                 console.log(`---| ${result % 10}| ${10 - remainder} | ${count}`);
             }
-        }*/
+        }
         return result;
     }
 
@@ -248,13 +249,13 @@ class Abacus {
             let res = function (first, second) {
                 let min = first - second * -1;
 
-                console.log(`${first}${second}=${min}`);
+                console.log(`${first}-${second}=${min}`);
 
-                return Abacus.genAbacusSimpleStep_4(min);
+                return Abacus.genAbacusSimpleStep_4(min, true);
             };
 
             result[i][0] = randArr[Math.floor((Math.random() * (randArr.length - 1)) + 1)];
-            result[i][1] = Abacus.genAbacusSimpleStep_4(result[i][0]) * (-1);
+            result[i][1] = Abacus.genAbacusSimpleStep_4(result[i][0] * (-1), true);
             result[i][2] = res(result[i][0], result[i][1]) * (-1);
 
             let sum = result[i].reduce(function (a, b) {
@@ -396,9 +397,8 @@ class Abacus {
         if (prevCount % 2 === 0) {
             count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
         } else {
-            count = Math.floor((Math.random() * 9) + 1);
+            count = Math.floor((Math.random() * 89) + 10);
         }
-
 
         if (prevCount >= count) {
             if (operation) {
@@ -437,7 +437,6 @@ class Abacus {
             sumArr: sums
         }
     }
-
 
     genAbacusSimpleDouble(prevCount, operation) {
         let result = 0;
@@ -576,7 +575,7 @@ let step_9 = new Abacus(1, 9);
 
 let level_2 = new Abacus(1, 9);
 let level_3 = new Abacus(1, 9);
-let level_4 = new Abacus(1, 99);
+let level_4 = new Abacus(1, 9);
 let level_5 = new Abacus(10, 89);
 let level_6 = new Abacus(10, 89);
 let level_7 = new Abacus(0, 9);
