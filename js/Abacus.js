@@ -200,38 +200,39 @@ class Abacus {
             let preresult = Math.floor((Math.random() * (randArr.length - 1)));
             result = randArr[preresult];
 // =============================проверка============================
-            console.log(`1-4| ${remainder} [${randArr}] res= ${result}`);
+            console.log(`| ${remainder} [${randArr}] res= ${result}`);
 
         } else if (remainder === 4) {
             result = 5;
 // =============================проверка============================
-            console.log(`5| ${result}`);
+            console.log(`| ${result}`);
         } else if (remainder >= 5 && remainder <= 8) {
 
             let toNum = remainder + 1;
             let randArr = [];
             for (let i = toNum; i <= 9; i++) {
-                randArr.push(i);
+                randArr.unshift(i);
             }
             let preresult = Math.floor((Math.random() * (randArr.length - 1)));
             result = randArr[preresult];
 // =============================проверка============================
-            console.log(`6-9| ${remainder} [${randArr}] res= ${result}`);
+            console.log(`| ${remainder} [${randArr}] res= ${result}`);
         }
 
-        if (operation) {
-            if (((count - result) % 10) - 9 === 0) {
-                let arr = [];
-                for (let i = 1; i <= 9; i++) {
-                    if (i === result) {
-                        continue;
-                    }
-                    arr.push(i);
-                }
-                result = arr[Math.floor((Math.random() * (arr.length - 1)) + 1)];
-                console.log(`arr=[${arr}] NewRes=${result}`);
-            }
+        if (operation && ((count - result) % 10) - 9 === 0) {
+            // let arr = [];
+            // for (let i = 0; i <= result; i++) {
+            //     if (i === result) {
+            //         continue;
+            //     }
+            //     arr.push(i);
+            // }
+            // result = arr[Math.floor((Math.random() * (arr.length - 1)) + 1)];
+
+            result = this.genAbacusSimpleStep_4(count, true);
+            console.log(`NewRes=${result}`);
         }
+
         return result;
     }
 
@@ -251,9 +252,7 @@ class Abacus {
 
             let res = function (first, second) {
                 let min = first - second * -1;
-
                 console.log(`${first}${second}=${min}`);
-
                 return Abacus.genAbacusSimpleStep_4(min, false);
             };
 
@@ -398,10 +397,12 @@ class Abacus {
         let result = 0;
         let count;
 
-        if (this.digit === null && prevCount % 2 === 0) {
-            count = Math.floor((Math.random() * 89) + 10);
-        } else {
-            count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
+        if (this.digit === null) {
+            if (prevCount % 2 === 0) {
+                count = Math.floor((Math.random() * 89) + 10);
+            } else {
+                count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
+            }
         }
 
 
