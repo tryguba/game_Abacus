@@ -480,12 +480,12 @@ class Abacus {
         };
     }
 
-    genAbacusSimpleStep_9(prevCount, operation) {
+    genAbacusSimpleStep_9(prevCount, operation, j) {
         let result = 0;
         let count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
 
         if (this.digit) {
-            if (count % 2 === 0) {
+            if (j % 2 === 0) {
                 count = Math.floor((Math.random() * 89) + 10);
             }
             else {
@@ -518,10 +518,10 @@ class Abacus {
             result[i] = [];
             let operation = Math.random() >= 0.5;
             for (let j = 0; j < rows; j++) {
-                result[i][j] = this.genAbacusSimpleStep_9(result[i][j - 1], operation);
+                result[i][j] = this.genAbacusSimpleStep_9(result[i][j - 1], operation, j);
             }
-            let sum = result[i].reduce(function (previousValue, currentValue) {
-                return currentValue + previousValue;
+            let sum = result[i].reduce(function (a, b) {
+                return a + b;
             });
             sums[i] = sum;
         }
@@ -546,23 +546,35 @@ class Abacus {
         };
     }
 
-    genAbacusSimpleDouble(prevCount, operation) {
+    genAbacusSimpleDouble(prevCount, operation, j) {
         let result = 0;
         let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
+
+        if (this.digit) {
+            if (j % 2 === 0) {
+                count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
+            }
+            else {
+                count = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
+            }
+        }
+
         if (prevCount >= count) {
             if (operation) {
                 result = count;
-                console.log(prevCount + ' |+++| ' + ' count=' + count + ' result= ' + result);
+                // console.log(prevCount + ' |+++| ' + ' count=' + count + ' result= ' + result);
             }
             else {
                 result = count * (-1);
-                console.log(prevCount + ' |---| ' + ' count=' + count + ' result= ' + result);
+                // console.log(prevCount + ' |---| ' + ' count=' + count + ' result= ' + result);
             }
         }
         else {
             result = count;
-            console.log(prevCount + ' |???| ' + ' count=' + count + ' result= ' + result);
+            // console.log(prevCount + ' |???| ' + ' count=' + count + ' result= ' + result);
         }
+        // добавляет нули посля запятой
+        result = parseFloat(result).toFixed(2);
         return result.toString().replace(".", ",");
     }
 
@@ -575,7 +587,7 @@ class Abacus {
             let sumArr = [];
             let operation = Math.random() >= 0.5;
             for (let j = 0; j < rows; j++) {
-                result[i][j] = this.genAbacusSimpleDouble(result[i][j - 1], operation);
+                result[i][j] = this.genAbacusSimpleDouble(result[i][j - 1], operation, j);
             }
 
 // =========================================================================
@@ -687,6 +699,6 @@ let level_4 = new Abacus(1, 9, true);
 let level_5 = new Abacus(10, 89, true);
 let level_6 = new Abacus(10, 89);
 let level_7 = new Abacus(0, 9);
-let level_8 = new Abacus(0, 99);
+let level_8 = new Abacus(0, 99, 9);
 let level_9 = new Abacus(10, 99);
-let level_10 = new Abacus(10, 999);
+let level_10 = new Abacus(10, 999, 99);
