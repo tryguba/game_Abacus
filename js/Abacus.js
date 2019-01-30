@@ -489,7 +489,7 @@ class Abacus {
 		};
 	}
 	
-	genAbacusSimpleStep_9(prevCount, operation) {
+	genAbacusSimpleStep_9(prevCount, j) {
 		let result = 0;
 		let count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
 		
@@ -501,21 +501,22 @@ class Abacus {
 				count = Math.floor((Math.random() * 9) + 1);
 			}
 		}
-		
-		if (prevCount >= count) {
-			if (operation) {
-				result = count;
-				// console.log(prevCount + ' |+++| ' + ' count=' + count + ' result= ' + result);
-			}
-			else {
-				result = count * (-1);
-				// console.log(prevCount + ' |---| ' + ' count=' + count + ' result= ' + result);
-			}
+
+		if (prevCount <= count) {
+			result = count;
+			console.log(`+ prevCount= ${prevCount} count= ${count} res= ${result}`);
 		}
 		else {
-			result = count;
-			// console.log(prevCount + ' |???| ' + ' count=' + count + ' result= ' + result);
+			result = count * -1;
+			console.log(`- prevCount= ${prevCount} count= ${count} res= ${result}`);
+			
 		}
+		
+		if (!j) {
+			result = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
+			console.log(`================ firstCount ==================== ${result}`);
+		}
+		
 		return result;
 	}
 	
@@ -525,9 +526,9 @@ class Abacus {
 		
 		for (let i = 0; i < columns; i++) {
 			result[i] = [];
-			let operation = Math.random() >= 0.5;
+			// let operation = Math.random() >= 0.5;
 			for (let j = 0; j < rows; j++) {
-				result[i][j] = this.genAbacusSimpleStep_9(result[i][j - 1], operation);
+				result[i][j] = this.genAbacusSimpleStep_9(result[i][j - 1], j);
 			}
 			let sum = result[i].reduce(function (a, b) {
 				return a + b;
@@ -559,42 +560,10 @@ class Abacus {
 		let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
 		let secondCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
 		let result = 0;
-		let change = j % 2;
 		
-		
-		/*if (this.digit) {
-			if (count >= secondCount) {
-				// result = count + secondCount;
-				result = parseFloat(count) + parseFloat(secondCount);
-				console.log(`+  count= ${count} secondCount= ${secondCount} res= ${result}`);
-			}
-			
-			else {
-				// result = count - secondCount;
-				result = (parseFloat(count) - parseFloat(secondCount));
-				console.log(`- count= ${count} secondCount= ${secondCount} res= ${result}`);
-			}
-			
-			// добавляем рандомный минус к двузначным числам
-			if (change) {
-				let min = Math.random() >= 0.5;
-				result = secondCount;
-				if (min) {
-					result = secondCount * -1;
-				}
-			}
-		}
-		else {*/
 		if (prev <= count) {
 			result = count;
-			// if (this.digit && change) {
-			// 	result = secondCount;
-			// }
-			// else {
-			// 	result = secondCount * -1
-			// }
 			console.log(`+ count= ${count} secondCount= ${secondCount} res= ${result}`);
-			
 		}
 		else {
 			result = count * -1;
@@ -672,7 +641,10 @@ class Abacus {
 		
 		//проверка и присвоения первого числа в уравнении
 		if (!j) {
-			result = (Math.random() * (999 - 99) + 99).toFixed(2);
+			result = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
+			if (this.digit !== 9){
+				result = (Math.random() * (999 - 99) + 99).toFixed(2);
+			}
 			// console.log(`================ firstCount ==================== ${result}`);
 		}
 		
@@ -708,7 +680,6 @@ class Abacus {
 			sumArr: sums
 		}
 	}
-	
 	
 	static checkValue(arr, arr2) {
 		if (arr.length !== arr2.length) return false;
