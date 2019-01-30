@@ -490,33 +490,30 @@ class Abacus {
 	}
 	
 	genAbacusSimpleStep_9(prevCount, j) {
-		let result = 0;
 		let count = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
+		let secCount = Math.floor(Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr);
+		let result = count;
+		let diff = j % 2;
 		
-		if (this.digit) {
-			if (count % 2 === 0) {
-				count = Math.floor((Math.random() * 89) + 10);
-			}
-			else {
-				count = Math.floor((Math.random() * 9) + 1);
-			}
-		}
-
-		if (prevCount <= count) {
-			result = count;
-			console.log(`+ prevCount= ${prevCount} count= ${count} res= ${result}`);
+		if (prevCount >= count) {
+			result = count * -1;
+			console.log(`- prevCount= ${prevCount} count= ${count} `)
 		}
 		else {
-			result = count * -1;
-			console.log(`- prevCount= ${prevCount} count= ${count} res= ${result}`);
-			
+			result = count;
+			console.log(`+ res= ${prevCount} count= ${count}`)
 		}
-		
-		if (!j) {
-			result = Math.floor((Math.random() * this.lastCountArr) + this.firstCountArr);
+		if (diff && this.digit) {
+			result = secCount;
+			if (this.digit === 9) {
+				result = Math.floor(Math.random() * (9 - 1) + 1) * -1;
+			}
+		}
+		//проверка и присвоения первого числа в уравнении
+		if (j === 0) {
+			result = count;
 			console.log(`================ firstCount ==================== ${result}`);
 		}
-		
 		return result;
 	}
 	
@@ -526,13 +523,13 @@ class Abacus {
 		
 		for (let i = 0; i < columns; i++) {
 			result[i] = [];
-			// let operation = Math.random() >= 0.5;
 			for (let j = 0; j < rows; j++) {
 				result[i][j] = this.genAbacusSimpleStep_9(result[i][j - 1], j);
 			}
 			let sum = result[i].reduce(function (a, b) {
 				return a + b;
 			});
+			console.log(result[i]);
 			sums[i] = sum;
 		}
 		//проверка на  одинаковые уравнение
@@ -642,7 +639,7 @@ class Abacus {
 		//проверка и присвоения первого числа в уравнении
 		if (!j) {
 			result = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
-			if (this.digit !== 9){
+			if (this.digit !== 9) {
 				result = (Math.random() * (999 - 99) + 99).toFixed(2);
 			}
 			// console.log(`================ firstCount ==================== ${result}`);
@@ -764,8 +761,8 @@ let step_9 = new Abacus(1, 9);
 
 let level_2 = new Abacus(1, 9);
 let level_3 = new Abacus(1, 9);
-let level_4 = new Abacus(1, 9, true);
-let level_5 = new Abacus(10, 89, true);
+let level_4 = new Abacus(1, 9, 99);
+let level_5 = new Abacus(10, 89, 9);
 let level_6 = new Abacus(10, 89);
 let level_7 = new Abacus(0, 9);
 let level_8 = new Abacus(0, 99, 9);
