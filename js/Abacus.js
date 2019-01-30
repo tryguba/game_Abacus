@@ -555,7 +555,7 @@ class Abacus {
 		};
 	}
 	
-	genAbacusSimpleDouble(prev = 1, j) {
+	genAbacusSimpleDoubleOne(prev, j) {
 		let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
 		let secondCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
 		let result = 0;
@@ -585,12 +585,24 @@ class Abacus {
 			}
 		}
 		else {*/
-			if (prev <= count) {
-				result = count;
-			}
-			else {
-				result = count * -1;
-			}
+		if (prev <= count) {
+			result = count;
+			// if (this.digit && change) {
+			// 	result = secondCount;
+			// }
+			// else {
+			// 	result = secondCount * -1
+			// }
+			console.log(`+ count= ${count} secondCount= ${secondCount} res= ${result}`);
+			
+		}
+		else {
+			result = count * -1;
+			console.log(`- count= ${count} secondCount= ${secondCount} res= ${result}`);
+			
+		}
+		
+		
 		// }
 		
 		//проверка и присвоения первого числа в уравнении
@@ -603,7 +615,7 @@ class Abacus {
 		return result.toString().replace(".", ",");
 	}
 	
-	getAbacusSimpleDouble(columns, rows) {
+	getAbacusSimpleDoubleOne(columns, rows) {
 		let result = [];
 		let sums = [];
 		
@@ -611,7 +623,7 @@ class Abacus {
 			result[i] = [];
 			let sumArr = [];
 			for (let j = 0; j < rows; j++) {
-				result[i][j] = this.genAbacusSimpleDouble(result[i][j - 1], j);
+				result[i][j] = this.genAbacusSimpleDoubleOne(result[i][j - 1], j);
 			}
 // =========================================================================
 			result[i].forEach(function (item) {
@@ -631,6 +643,72 @@ class Abacus {
 			sumArr: sums
 		}
 	}
+	
+	genAbacusSimpleDouble(j) {
+		let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
+		let secondCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
+		let result = 0;
+		let change = j % 2;
+		
+		
+		if (count >= secondCount) {
+			result = count + secondCount;
+			console.log(`+  count= ${count} secondCount= ${secondCount} res= ${result}`);
+		}
+		
+		else {
+			result = count - secondCount;
+			console.log(`- count= ${count} secondCount= ${secondCount} res= ${result}`);
+		}
+		
+		// добавляем рандомный минус к двузначным числам
+		if (change) {
+			let min = Math.random() >= 0.5;
+			result = secondCount;
+			if (min) {
+				result = secondCount * -1;
+			}
+		}
+		
+		//проверка и присвоения первого числа в уравнении
+		if (!j) {
+			result = (Math.random() * (999 - 99) + 99).toFixed(2);
+			// console.log(`================ firstCount ==================== ${result}`);
+		}
+		
+		result = parseFloat(result).toFixed(2);
+		return result.toString().replace(".", ",");
+	}
+	
+	getAbacusSimpleDouble(columns, rows) {
+		let result = [];
+		let sums = [];
+		
+		for (let i = 0; i < columns; i++) {
+			result[i] = [];
+			let sumArr = [];
+			for (let j = 0; j < rows; j++) {
+				result[i][j] = this.genAbacusSimpleDouble(j);
+			}
+// =========================================================================
+			result[i].forEach(function (item) {
+				item = parseFloat(item.replace(",", "."));
+				sumArr.push(item);
+			});
+// =========================================================================
+			console.log(result[i]);
+			let sum = sumArr.reduce(function (a, b) {
+				return a + b;
+			});
+			sums[i] = sum.toFixed(2);
+			// console.log(`sums=${sums[i]} sum=${sum}`);
+		}
+		return {
+			countsArr: result,
+			sumArr: sums
+		}
+	}
+	
 	
 	static checkValue(arr, arr2) {
 		if (arr.length !== arr2.length) return false;
