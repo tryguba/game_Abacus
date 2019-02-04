@@ -1,0 +1,93 @@
+/*!
+ * Raleway font (https://webfonts.pro/base-web-fonts/sans-serif-grotesque/613-raleway.html)
+ *
+ * All known font formats:
+ * .eot             IE9 Compact Modes
+ * .eot?#iefix      IE6-IE8
+ * .woff2           Super Modern Browsers
+ * .woff            Pretty Modern Browsers
+ * .ttf             Safari, Android, iOS
+ * .svg#svgFontName Legacy iOS
+ */
+
+/* Thin */
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 100;
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Thin.eot');
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Thin.eot?#iefix') format('embedded-opentype'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Thin.woff') format('woff'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Thin.ttf')  format('truetype');
+}
+/* ExtraLight */
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 200;
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-ExtraLight.eot');
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-ExtraLight.eot?#iefix') format('embedded-opentype'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-ExtraLight.woff') format('woff'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-ExtraLight.ttf')  format('truetype');
+}
+/* Light */
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 300;
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Light.eot');
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Light.eot?#iefix') format('embedded-opentype'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Light.woff') format('woff'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Light.ttf')  format('truetype');
+}
+/* Regular */
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 400;
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Regular.eot');
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Regular.eot?#iefix') format('embedded-opentype'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Regular.woff') format('woff'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Regular.ttf')  format('truetype');
+}
+/* Medium */
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 500;
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Medium.eot');
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Medium.eot?#iefix') format('embedded-opentype'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Medium.woff') format('woff'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Medium.ttf')  format('truetype');
+}
+/* SemiBold */
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 600;
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-SemiBold.eot');
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-SemiBold.woff') format('woff'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-SemiBold.ttf')  format('truetype');
+}
+/* Bold */
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 700;
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Bold.eot');
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Bold.eot?#iefix') format('embedded-opentype'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Bold.woff') format('woff'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Bold.ttf')  format('truetype');
+}
+/* ExtraBold */
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 800;
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-ExtraBold.eot');
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-ExtraBold.eot?#iefix') format('embedded-opentype'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-ExtraBold.woff') format('woff'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-ExtraBold.ttf')  format('truetype');
+}
+/* Black */
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 900;
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Black.eot');
+    src: url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Black.eot?#iefix') format('embedded-opentype'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Black.woff') format('woff'),
+    url('https://stage.corp.bizzon.online/assets/fonts/Raleway-Black.ttf')  format('truetype');
+}

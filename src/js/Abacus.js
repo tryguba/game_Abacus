@@ -616,9 +616,10 @@ class Abacus {
 		if (change) {
 			count = secondCount;
 		}
+		
 		if (parseFloat(prev) >= count) {
-			let min = parseFloat(prev) - parseFloat(count);
-			result = min * -1;
+			// let min = parseFloat(prev) - parseFloat(count);
+			result = count * -1;
 			console.log(`+| prev=${prev} count= ${count} res= ${result}`);
 		}
 		
