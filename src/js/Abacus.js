@@ -791,7 +791,60 @@ for (let i = 0; i < steps.length; i++) {
 				Arr = step_9.getAbacusSimpleStep_9(M = 10, N = 3);
 				step_9.createTable(Arr.countsArr);
 				console.log(`============${st} `);
-				
+				break;
+			case 'level_2':
+				let level_2 = new Abacus(1, 9);
+				Arr = level_2.getAbacusSimpleStep_9(M = 10, N = 5);
+				level_2.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'level_3':
+				let level_3 = new Abacus(1, 9);
+				Arr = level_3.getAbacusSimpleStep_9(M = 10, N = 7);
+				level_3.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'level_4':
+				let level_4 = new Abacus(1, 9, true);
+				Arr = level_4.getAbacusSimpleStep_9(M = 10, N = 8);
+				level_4.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'level_5':
+				let level_5 = new Abacus(10, 89, true);
+				Arr = level_5.getAbacusSimpleStep_9(M = 10, N = 10);
+				level_5.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'level_6':
+				let level_6 = new Abacus(10, 89);
+				Arr = level_6.getAbacusSimpleStep_9(M = 10, N = 10);
+				level_6.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'level_7':
+				let level_7 = new Abacus(0.01, 9);
+				Arr = level_7.getAbacusSimpleDoubleOne(M = 10, N = 10);
+				level_7.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'level_8':
+				let level_8 = new Abacus(0.01, 9, 99);
+				Arr = level_8.getAbacusSimpleDouble(M = 10, N = 10);
+				level_8.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'level_9':
+				let level_9 = new Abacus(10, 99.99);
+				Arr = level_9.getAbacusSimpleDoubleOne(M = 10, N = 10);
+				level_9.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'level_10':
+				let level_10 = new Abacus(10, 999, 99);
+				Arr = level_10.getAbacusSimpleDouble(M = 10, N = 10);
+				level_10.createTable(Arr.countsArr);
+				console.log(`============${st} `);
 				break;
 			default:
 				console.log('Я таких значений не знаю');
@@ -799,15 +852,3 @@ for (let i = 0; i < steps.length; i++) {
 		
 	});
 }
-
-
-//levels
-/*let level_2 = new Abacus(1, 9);
-let level_3 = new Abacus(1, 9);
-let level_4 = new Abacus(1, 9, true);
-let level_5 = new Abacus(10, 89, true);
-let level_6 = new Abacus(10, 89);
-let level_7 = new Abacus(0.01, 9);
-let level_8 = new Abacus(0.01, 9, 99);
-let level_9 = new Abacus(10, 99.99);
-let level_10 = new Abacus(10, 999, 99);*/
