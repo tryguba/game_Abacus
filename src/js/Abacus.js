@@ -1,4 +1,4 @@
-class Abacus {
+export class Abacus {
 	
 	constructor(firstCountArr, lastCountArr, digit) {
 		this.firstCountArr = firstCountArr;
@@ -742,13 +742,67 @@ class Abacus {
 }
 
 
-let step_3 = new Abacus();
-let step_4 = new Abacus();
-let step_5_6 = new Abacus();
-let step_7_8 = new Abacus();
-let step_9 = new Abacus(1, 9);
+let Arr, M, N;
+let steps = document.querySelectorAll('.step');
 
-let level_2 = new Abacus(1, 9);
+for (let i = 0; i < steps.length; i++) {
+	let st = 'step_1_2';
+	steps[i].addEventListener("click", function (e) {
+		e.preventDefault();
+		st = steps[i].textContent;
+		let table = document.querySelector('#app_abacus');
+		table.innerHTML = null;
+		switch (st) {
+			case 'step_1_2':
+				let step_1_2 = new Abacus();
+				Arr = step_1_2.getAbacusSimple(M = 10, N = 3);
+				step_1_2.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'step_3':
+				let step_3 = new Abacus();
+				Arr = step_3.getAbacusSimpleStep_3(M = 10);
+				step_3.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				break;
+			case 'step_4':
+				let step_4 = new Abacus();
+				Arr = step_4.getAbacusSimpleStep_3(M = 10);
+				step_4.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				
+				break;
+			case 'step_5_6':
+				let step_5_6 = new Abacus();
+				Arr = step_5_6.getAbacusSimpleStep_5_6(M = 10);
+				step_5_6.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				
+				break;
+			case 'step_7_8':
+				let step_7_8 = new Abacus();
+				Arr = step_7_8.getAbacusSimpleStep_7_8(M = 10);
+				step_7_8.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				
+				break;
+			case 'step_9':
+				let step_9 = new Abacus(1, 9);
+				Arr = step_9.getAbacusSimpleStep_9(M = 10, N = 3);
+				step_9.createTable(Arr.countsArr);
+				console.log(`============${st} `);
+				
+				break;
+			default:
+				console.log('Я таких значений не знаю');
+		}
+		
+	});
+}
+
+
+//levels
+/*let level_2 = new Abacus(1, 9);
 let level_3 = new Abacus(1, 9);
 let level_4 = new Abacus(1, 9, true);
 let level_5 = new Abacus(10, 89, true);
@@ -756,4 +810,4 @@ let level_6 = new Abacus(10, 89);
 let level_7 = new Abacus(0.01, 9);
 let level_8 = new Abacus(0.01, 9, 99);
 let level_9 = new Abacus(10, 99.99);
-let level_10 = new Abacus(10, 999, 99);
+let level_10 = new Abacus(10, 999, 99);*/
