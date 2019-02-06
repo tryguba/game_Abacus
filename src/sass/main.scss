@@ -1,0 +1,160 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  background: url("../img/bacground-game.jpg") no-repeat center center #dedede;
+  height: 100vh;
+  background-size: cover;
+}
+
+#main {
+  width: 1195px;
+  height: 628px;
+  box-shadow: 0 0 57px 9px rgba(255, 203, 43, 0.54);
+  border-radius: 23px;
+  border: 7px solid #ac8341;
+  background: url("../img/znak.png") no-repeat center center #eae1d3;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  .title {
+    color: $main-color;
+    font-family: $main-font;
+    font-size: 46px;
+    font-weight: 900;
+    width: 662px;
+    height: 119px;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+    background-color: #ac8341;
+    margin: -5px auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+#app_abacus {
+  width: 98%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  .column {
+    margin: 0 10px;
+    padding: 5px;
+    &__count {
+      padding: 0 10px;
+      min-width: 50px;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      background-color: #b7d6e3;
+      color: #96294d;
+      font-family: $main-font;
+      font-size: 46px;
+      font-weight: 500;
+      line-height: 5.58px;
+    }
+  }
+}
+
+input {
+  margin-top: 25px;
+  border: none;
+  padding: 0 13px;
+  min-width: 50px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #96294d;
+  font-family: $main-font;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 7px;
+
+}
+
+#button {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%);
+  width: 223px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 26px;
+  background-color: #eb6969;
+  color: #ffffff;
+  font-family: $main-font;
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 3.77px;
+  letter-spacing: 3.1px;
+  box-shadow: 5px 8px 5px  #941b1b;
+  margin: 0 auto;
+  &:active{
+    box-shadow: none;
+    cursor: pointer;
+  }
+}
+
+.answer {
+  font-size: 30px;
+  background-color: rgba(0, 0, 0, .6);;
+  margin-top: 10px;
+  padding: 0 5px;
+}
+
+.simulator {
+  font-size: 30px;
+  padding: 10px;
+  background: darkred;
+  margin-bottom: 20px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: white;
+  text-decoration: none;
+  transition: all 0.5s;
+  &:hover {
+    background: lighten(#2d8b07, 15);
+    text-decoration: none;
+    color: #000;
+  }
+}
+
+#myAbacus {
+  background: rgba(94, 117, 105, 0.8);
+}
+
+h1 {
+  color: #ffffff;
+}
+
+#header {
+  .navbar, .dropdown-menu {
+    background-color: rgba(255, 255, 255, .3);
+    a {
+      color: #fff;
+    }
+  }
+  .dropdown-item:focus, .dropdown-item:hover {
+    background-color: rgba(0, 0, 0, .3);
+  }
+  .navbar-toggler {
+    background-color: #dedede;
+  }
+}
+
