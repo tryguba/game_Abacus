@@ -617,15 +617,19 @@ export class Abacus {
 			count = secondCount;
 		}
 		
+		//====================================================
+		let min = parseFloat(prev) - parseFloat(count);
+		// console.log(`min=${min} `);
+		//====================================================
+		
 		if (parseFloat(prev) >= count) {
-			// let min = parseFloat(prev) - parseFloat(count);
-			result = count * -1;
-			console.log(`+| prev=${prev} count= ${count} res= ${result}`);
+			result = parseFloat(count) * -1;
+			// console.log(`+| prev=${prev} count= ${count} res= ${result}`);
 		}
 		
 		else {
 			result = count;
-			console.log(`-| prev=${prev} count= ${count} res= ${result}`);
+			// console.log(`-| prev=${prev} count= ${count} res= ${result}`);
 		}
 		
 		//проверка и присвоения первого числа в уравнении
@@ -635,7 +639,10 @@ export class Abacus {
 		}
 		
 		result = parseFloat(result).toFixed(2);
-		return result.toString().replace(".", ",");
+		return {
+			res: result.toString().replace(".", ","),
+			min: min
+		}
 	}
 	
 	getAbacusSimpleDouble(columns, rows) {
@@ -646,7 +653,8 @@ export class Abacus {
 			result[i] = [];
 			let sumArr = [];
 			for (let j = 0; j < rows; j++) {
-				result[i][j] = this.genAbacusSimpleDouble(result[i][j - 1], j);
+				result[i][j] = this.genAbacusSimpleDouble(result[i][j - 1], j).res;
+				console.log(result[i][j]);
 			}
 // =========================================================================
 			result[i].forEach(function (item) {
@@ -654,7 +662,7 @@ export class Abacus {
 				sumArr.push(item);
 			});
 // =========================================================================
-			console.log(result[i]);
+// 			console.log(result[i]);
 			let sum = sumArr.reduce(function (a, b) {
 				return a + b;
 			});
@@ -767,10 +775,9 @@ for (let i = 0; i < steps.length; i++) {
 				break;
 			case 'step_4':
 				let step_4 = new Abacus();
-				Arr = step_4.getAbacusSimpleStep_3(M = 10);
+				Arr = step_4.getAbacusSimpleStep_4(M = 10);
 				step_4.createTable(Arr.countsArr);
 				console.log(`============${st} `);
-				
 				break;
 			case 'step_5_6':
 				let step_5_6 = new Abacus();
@@ -849,6 +856,5 @@ for (let i = 0; i < steps.length; i++) {
 			default:
 				console.log('Я таких значений не знаю');
 		}
-		
 	});
 }
