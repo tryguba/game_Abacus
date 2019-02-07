@@ -705,7 +705,7 @@ export class Abacus {
 			cell.classList.add('inp');
 			answer.classList.add('answer', 'd-none');
 			input.setAttribute("type", "text");
-			// input.setAttribute("placeholder", "Введите ответ");
+			
 			
 			item.forEach(function (cellData) {
 				let cell = document.createElement('div');
@@ -721,8 +721,8 @@ export class Abacus {
 			cell.appendChild(input);
 			row.appendChild(answer);
 			answer.appendChild(answerText);
-			
 		});
+		
 		showAnswer.addEventListener('click', function () {
 			let answer = document.querySelectorAll('.answer');
 			answer.forEach(function (item) {
@@ -857,4 +857,6 @@ for (let i = 0; i < steps.length; i++) {
 				console.log('Я таких значений не знаю');
 		}
 	});
+	
 }
+

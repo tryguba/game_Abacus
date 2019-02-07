@@ -4,15 +4,17 @@ body {
   background: url("../img/bacground-game.jpg") no-repeat center center #dedede;
   height: 100vh;
   background-size: cover;
+  font-size: 20px;
+  position: relative;
 }
 
 #main {
-  width: 1195px;
-  height: 628px;
+  min-width: 1195px;
+  min-height: 628px;
   box-shadow: 0 0 57px 9px rgba(255, 203, 43, 0.54);
   border-radius: 23px;
   border: 7px solid #ac8341;
-  background: url("../img/znak.png") no-repeat center center #eae1d3;
+  background: url("../img/znak.png") center center #eae1d3;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -37,29 +39,25 @@ body {
 }
 
 #app_abacus {
-  width: 98%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-around;
-  color: white;
+  justify-content: center;
   .column {
-    margin: 0 10px;
+    margin: 0 8px;
     padding: 5px;
     &__count {
-      padding: 0 10px;
-      min-width: 50px;
-      width: 56px;
-      height: 56px;
+      padding: 0 5px;
+      min-width: 56px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 10px;
-      background-color: #b7d6e3;
+      margin-bottom: -10px;
       color: #96294d;
       font-family: $main-font;
-      font-size: 46px;
+      font-size: 1.3rem;
       font-weight: 500;
-      line-height: 5.58px;
+      line-height: 1;
     }
   }
 }
@@ -67,9 +65,8 @@ body {
 input {
   margin-top: 25px;
   border: none;
-  padding: 0 13px;
-  min-width: 50px;
-  width: 56px;
+  padding: 0 10px;
+  width: 100%;
   height: 56px;
   display: flex;
   align-items: center;
@@ -77,10 +74,19 @@ input {
   background-color: white;
   color: #96294d;
   font-family: $main-font;
-  font-size: 46px;
+  font-size: 1.3rem;
   font-weight: 700;
-  line-height: 7px;
+  line-height:1;
+  text-align: center;
+  box-shadow: inset 0 0 35px 1px rgba(0, 7, 5, 0.31);
+}
 
+.green {
+  background: #94ec5a;
+}
+
+.red {
+  background: #d24a43;
 }
 
 #button {
@@ -102,11 +108,10 @@ input {
   font-weight: 500;
   line-height: 3.77px;
   letter-spacing: 3.1px;
-  box-shadow: 5px 8px 5px  #941b1b;
-  margin: 0 auto;
-  &:active{
+  box-shadow: 5px 8px 5px #941b1b;
+  margin: 100px auto 0;
+  &:active {
     box-shadow: none;
-    cursor: pointer;
   }
 }
 
@@ -115,24 +120,6 @@ input {
   background-color: rgba(0, 0, 0, .6);;
   margin-top: 10px;
   padding: 0 5px;
-}
-
-.simulator {
-  font-size: 30px;
-  padding: 10px;
-  background: darkred;
-  margin-bottom: 20px;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  color: white;
-  text-decoration: none;
-  transition: all 0.5s;
-  &:hover {
-    background: lighten(#2d8b07, 15);
-    text-decoration: none;
-    color: #000;
-  }
 }
 
 #myAbacus {
@@ -147,7 +134,7 @@ h1 {
   .navbar, .dropdown-menu {
     background-color: rgba(255, 255, 255, .3);
     a {
-      color: #fff;
+      color: #111;
     }
   }
   .dropdown-item:focus, .dropdown-item:hover {
