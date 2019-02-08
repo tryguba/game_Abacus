@@ -681,6 +681,7 @@ export class Abacus {
 		for (let i = 0; i < arr.length; i++) {
 			for (let j = 0; j < arr2.length; j++) {
 				if (arr[i] === arr2[j]) {
+					console.log(`${j}=${arr[i]}=true`);
 					on++;
 					break;
 				}
@@ -728,7 +729,6 @@ export class Abacus {
 			answer.forEach(function (item) {
 				item.classList.toggle('d-block');
 			});
-			
 			// создаем масив введенных ответов
 			(function () {
 				let inp = document.querySelectorAll('input'),
@@ -741,7 +741,6 @@ export class Abacus {
 					console.log(mas);
 					console.log(Abacus.checkValue(mas, Arr.sumArr))
 				}
-				
 				save();
 			})();
 		});
@@ -749,9 +748,16 @@ export class Abacus {
 	
 }
 
-
 let Arr, M, N;
 let steps = document.querySelectorAll('.step');
+
+let addClass = (className) => {
+	let smallFont = document.querySelectorAll('.column__count');
+	smallFont.forEach(function (item) {
+		item.classList.add(className);
+	});
+};
+
 
 for (let i = 0; i < steps.length; i++) {
 	let st = 'step_1_2';
@@ -777,6 +783,7 @@ for (let i = 0; i < steps.length; i++) {
 				let step_4 = new Abacus();
 				Arr = step_4.getAbacusSimpleStep_4(M = 10);
 				step_4.createTable(Arr.countsArr);
+				console.log(Arr.countsArr[0].length);
 				console.log(`============${st} `);
 				break;
 			case 'step_5_6':
@@ -803,60 +810,68 @@ for (let i = 0; i < steps.length; i++) {
 				let level_2 = new Abacus(1, 9);
 				Arr = level_2.getAbacusSimpleStep_9(M = 10, N = 5);
 				level_2.createTable(Arr.countsArr);
-				console.log(`============${st} `);
+				addClass('middleFont');
+				// console.log(`============${st} `);
 				break;
 			case 'level_3':
 				let level_3 = new Abacus(1, 9);
 				Arr = level_3.getAbacusSimpleStep_9(M = 10, N = 7);
 				level_3.createTable(Arr.countsArr);
-				console.log(`============${st} `);
+				addClass('middleFont');
+				// console.log(`============${st} `);
 				break;
 			case 'level_4':
 				let level_4 = new Abacus(1, 9, true);
 				Arr = level_4.getAbacusSimpleStep_9(M = 10, N = 8);
 				level_4.createTable(Arr.countsArr);
-				console.log(`============${st} `);
+				addClass('middleFont');
+				// console.log(`============${st} `);
 				break;
 			case 'level_5':
 				let level_5 = new Abacus(10, 89, true);
 				Arr = level_5.getAbacusSimpleStep_9(M = 10, N = 10);
 				level_5.createTable(Arr.countsArr);
-				console.log(`============${st} `);
+				addClass('middleFont');
+				// console.log(`============${st} `);
 				break;
 			case 'level_6':
 				let level_6 = new Abacus(10, 89);
 				Arr = level_6.getAbacusSimpleStep_9(M = 10, N = 10);
 				level_6.createTable(Arr.countsArr);
-				console.log(`============${st} `);
+				addClass('middleFont');
+				// console.log(`============${st} `);
 				break;
 			case 'level_7':
 				let level_7 = new Abacus(0.01, 9);
 				Arr = level_7.getAbacusSimpleDoubleOne(M = 10, N = 10);
 				level_7.createTable(Arr.countsArr);
-				console.log(`============${st} `);
+				addClass('smallFont');
+				// console.log(`============${st} `);
 				break;
 			case 'level_8':
 				let level_8 = new Abacus(0.01, 9, 99);
 				Arr = level_8.getAbacusSimpleDouble(M = 10, N = 10);
 				level_8.createTable(Arr.countsArr);
-				console.log(`============${st} `);
+				addClass('smallFont');
+				// console.log(`============${st} `);
 				break;
 			case 'level_9':
 				let level_9 = new Abacus(10, 99.99);
 				Arr = level_9.getAbacusSimpleDoubleOne(M = 10, N = 10);
 				level_9.createTable(Arr.countsArr);
-				console.log(`============${st} `);
+				addClass('smallFont');
+				// console.log(`============${st} `);
 				break;
 			case 'level_10':
 				let level_10 = new Abacus(10, 999, 99);
 				Arr = level_10.getAbacusSimpleDouble(M = 10, N = 10);
 				level_10.createTable(Arr.countsArr);
-				console.log(`============${st} `);
+				addClass('smallFont');
+				// console.log(`============${st} `);
 				break;
 			default:
 				console.log('Я таких значений не знаю');
 		}
 	});
-	
 }
 

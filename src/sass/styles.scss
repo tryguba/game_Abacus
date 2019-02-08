@@ -1,4 +1,17 @@
-@import "../../node_modules/bootstrap/scss/bootstrap";
+//@import "../../node_modules/bootstrap/scss/bootstrap";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
 
 body {
   background: url("../img/bacground-game.jpg") no-repeat center center #dedede;
@@ -6,6 +19,35 @@ body {
   background-size: cover;
   font-size: 20px;
   position: relative;
+  font-family: $main-font;
+}
+
+#header {
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: rgba(255, 255, 255, .5);
+    position: absolute;
+    text-align: left;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    .step {
+      color: black;
+      padding: 5px 15px;
+      width: 100%;
+      &:hover {
+        background: rgba(1, 1, 1, .5);
+        color: white;
+        text-decoration: none;
+      }
+    }
+  }
+  a {
+    text-decoration: none;
+  }
 }
 
 #main {
@@ -21,7 +63,6 @@ body {
   transform: translate(-50%, -50%);
   .title {
     color: $main-color;
-    font-family: $main-font;
     font-size: 46px;
     font-weight: 900;
     width: 662px;
@@ -39,11 +80,15 @@ body {
 }
 
 #app_abacus {
-  margin: 0 auto;
   display: flex;
   justify-content: center;
+  width: 85%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   .column {
-    margin: 0 8px;
+    margin: 0 5px;
     padding: 5px;
     &__count {
       padding: 0 5px;
@@ -52,33 +97,32 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: -10px;
+      margin-bottom: 30px;
       color: #96294d;
       font-family: $main-font;
-      font-size: 1.3rem;
+      font-size: 3.4rem;
       font-weight: 500;
       line-height: 1;
     }
   }
-}
-
-input {
-  margin-top: 25px;
-  border: none;
-  padding: 0 10px;
-  width: 100%;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  color: #96294d;
-  font-family: $main-font;
-  font-size: 1.3rem;
-  font-weight: 700;
-  line-height:1;
-  text-align: center;
-  box-shadow: inset 0 0 35px 1px rgba(0, 7, 5, 0.31);
+  input {
+    margin-top: 25px;
+    border: none;
+    padding: 5px;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #96294d;
+    font-family: $main-font;
+    font-size: 3.4rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    box-shadow: inset 0 0 35px 1px rgba(0, 7, 5, 0.31);
+  }
 }
 
 .green {
@@ -87,6 +131,26 @@ input {
 
 .red {
   background: #d24a43;
+}
+
+#app_abacus {
+  .middleFont {
+    margin-bottom: -10px;
+    font-size: 1.8rem;
+  }
+  input {
+    font-size: 2rem;
+  }
+}
+
+#app_abacus {
+  .smallFont {
+    margin-bottom: -10px;
+    font-size: 1.5rem;
+  }
+  input {
+    font-size: 1.5rem;
+  }
 }
 
 #button {
@@ -120,28 +184,5 @@ input {
   background-color: rgba(0, 0, 0, .6);;
   margin-top: 10px;
   padding: 0 5px;
+  color: #fff;
 }
-
-#myAbacus {
-  background: rgba(94, 117, 105, 0.8);
-}
-
-h1 {
-  color: #ffffff;
-}
-
-#header {
-  .navbar, .dropdown-menu {
-    background-color: rgba(255, 255, 255, .3);
-    a {
-      color: #111;
-    }
-  }
-  .dropdown-item:focus, .dropdown-item:hover {
-    background-color: rgba(0, 0, 0, .3);
-  }
-  .navbar-toggler {
-    background-color: #dedede;
-  }
-}
-
