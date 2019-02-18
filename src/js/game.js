@@ -1,13 +1,12 @@
 import Abacus from "./Abacus";
 // Load the full build.
-let _ = require('lodash');
-const game = {};
+const _ = require('lodash');
+// const game = {};
 
 let Arr, M, N;
-let steps = document.querySelectorAll('.step');
+const steps = document.querySelectorAll('.step');
 
-
-let checkValueArr = (arr, arr2) => {
+const checkValueArr = (arr, arr2) => {
 	if (arr.length !== arr2.length) return false;
 	let on = 0;
 	for (let i = 0; i < arr.length; i++) {
@@ -22,13 +21,13 @@ let checkValueArr = (arr, arr2) => {
 	return on === arr.length;
 };
 
-let createTable = (tableData) => {
-	let table = document.querySelector('#app_abacus'),
-		showAnswer = document.querySelector('#button'),
-		answerText;
+const createTable = (tableData) => {
+	const table = document.querySelector('#app_abacus'),
+		showAnswer = document.querySelector('#button');
+	let	answerText;
 	
 	tableData.forEach(function (item, index) {
-		let row = document.createElement('div'),
+		const row = document.createElement('div'),
 			cell = document.createElement('div'),
 			input = document.createElement("input"),
 			answer = document.createElement("div");
@@ -55,7 +54,7 @@ let createTable = (tableData) => {
 	});
 	
 	showAnswer.addEventListener('click', function () {
-		let answer = document.querySelectorAll('.answer'),
+		const answer = document.querySelectorAll('.answer'),
 			inp = document.querySelectorAll('input'),
 			arrTypedAnswers = [];
 		
@@ -69,34 +68,32 @@ let createTable = (tableData) => {
 				inp[i].classList.add('red');
 			}
 			arrTypedAnswers[i] = inp[i].value;
-			
-			if (Arr.sumArr[i] === +inp[i].value) {
+			if (+Arr.sumArr[i] === +inp[i].value) {
 				inp[i].classList.add('green');
 			}
 			else {
 				inp[i].classList.add('red');
 			}
 		}
-		
 		//======== проверка степа
-		let checkAllArr = checkValueArr(arrTypedAnswers, Arr.sumArr);
+		const checkAllArr = checkValueArr(arrTypedAnswers, Arr.sumArr);
 		if (checkAllArr) {
 			console.log(`You are the best!!!`);
 		}
-		//========
+		//=======================
 	});
 };
 
-let addClass = (className) => {
-	let smallFont = document.querySelectorAll('.column__count');
+const addClass = (className) => {
+	const smallFont = document.querySelectorAll('.column__count');
 	smallFont.forEach(function (item) {
 		item.classList.add(className);
 	});
 };
 
 for (let i = 0; i < steps.length; i++) {
-	let table = document.querySelector('#app_abacus');
-	let step = 'step_1_2';
+	const table = document.querySelector('#app_abacus');
+	let step;
 	steps[i].addEventListener("click", function () {
 		
 		table.innerHTML = null;
@@ -105,64 +102,64 @@ for (let i = 0; i < steps.length; i++) {
 		switch (step) {
 			case 'step_1_2':
 				console.log(`==========${step}==========`);
-				let step_1_2 = new Abacus();
+				const step_1_2 = new Abacus();
 				Arr = step_1_2.getAbacusSimple(M = 10);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_3':
 				console.log(`==========${step}==========`);
-				let step_3 = new Abacus();
+				const step_3 = new Abacus();
 				Arr = step_3.getAbacusSimpleStep_3(M = 10);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_4':
 				console.log(`==========${step}==========`);
-				let step_4 = new Abacus();
+				const step_4 = new Abacus();
 				Arr = step_4.getAbacusSimpleStep_4(M = 10);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_5_6':
 				console.log(`==========${step}==========`);
-				let step_5_6 = new Abacus();
+				const step_5_6 = new Abacus();
 				Arr = step_5_6.getAbacusSimpleStep_5_6(M = 10);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_7_8':
 				console.log(`==========${step}==========`);
-				let step_7_8 = new Abacus();
+				const step_7_8 = new Abacus();
 				Arr = step_7_8.getAbacusSimpleStep_7_8(M = 10);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_9':
 				console.log(`==========${step}==========`);
-				let step_9 = new Abacus(1, 9);
+				const step_9 = new Abacus(1, 9);
 				Arr = step_9.getAbacusSimpleStep_9(M = 10, N = 3);
 				createTable(Arr.countsArr);
 				break;
 			case 'level_2':
 				console.log(`==========${step}==========`);
-				let level_2 = new Abacus(1, 9);
+				const level_2 = new Abacus(1, 9);
 				Arr = level_2.getAbacusSimpleStep_9(M = 10, N = 5);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
 				break;
 			case 'level_3':
 				console.log(`==========${step}==========`);
-				let level_3 = new Abacus(1, 9);
+				const level_3 = new Abacus(1, 9);
 				Arr = level_3.getAbacusSimpleStep_9(M = 10, N = 7);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
 				break;
 			case 'level_4':
 				console.log(`==========${step}==========`);
-				let level_4 = new Abacus(1, 9, true);
+				const level_4 = new Abacus(1, 9, true);
 				Arr = level_4.getAbacusSimpleStep_9(M = 10, N = 8);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
 				break;
 			case 'level_5':
 				console.log(`==========${step}==========`);
-				let level_5 = new Abacus(10, 89, true);
+				const level_5 = new Abacus(10, 89, true);
 				Arr = level_5.getAbacusSimpleStep_9(M = 10, N = 10);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
@@ -170,35 +167,35 @@ for (let i = 0; i < steps.length; i++) {
 				break;
 			case 'level_6':
 				console.log(`==========${step}==========`);
-				let level_6 = new Abacus(10, 89);
+				const level_6 = new Abacus(10, 89);
 				Arr = level_6.getAbacusSimpleStep_9(M = 10, N = 10);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
 				break;
 			case 'level_7':
 				console.log(`==========${step}==========`);
-				let level_7 = new Abacus(0.01, 9);
-				Arr = level_7.getAbacusSimpleDoubleOne(M = 10, N = 3);
+				const level_7 = new Abacus(0.01, 9);
+				Arr = level_7.getAbacusSimpleDoubleOne(M = 10, N = 10);
 				createTable(Arr.countsArr);
 				addClass('smallFont');
 				break;
 			case 'level_8':
 				console.log(`==========${step}==========`);
-				let level_8 = new Abacus(0.01, 9, 99);
+				const level_8 = new Abacus(0.01, 9, 99);
 				Arr = level_8.getAbacusSimpleDouble(M = 10, N = 10);
 				createTable(Arr.countsArr);
 				addClass('smallFont');
 				break;
 			case 'level_9':
 				console.log(`==========${step}==========`);
-				let level_9 = new Abacus(10, 99.99);
+				const level_9 = new Abacus(10, 99.99);
 				Arr = level_9.getAbacusSimpleDoubleOne(M = 10, N = 10);
 				createTable(Arr.countsArr);
 				addClass('smallFont');
 				break;
 			case 'level_10':
 				console.log(`==========${step}==========`);
-				let level_10 = new Abacus(10, 999, 99);
+				const level_10 = new Abacus(10, 999, 99);
 				Arr = level_10.getAbacusSimpleDouble(M = 10, N = 10);
 				createTable(Arr.countsArr);
 				addClass('smallFont');
