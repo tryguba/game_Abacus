@@ -1,11 +1,16 @@
 import Abacus from "./Abacus";
+import Mental from "./Mental";
 // Load the full build.
-const _ = require('lodash');
+// const _ = require('lodash');
 // const game = {};
 
 
-let Arr, M, N;
-const steps = document.querySelectorAll('.step');
+// let mental = new Mental();
+
+
+let Arr, N;
+const M = 10,
+	steps = document.querySelectorAll('.step[name]');
 
 const checkValueArr = (arr, arr2) => {
 	if (arr.length !== arr2.length) return false;
@@ -16,7 +21,6 @@ const checkValueArr = (arr, arr2) => {
 				on++;
 				break;
 			}
-			
 		}
 	}
 	return on === arr.length;
@@ -93,73 +97,75 @@ const addClass = (className) => {
 
 for (let i = 0; i < steps.length; i++) {
 	const table = document.querySelector('#app_abacus');
+	let stepic;
 	let step;
 	steps[i].addEventListener("click", () => {
 		
 		table.innerHTML = null;
-		step = steps[i].textContent;
+		stepic = steps[i];
+		step = stepic.getAttribute('name');
 		switch (step) {
 			case 'step_1_2':
 				console.log(`==========${step}==========`);
 				const step_1_2 = new Abacus();
-				Arr = step_1_2.getAbacusSimple(M = 10);
+				Arr = step_1_2.getAbacusSimple(M);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_3':
 				console.log(`==========${step}==========`);
 				const step_3 = new Abacus();
-				Arr = step_3.getAbacusSimpleStep_3(M = 10);
+				Arr = step_3.getAbacusSimpleStep_3(M);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_4':
 				console.log(`==========${step}==========`);
 				const step_4 = new Abacus();
-				Arr = step_4.getAbacusSimpleStep_4(M = 10);
+				Arr = step_4.getAbacusSimpleStep_4(M);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_5_6':
 				console.log(`==========${step}==========`);
 				const step_5_6 = new Abacus();
-				Arr = step_5_6.getAbacusSimpleStep_5_6(M = 10);
+				Arr = step_5_6.getAbacusSimpleStep_5_6(M);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_7_8':
 				console.log(`==========${step}==========`);
 				const step_7_8 = new Abacus();
-				Arr = step_7_8.getAbacusSimpleStep_7_8(M = 10);
+				Arr = step_7_8.getAbacusSimpleStep_7_8(M);
 				createTable(Arr.countsArr);
 				break;
 			case 'step_9':
 				console.log(`==========${step}==========`);
 				const step_9 = new Abacus(1, 9);
-				Arr = step_9.getAbacusSimpleStep_9(M = 10, N = 3);
+				Arr = step_9.getAbacusSimpleStep_9(M, N = 3);
 				createTable(Arr.countsArr);
 				break;
 			case 'level_2':
 				console.log(`==========${step}==========`);
 				const level_2 = new Abacus(1, 9);
-				Arr = level_2.getAbacusSimpleStep_9(M = 10, N = 5);
+				Arr = level_2.getAbacusSimpleStep_9(M, N = 5);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
 				break;
 			case 'level_3':
 				console.log(`==========${step}==========`);
 				const level_3 = new Abacus(1, 9);
-				Arr = level_3.getAbacusSimpleStep_9(M = 10, N = 7);
+				Arr = level_3.getAbacusSimpleStep_9(M, N = 7);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
 				break;
 			case 'level_4':
 				console.log(`==========${step}==========`);
 				const level_4 = new Abacus(1, 9, true);
-				Arr = level_4.getAbacusSimpleStep_9(M = 10, N = 8);
+				Arr = level_4.getAbacusSimpleStep_9(M, N = 8);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
 				break;
 			case 'level_5':
 				console.log(`==========${step}==========`);
 				const level_5 = new Abacus(10, 89, true);
-				Arr = level_5.getAbacusSimpleStep_9(M = 10, N = 10);
+				Arr = level_5.getAbacusSimpleStep_9(M, N = 10);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
 				
@@ -167,35 +173,42 @@ for (let i = 0; i < steps.length; i++) {
 			case 'level_6':
 				console.log(`==========${step}==========`);
 				const level_6 = new Abacus(10, 89);
-				Arr = level_6.getAbacusSimpleStep_9(M = 10, N = 10);
+				Arr = level_6.getAbacusSimpleStep_9(M, N = 10);
 				createTable(Arr.countsArr);
 				addClass('middleFont');
 				break;
 			case 'level_7':
 				console.log(`==========${step}==========`);
 				const level_7 = new Abacus(0.01, 9);
-				Arr = level_7.getAbacusSimpleDoubleOne(M = 10, N = 10);
+				Arr = level_7.getAbacusSimpleDoubleOne(M, N = 10);
 				createTable(Arr.countsArr);
 				addClass('smallFont');
 				break;
 			case 'level_8':
 				console.log(`==========${step}==========`);
 				const level_8 = new Abacus(0.01, 9, 99);
-				Arr = level_8.getAbacusSimpleDouble(M = 10, N = 10);
+				Arr = level_8.getAbacusSimpleDouble(M, N = 10);
 				createTable(Arr.countsArr);
 				addClass('smallFont');
 				break;
 			case 'level_9':
 				console.log(`==========${step}==========`);
 				const level_9 = new Abacus(10, 99.99);
-				Arr = level_9.getAbacusSimpleDoubleOne(M = 10, N = 10);
+				Arr = level_9.getAbacusSimpleDoubleOne(M, N = 10);
 				createTable(Arr.countsArr);
 				addClass('smallFont');
 				break;
 			case 'level_10':
 				console.log(`==========${step}==========`);
 				const level_10 = new Abacus(10, 999, 99);
-				Arr = level_10.getAbacusSimpleDouble(M = 10, N = 10);
+				Arr = level_10.getAbacusSimpleDouble(M, N = 10);
+				createTable(Arr.countsArr);
+				addClass('smallFont');
+				break;
+			case 'M_step_1_2_3':
+				console.log(`==========${step}==========`);
+				const M_step_1_2_3 = new Mental(10, 999, 99);
+				Arr = M_step_1_2_3.getAbacusSimpleDouble(M, N = 10);
 				createTable(Arr.countsArr);
 				addClass('smallFont');
 				break;
@@ -204,3 +217,15 @@ for (let i = 0; i < steps.length; i++) {
 		}
 	});
 }
+
+
+/*
+const navbar = document.querySelector('.navbarAbacus');
+const abac = document.querySelector('.abacus');
+
+navbar.addEventListener('mouseover', function (e) {
+	// console.log(navbar);
+	setTimeout(function () {
+		navbar.classList.add('d-none')
+	}, 3000);
+});*/
