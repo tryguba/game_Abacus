@@ -3,6 +3,7 @@ import Abacus from "./Abacus";
 const _ = require('lodash');
 // const game = {};
 
+
 let Arr, M, N;
 const steps = document.querySelectorAll('.step');
 
@@ -24,9 +25,8 @@ const checkValueArr = (arr, arr2) => {
 const createTable = (tableData) => {
 	const table = document.querySelector('#app_abacus'),
 		showAnswer = document.querySelector('#button');
-	let	answerText;
 	
-	tableData.forEach(function (item, index) {
+	tableData.forEach((item, index) => {
 		const row = document.createElement('div'),
 			cell = document.createElement('div'),
 			input = document.createElement("input"),
@@ -37,14 +37,14 @@ const createTable = (tableData) => {
 		answer.classList.add('answer', 'd-none');
 		input.setAttribute("type", "number");
 		
-		item.forEach(function (cellData) {
-			let cell = document.createElement('div');
+		item.forEach((cellData) => {
+			const cell = document.createElement('div');
 			cell.classList.add('column__count');
 			cell.appendChild(document.createTextNode(cellData));
 			row.appendChild(cell);
 		});
 		
-		answerText = document.createTextNode(Arr.sumArr[index]);
+		const answerText = document.createTextNode(Arr.sumArr[index]);
 		
 		table.appendChild(row);
 		row.appendChild(cell);
@@ -53,12 +53,12 @@ const createTable = (tableData) => {
 		answer.appendChild(answerText);
 	});
 	
-	showAnswer.addEventListener('click', function () {
+	showAnswer.addEventListener('click', () => {
 		const answer = document.querySelectorAll('.answer'),
 			inp = document.querySelectorAll('input'),
 			arrTypedAnswers = [];
 		
-		answer.forEach(function (item) {
+		answer.forEach((item) => {
 			item.classList.remove('d-none');
 			item.classList.add('d-block');
 		});
@@ -86,7 +86,7 @@ const createTable = (tableData) => {
 
 const addClass = (className) => {
 	const smallFont = document.querySelectorAll('.column__count');
-	smallFont.forEach(function (item) {
+	smallFont.forEach((item) => {
 		item.classList.add(className);
 	});
 };
@@ -94,11 +94,10 @@ const addClass = (className) => {
 for (let i = 0; i < steps.length; i++) {
 	const table = document.querySelector('#app_abacus');
 	let step;
-	steps[i].addEventListener("click", function () {
+	steps[i].addEventListener("click", () => {
 		
 		table.innerHTML = null;
 		step = steps[i].textContent;
-		
 		switch (step) {
 			case 'step_1_2':
 				console.log(`==========${step}==========`);

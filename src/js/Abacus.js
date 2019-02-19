@@ -76,6 +76,7 @@ export default class Abacus {
 			randArr = [],
 			operation = Math.random() >= 0.5;
 		
+		
 		for (let i = 1; i <= 8; i++) {
 			if (i === 5) {
 				continue;
@@ -106,18 +107,15 @@ export default class Abacus {
 		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length !== 10) {
-			genSimple(columns);
-			console.log(`newResult= ${result}`);
+		if (verifiedArray.length < 10) {
+			return this.getAbacusSimple(columns);
+		}
+		else {
 			return {
 				countsArr: result,
 				sumArr: sums
 			};
 		}
-		else return {
-			countsArr: result,
-			sumArr: sums
-		};
 	}
 	
 	getAbacusSimpleStep_3(columns) {
@@ -184,18 +182,15 @@ export default class Abacus {
 		}
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length !== 10) {
-			genSimple(columns);
-			console.log(`newResult= ${result}`);
+		if (verifiedArray.length < 10) {
+			return this.getAbacusSimpleStep_3(columns);
+		}
+		else {
 			return {
 				countsArr: result,
 				sumArr: sums
 			};
 		}
-		else return {
-			countsArr: result,
-			sumArr: sums
-		};
 	}
 	
 	getAbacusSimpleStep_4(columns) {
@@ -265,18 +260,15 @@ export default class Abacus {
 		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length !== 10) {
-			genSimple(columns);
-			console.log(`newResult= ${result}`);
+		if (verifiedArray.length < 10) {
+			return this.getAbacusSimpleStep_4(columns);
+		}
+		else {
 			return {
 				countsArr: result,
 				sumArr: sums
 			};
 		}
-		else return {
-			countsArr: result,
-			sumArr: sums
-		};
 	}
 	
 	getAbacusSimpleStep_5_6(columns) {
@@ -321,20 +313,18 @@ export default class Abacus {
 			result[i][2] = genSimple(result[i][1] + result[i][0]);
 			sums[i] = _.sum(result[i]);
 		}
+		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length !== 10) {
-			genSimple(columns);
-			console.log(`newResult= ${result}`);
+		if (verifiedArray.length < 10) {
+			return this.getAbacusSimpleStep_5_6(columns);
+		}
+		else {
 			return {
 				countsArr: result,
 				sumArr: sums
 			};
 		}
-		else return {
-			countsArr: result,
-			sumArr: sums
-		};
 	}
 	
 	getAbacusSimpleStep_7_8(columns) {
@@ -384,18 +374,15 @@ export default class Abacus {
 		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length !== 10) {
-			genSimple(columns);
-			console.log(`newResult= ${result}`);
+		if (verifiedArray.length < 10) {
+			return this.getAbacusSimpleStep_7_8(columns);
+		}
+		else {
 			return {
 				countsArr: result,
 				sumArr: sums
 			};
 		}
-		else return {
-			countsArr: result,
-			sumArr: sums
-		};
 	}
 	
 	getAbacusSimpleStep_9(columns, rows) {
@@ -440,18 +427,15 @@ export default class Abacus {
 		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length !== 10) {
-			this.getAbacusSimpleStep_9(columns, rows);
-			console.log(`newResult= ${result}`);
+		if (verifiedArray.length < 10) {
+			return this.getAbacusSimpleStep_9(columns);
+		}
+		else {
 			return {
 				countsArr: result,
 				sumArr: sums
 			};
 		}
-		else return {
-			countsArr: result,
-			sumArr: sums
-		};
 	}
 	
 	getAbacusSimpleDoubleOne(columns, rows) {
@@ -487,7 +471,7 @@ export default class Abacus {
 				result[i][j] = genSimple(result[i][j - 1], j);
 			}
 // =========================================================================
-			result[i].forEach( (item) => {
+			result[i].forEach((item) => {
 				item = parseFloat(item.replace(",", "."));
 				sumArr.push(item);
 			});
@@ -504,16 +488,20 @@ export default class Abacus {
 	
 	getAbacusSimpleDouble(columns, rows) {
 		
-		const genSimple = (prev, j) => {
+		const genSimple = (prev, j, sumRes) => {
+			const change = j % 2;
 			let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2),
-				smallCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2),
-				change = j % 2;
+				smallCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
+			
+			let result = count;
 			
 			if (change) {
 				count = smallCount;
 			}
-			let result = count;
-			if (parseFloat(prev) >= parseFloat(count)) {
+			
+			console.log(`sss${sumRes} `);
+			
+			if (parseFloat(sumRes) >= parseFloat(count)) {
 				result = parseFloat(count) * -1;
 				console.log(`+| prev=${prev} count= ${count} res= ${result}`);
 			}
@@ -521,11 +509,13 @@ export default class Abacus {
 				result = parseFloat(count);
 				console.log(`-| prev=${prev} count= ${count} res= ${result}`);
 			}
+			
 			//проверка и присвоения первого числа в уравнении
 			if (!j) {
 				result = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
 				// console.log(`================ firstCount ==================== ${result}`);
 			}
+			
 			result = parseFloat(result).toFixed(2).toString().replace(".", ",");
 			return result;
 		};
@@ -535,14 +525,14 @@ export default class Abacus {
 		for (let i = 0; i < columns; i++) {
 			result[i] = [];
 			const sumArr = [];
-			
+			let sumRes = 0;
 			for (let j = 0; j < rows; j++) {
-				result[i][j] = genSimple(result[i][j - 1], j);
-				
+				result[i][j] = genSimple(result[i][j - 1], j, sumRes);
+				sumRes += parseFloat(result[i][j]);
 			}
 			console.log(result[i]);
 // =========================================================================
-			result[i].forEach( (item) => {
+			result[i].forEach((item) => {
 				item = parseFloat(item.replace(",", "."));
 				sumArr.push(item);
 			});
