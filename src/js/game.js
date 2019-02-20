@@ -10,7 +10,8 @@ import Mental from "./Mental";
 
 let Arr, N;
 const M = 10,
-	steps = document.querySelectorAll('.step[name]');
+	steps = document.querySelectorAll('.step[name]'),
+	title = document.querySelector('.title');
 
 const checkValueArr = (arr, arr2) => {
 	if (arr.length !== arr2.length) return false;
@@ -26,7 +27,7 @@ const checkValueArr = (arr, arr2) => {
 	return on === arr.length;
 };
 
-const createTable = (tableData) => {
+const createTableAbacus = (tableData) => {
 	const table = document.querySelector('#app_abacus'),
 		showAnswer = document.querySelector('#button');
 	
@@ -88,12 +89,38 @@ const createTable = (tableData) => {
 	});
 };
 
+const createMental = () => {
+
+};
+
+
 const addClass = (className) => {
 	const smallFont = document.querySelectorAll('.column__count');
 	smallFont.forEach((item) => {
 		item.classList.add(className);
 	});
 };
+
+
+const chooseAbacus = (step, method, className) => {
+	console.log(`==========${step}==========`);
+	title.innerHTML = `Аbacus-арифметика`;
+	Arr = method;
+	createTableAbacus(Arr.countsArr);
+	if (className === undefined) {
+		className = '';
+		console.log(className);
+	} else addClass(className);
+	
+};
+
+const chooseMental = (step, method) => {
+	console.log(`==========${step}==========`);
+	title.innerHTML = 'Mental-арифметика';
+	Arr = method;
+	createMental(Arr.countsArr);
+};
+
 
 for (let i = 0; i < steps.length; i++) {
 	const table = document.querySelector('#app_abacus');
@@ -106,107 +133,69 @@ for (let i = 0; i < steps.length; i++) {
 		step = stepic.getAttribute('name');
 		switch (step) {
 			case 'step_1_2':
-				console.log(`==========${step}==========`);
 				const step_1_2 = new Abacus();
-				Arr = step_1_2.getAbacusSimple(M);
-				createTable(Arr.countsArr);
+				chooseAbacus(step, step_1_2.getAbacusSimple(M));
 				break;
 			case 'step_3':
-				console.log(`==========${step}==========`);
 				const step_3 = new Abacus();
-				Arr = step_3.getAbacusSimpleStep_3(M);
-				createTable(Arr.countsArr);
+				chooseAbacus(step, step_3.getAbacusSimpleStep_3(M));
 				break;
 			case 'step_4':
-				console.log(`==========${step}==========`);
 				const step_4 = new Abacus();
-				Arr = step_4.getAbacusSimpleStep_4(M);
-				createTable(Arr.countsArr);
+				chooseAbacus(step, step_4.getAbacusSimpleStep_4(M));
 				break;
 			case 'step_5_6':
-				console.log(`==========${step}==========`);
 				const step_5_6 = new Abacus();
-				Arr = step_5_6.getAbacusSimpleStep_5_6(M);
-				createTable(Arr.countsArr);
+				chooseAbacus(step, step_5_6.getAbacusSimpleStep_5_6(M));
 				break;
 			case 'step_7_8':
-				console.log(`==========${step}==========`);
 				const step_7_8 = new Abacus();
-				Arr = step_7_8.getAbacusSimpleStep_7_8(M);
-				createTable(Arr.countsArr);
+				chooseAbacus(step, step_7_8.getAbacusSimpleStep_7_8(M));
 				break;
 			case 'step_9':
-				console.log(`==========${step}==========`);
 				const step_9 = new Abacus(1, 9);
-				Arr = step_9.getAbacusSimpleStep_9(M, N = 3);
-				createTable(Arr.countsArr);
+				chooseAbacus(step, step_9.getAbacusSimpleStep_9(M, N = 3));
 				break;
 			case 'level_2':
-				console.log(`==========${step}==========`);
 				const level_2 = new Abacus(1, 9);
-				Arr = level_2.getAbacusSimpleStep_9(M, N = 5);
-				createTable(Arr.countsArr);
-				addClass('middleFont');
+				chooseAbacus(step, level_2.getAbacusSimpleStep_9(M, N = 5), 'middleFont');
 				break;
 			case 'level_3':
-				console.log(`==========${step}==========`);
 				const level_3 = new Abacus(1, 9);
-				Arr = level_3.getAbacusSimpleStep_9(M, N = 7);
-				createTable(Arr.countsArr);
-				addClass('middleFont');
+				chooseAbacus(step, level_3.getAbacusSimpleStep_9(M, N = 7), 'middleFont');
 				break;
 			case 'level_4':
-				console.log(`==========${step}==========`);
 				const level_4 = new Abacus(1, 9, true);
-				Arr = level_4.getAbacusSimpleStep_9(M, N = 8);
-				createTable(Arr.countsArr);
-				addClass('middleFont');
+				chooseAbacus(step, level_4.getAbacusSimpleStep_9(M, N = 8), 'middleFont');
 				break;
 			case 'level_5':
-				console.log(`==========${step}==========`);
 				const level_5 = new Abacus(10, 89, true);
-				Arr = level_5.getAbacusSimpleStep_9(M, N = 10);
-				createTable(Arr.countsArr);
-				addClass('middleFont');
-				
+				chooseAbacus(step, level_5.getAbacusSimpleStep_9(M, N = 10), 'middleFont');
 				break;
 			case 'level_6':
-				console.log(`==========${step}==========`);
 				const level_6 = new Abacus(10, 89);
-				Arr = level_6.getAbacusSimpleStep_9(M, N = 10);
-				createTable(Arr.countsArr);
-				addClass('middleFont');
+				chooseAbacus(step, level_6.getAbacusSimpleStep_9(M, N = 10), 'middleFont');
 				break;
 			case 'level_7':
-				console.log(`==========${step}==========`);
 				const level_7 = new Abacus(0.01, 9);
-				Arr = level_7.getAbacusSimpleDoubleOne(M, N = 10);
-				createTable(Arr.countsArr);
-				addClass('smallFont');
+				chooseAbacus(step, level_7.getAbacusSimpleDoubleOne(M, N = 10), 'smallFont');
 				break;
 			case 'level_8':
-				console.log(`==========${step}==========`);
 				const level_8 = new Abacus(0.01, 9, 99);
-				Arr = level_8.getAbacusSimpleDouble(M, N = 10);
-				createTable(Arr.countsArr);
-				addClass('smallFont');
+				chooseAbacus(step, level_8.getAbacusSimpleDouble(M, N = 10), 'smallFont');
 				break;
 			case 'level_9':
-				console.log(`==========${step}==========`);
 				const level_9 = new Abacus(10, 99.99);
-				Arr = level_9.getAbacusSimpleDoubleOne(M, N = 10);
-				createTable(Arr.countsArr);
-				addClass('smallFont');
+				chooseAbacus(step, level_9.getAbacusSimpleDoubleOne(M, N = 10), 'smallFont');
 				break;
 			case 'level_10':
-				console.log(`==========${step}==========`);
 				const level_10 = new Abacus(10, 999, 99);
-				Arr = level_10.getAbacusSimpleDouble(M, N = 10);
-				createTable(Arr.countsArr);
-				addClass('smallFont');
+				chooseAbacus(step, level_10.getAbacusSimpleDouble(M, N = 10), 'smallFont');
 				break;
+//====================  MENTAL арифметика ===================================
 			case 'M_step_1_2_3':
 				console.log(`==========${step}==========`);
+				title.innerHTML = 'Mental-арифметика';
 				const M_step_1_2_3 = new Mental(10, 999, 99);
 				Arr = M_step_1_2_3.getAbacusSimpleDouble(M, N = 10);
 				createTable(Arr.countsArr);
@@ -219,13 +208,115 @@ for (let i = 0; i < steps.length; i++) {
 }
 
 
-/*
-const navbar = document.querySelector('.navbarAbacus');
-const abac = document.querySelector('.abacus');
-
-navbar.addEventListener('mouseover', function (e) {
-	// console.log(navbar);
-	setTimeout(function () {
-		navbar.classList.add('d-none')
-	}, 3000);
-});*/
+const abacus = {
+	level_1: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+	level_2: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+	level_3: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+	level_4: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+	level_5: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+	level_6: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+	level_7: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+	level_8: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+	level_9: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+	level_10: {
+		step_1: "step_1",
+		step_2: "step_2",
+		step_3: "step_3",
+		step_4: "step_4",
+		step_5: "step_5",
+		step_6: "step_6",
+		step_7: "step_7",
+		step_8: "step_8",
+		step_9: "step_9"
+	},
+};

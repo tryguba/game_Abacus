@@ -2,17 +2,17 @@
 .fab {
   margin-right: 20px;
 }
-.dws-menu ul,
-.dws-menu ol {
+.abacus-menu ul,
+.abacus-menu ol {
   list-style: none;
 }
 
-.dws-menu > ul {
+.abacus-menu > ul {
   display: flex;
   justify-content: start;
 }
 
-.dws-menu > ul li a {
+.abacus-menu > ul li a {
   display: block;
   background-color: rgba(255, 255, 255, .5);
   padding: 15px 30px 15px 40px;
@@ -22,33 +22,33 @@
   text-transform: uppercase;
 }
 
-.dws-menu > ul li {
+.abacus-menu > ul li {
   position: relative;
 }
 
-.dws-menu > ul li > a i.fa {
+.abacus-menu > ul li > a i.fa {
   position: absolute;
   top: 15px;
   left: 12px;
   right: 20px;
 }
 
-.dws-menu > ul li:first-child {
+.abacus-menu > ul li:first-child {
   border-left: 1px solid #ac8341;
 }
 
-.dws-menu > ul li:last-child {
+.abacus-menu > ul li:last-child {
   border-right: 1px solid #ac8341;
 }
 
-.dws-menu li a:hover {
+.abacus-menu li a:hover {
   background: rgba(1, 1, 1, .5);
   color: white;
   box-shadow: 1px 5px 10px -5px black;
   transition: all 0.3s ease;
 }
 
-.dws-menu > ul li a {
+.abacus-menu > ul li a {
   display: block;
   background-color: rgba(255, 255, 255, .5);
   padding: 15px 30px 15px 40px;
@@ -60,52 +60,52 @@
 }
 
 /*sub menu*/
-.dws-menu li ul {
+.abacus-menu li ul {
   position: absolute;
   min-width: 150px;
 }
 
-.dws-menu li > ul li {
+.abacus-menu li > ul li {
   border: 1px solid #ac8341;
 }
 
-.dws-menu li > ul li a {
+.abacus-menu li > ul li a {
   padding: 10px;
   text-transform: none;
   background-color: rgba(255, 255, 255, .5);
 }
 
-.dws-menu li > ul li ul {
+.abacus-menu li > ul li ul {
   position: absolute;
   right: -150px;
   top: 0;
 }
 
 /*sub menu*/
-.dws-menu li ul {
+.abacus-menu li ul {
   position: absolute;
   min-width: 150px;
   display: none;
 }
 
-.dws-menu li:hover > ul {
+.abacus-menu li:hover > ul {
   display: block;
 }
 
 //==========================================================================
 
-.dws-menu1 ul,
-.dws-menu1 ol {
+.mental-menu ul,
+.mental-menu ol {
   list-style: none;
 }
 
-.dws-menu1 > ul {
+.mental-menu > ul {
   display: flex;
   justify-content: start;
   margin-top: 20%;
 }
 
-.dws-menu1 > ul li a {
+.mental-menu > ul li a {
   display: block;
   background-color: rgba(255, 255, 255, .5);
   padding: 15px 30px 15px 40px;
@@ -115,33 +115,33 @@
   text-transform: uppercase;
 }
 
-.dws-menu1 > ul li {
+.mental-menu > ul li {
   position: relative;
 }
 
-.dws-menu1 > ul li > a i.fa {
+.mental-menu > ul li > a i.fa {
   position: absolute;
   top: 15px;
   left: 12px;
   right: 20px;
 }
 
-.dws-menu1 > ul li:first-child {
+.mental-menu > ul li:first-child {
   border-left: 1px solid #ac8341;
 }
 
-.dws-menu1 > ul li:last-child {
+.mental-menu > ul li:last-child {
   border-right: 1px solid #ac8341;
 }
 
-.dws-menu1 li a:hover {
+.mental-menu li a:hover {
   background: rgba(1, 1, 1, .5);
   color: white;
   box-shadow: 1px 5px 10px -5px black;
   transition: all 0.3s ease;
 }
 
-.dws-menu1 > ul li a {
+.mental-menu > ul li a {
   display: block;
   background-color: rgba(255, 255, 255, .5);
   padding: 15px 30px 15px 40px;
@@ -153,34 +153,34 @@
 }
 
 /*sub menu*/
-.dws-menu1 li ul {
+.mental-menu li ul {
   position: absolute;
   min-width: 150px;
 }
 
-.dws-menu1 li > ul li {
+.mental-menu li > ul li {
   border: 1px solid #ac8341;
 }
 
-.dws-menu1 li > ul li a {
+.mental-menu li > ul li a {
   padding: 10px;
   text-transform: none;
   background-color: rgba(255, 255, 255, .5);
 }
 
-.dws-menu1 li > ul li ul {
+.mental-menu li > ul li ul {
   position: absolute;
   right: -150px;
   top: 0;
 }
 
 /*sub menu*/
-.dws-menu1 li ul {
+.mental-menu li ul {
   position: absolute;
   min-width: 150px;
   display: none;
 }
 
-.dws-menu1 li:hover > ul {
+.mental-menu li:hover > ul {
   display: block;
 }
