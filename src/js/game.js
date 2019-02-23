@@ -1,12 +1,5 @@
 import Abacus from "./Abacus";
 import Mental from "./Mental";
-// Load the full build.
-// const _ = require('lodash');
-// const game = {};
-
-
-// let mental = new Mental();
-
 
 let Arr, N;
 const M = 10,
@@ -85,14 +78,8 @@ const createTableAbacus = (tableData) => {
 		if (checkAllArr) {
 			console.log(`You are the best!!!`);
 		}
-		//=======================
 	});
 };
-
-const createMental = () => {
-
-};
-
 
 const addClass = (className) => {
 	const smallFont = document.querySelectorAll('.column__count');
@@ -100,7 +87,6 @@ const addClass = (className) => {
 		item.classList.add(className);
 	});
 };
-
 
 const chooseAbacus = (step, method, className) => {
 	console.log(`==========${step}==========`);
@@ -113,14 +99,6 @@ const chooseAbacus = (step, method, className) => {
 	} else addClass(className);
 	
 };
-
-const chooseMental = (step, method) => {
-	console.log(`==========${step}==========`);
-	title.innerHTML = 'Mental-арифметика';
-	Arr = method;
-	createMental(Arr.countsArr);
-};
-
 
 for (let i = 0; i < steps.length; i++) {
 	const table = document.querySelector('#app_abacus');
@@ -194,12 +172,8 @@ for (let i = 0; i < steps.length; i++) {
 				break;
 //====================  MENTAL арифметика ===================================
 			case 'M_step_1_2_3':
-				console.log(`==========${step}==========`);
-				title.innerHTML = 'Mental-арифметика';
-				const M_step_1_2_3 = new Mental(10, 999, 99);
-				Arr = M_step_1_2_3.getAbacusSimpleDouble(M, N = 10);
-				createTable(Arr.countsArr);
-				addClass('smallFont');
+				const M_step_1_2_3 = new Mental();
+				chooseMental(step, M_step_1_2_3.getMental(M));
 				break;
 			default:
 				console.log('Я таких значений не знаю');
@@ -208,115 +182,155 @@ for (let i = 0; i < steps.length; i++) {
 }
 
 
-const abacus = {
-	level_1: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
-	level_2: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
-	level_3: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
-	level_4: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
-	level_5: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
-	level_6: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
-	level_7: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
-	level_8: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
-	level_9: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
-	level_10: {
-		step_1: "step_1",
-		step_2: "step_2",
-		step_3: "step_3",
-		step_4: "step_4",
-		step_5: "step_5",
-		step_6: "step_6",
-		step_7: "step_7",
-		step_8: "step_8",
-		step_9: "step_9"
-	},
+//===================== mental ==================================
+
+/*const hide = (element, bool) => {
+	element.hidden = bool;
+};*/
+const game = document.querySelector('#app_abacus'),
+	showAnswer = document.querySelector('#button');
+
+const inputAnswer = document.createElement('input');
+inputAnswer.classList.add('inputAnswer');
+
+const createCartMental = (arrData) => {
+	
+	arrData.forEach(function (data, index) {
+		
+		setTimeout(() => {
+			const cart = document.createElement('div');
+			cart.classList.add('mental');
+			cart.appendChild(document.createTextNode(data));
+			setTimeout(() => {
+				cart.style.display = 'none';
+			}, 1000);
+			cart.style.display = 'flex';
+			game.appendChild(cart);
+		}, index * 2000);
+	});
+	
+	// game.appendChild(inputAnswer);
 };
+
+
+
+const chooseMental = (step, method) => {
+	console.log(`==========${step}==========`);
+	title.innerHTML = 'Mental-арифметика';
+	Arr = method;
+	createCartMental(Arr.countsArr);
+};
+
+
+// const abacus = {
+// 	level_1: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// 	level_2: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// 	level_3: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// 	level_4: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// 	level_5: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// 	level_6: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// 	level_7: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// 	level_8: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// 	level_9: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// 	level_10: {
+// 		step_1: "step_1",
+// 		step_2: "step_2",
+// 		step_3: "step_3",
+// 		step_4: "step_4",
+// 		step_5: "step_5",
+// 		step_6: "step_6",
+// 		step_7: "step_7",
+// 		step_8: "step_8",
+// 		step_9: "step_9"
+// 	},
+// };

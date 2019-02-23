@@ -168,3 +168,37 @@ input {
   padding: 5px 0;
   color: #fff;
 }
+
+.mental{
+  margin-top: 30px;
+  width: 319px;
+  height: 196px;
+  box-shadow: inset 0 0 35px 1px rgba(0, 7, 5, 0.31);
+  background-color: #ffffff;
+  color: #941b1b;
+  font-family: $main-font;
+  font-size: 93px;
+  font-weight: 700;
+  line-height: 11.15px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputAnswer{
+  margin-top: 30px;
+  width: 319px;
+  height: 196px;
+  box-shadow: inset 0 0 35px 1px rgba(255, 255, 255, 0.31);
+  background-color: #ffffff;
+  color: #941b1b;
+  font-family: $main-font;
+
+  font-weight: 700;
+  line-height: 11.15px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -76,7 +76,6 @@ export default class Abacus {
 			randArr = [],
 			operation = Math.random() >= 0.5;
 		
-		
 		for (let i = 1; i <= 8; i++) {
 			if (i === 5) {
 				continue;

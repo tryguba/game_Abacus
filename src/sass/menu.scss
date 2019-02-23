@@ -5,6 +5,7 @@
 .abacus-menu ul,
 .abacus-menu ol {
   list-style: none;
+  z-index: 99;
 }
 
 .abacus-menu > ul {
@@ -97,6 +98,8 @@
 .mental-menu ul,
 .mental-menu ol {
   list-style: none;
+  z-index: 98;
+
 }
 
 .mental-menu > ul {
