@@ -10,8 +10,7 @@ export default class Mental {
 	
 	getMental() {
 		
-		
-		const proba = [9, 3, 5, 7, 1, 8, 2];
+		const proba = [9, 3, 5];
 		
 		const result = proba;
 		let sums = _.sum(result);

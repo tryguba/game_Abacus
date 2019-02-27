@@ -13,7 +13,7 @@ const isProd = !isDev;
 const config = {
 	entry: {
 		index: './src/js/index.js',
-		simulator: './src/js/simulator.js',
+		// simulator: './src/js/other/simulator.js',
 	},
 	output: {
 		filename: '[name].bundle.js',
@@ -81,14 +81,14 @@ const config = {
 				filename: 'index.html',
 			}
 		),
-		new HtmlWebpackPlugin(
+		/*new HtmlWebpackPlugin(
 			{
 				title: 'simulator',
 				template: './simulator.html',
 				chunks: ['simulator'],
 				filename: 'simulator.html',
 			}
-		),
+		),*/
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
 			chunkFilename: '[id].css'
