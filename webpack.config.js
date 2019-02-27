@@ -6,6 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const publicPath = path.join(__dirname, '/public');
 
+
 const isDev = argv.mode === 'development';
 const isProd = !isDev;
 
@@ -13,6 +14,7 @@ const isProd = !isDev;
 const config = {
 	entry: {
 		index: './src/js/index.js',
+		mental: './src/js/game.js',
 		// simulator: './src/js/other/simulator.js',
 	},
 	output: {
@@ -70,14 +72,20 @@ const config = {
 						name: 'fonts/[name][hash].[ext]'
 					}
 				},
+			},
+			{
+				test: /\.(mp3|wav|mp4)$/,
+				// include: SRC,
+				loader: 'file-loader'
 			}]
 	},
 	plugins: [
 		new HtmlWebpackPlugin(
 			{
 				title: 'index',
+				favicon: './src/img/favicon.png',
 				template: './index.html',
-				excludeChunks: ['simulator'],
+				excludeChunks: ['mental'],
 				filename: 'index.html',
 			}
 		),
@@ -92,7 +100,7 @@ const config = {
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
 			chunkFilename: '[id].css'
-		})
+		}),
 	
 	],
 	devServer: {

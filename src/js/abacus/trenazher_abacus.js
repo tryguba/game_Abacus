@@ -1,9 +1,17 @@
 import Abacus from "./Abacus";
 
+import mp3 from '../../sound/trenazhor/Au_t_1.wav'
+
+
+const audio = new Audio(mp3);
+
+
+
 let Arr, N;
 const M = 10,
 	steps = document.querySelectorAll('.step[name]'),
 	title = document.querySelector('.title');
+
 
 const checkValueArr = (arr, arr2) => {
 	if (arr.length !== arr2.length) return false;
@@ -98,14 +106,13 @@ const chooseAbacus = (step, method, className) => {
 	} else addClass(className);
 	
 };
-
 const start = () => {
 	for (let i = 0; i < steps.length; i++) {
 		const table = document.querySelector('#app_simulator');
 		let stepic;
 		let step;
 		steps[i].addEventListener("click", () => {
-			
+			audio.play();
 			table.innerHTML = null;
 			stepic = steps[i];
 			step = stepic.getAttribute('name');
