@@ -101,7 +101,7 @@ function AbacusCtrl(type) {
     };
 }
 
-function Abacus_game(parentDivId, type) {
+function AbacusCanvas(parentDivId, type) {
     let abacusCtrl = new AbacusCtrl(type);
     let canvas;
     let divId = parentDivId;
@@ -117,13 +117,13 @@ function Abacus_game(parentDivId, type) {
         abacusCtrl.init();
 
         canvas = document.createElement('canvas');
-        if (!canvas) console.log("Abacus_game error: can not create a canvas element");
+        if (!canvas) console.log("AbacusCanvas error: can not create a canvas element");
         canvas.id = parentDivId + "_Abacus";
         canvas.width = 40 + abacusCtrl.beadLines * abacusCtrl.beadSpacing;
         canvas.height = 60 + (abacusCtrl.beadPerLine + 2) * abacusCtrl.beadHeight;
         document.body.appendChild(canvas);
         let parent = document.getElementById(divId);
-        if (!parent) console.log("Abacus_game error: can not find an element with the given name: " + divId);
+        if (!parent) console.log("AbacusCanvas error: can not find an element with the given name: " + divId);
         parent.appendChild(canvas);
 
         canvas.onmousedown = function (event) {

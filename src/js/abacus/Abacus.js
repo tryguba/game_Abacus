@@ -103,7 +103,6 @@ export default class Abacus {
 			result[i][2] = res(result[i][0], result[i][1], operation);
 			sums[i] = _.sum(result[i]);
 		}
-		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
 		if (verifiedArray.length < 10) {

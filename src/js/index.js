@@ -1,8 +1,12 @@
 // import 'jquery';
 // import 'bootstrap';
 
-import '../js/Abacus'
-import './game'
+import './abacus/Abacus'
+import './abacus/trenazher_abacus'
+
+import './mental/Mental'
+import './mental/trenazher_mentalka'
+
 import '../../index.html'
 import '../sass/_main.sass'
 
