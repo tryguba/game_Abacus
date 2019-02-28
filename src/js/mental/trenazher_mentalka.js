@@ -4,16 +4,45 @@ import Mental from "./Mental";
 let Arr;
 const M = 10,
 	steps = document.querySelectorAll('.step[name]'),
-	title = document.querySelector('.title');
-
-const trenazher_abacus = document.querySelector('#app_simulator'),
+	title = document.querySelector('.title'),
+	inputAnswer = document.createElement('input'),
+	trenazher_abacus = document.querySelector('#app_simulator'),
 	checkingAnswer = document.querySelector('#button');
 
-const inputAnswer = document.createElement('input');
+
 inputAnswer.classList.add('inputAnswer');
 
 
-export const start1 = () => {
+const chooseMental = (step, method) => {
+	console.log(`==========${step}==========`);
+	title.innerHTML = 'Mental-арифметика';
+	Arr = method;
+	createCartMental(Arr.countsArr);
+};
+
+// ==========================================================================
+const createCartMental = (arrData) => {
+	const time1 = 400;
+	const time2 = time1 * 2;
+	arrData.forEach(function (data, index) {
+		setTimeout(() => {
+			const cart = document.createElement('div');
+			cart.classList.add('mental');
+			cart.appendChild(document.createTextNode(data));
+			setTimeout(() => {
+				cart.style.display = 'none';
+			}, time1);
+			cart.style.display = 'flex';
+			trenazher_abacus.appendChild(cart);
+		}, index * time2);
+	});
+	setTimeout(() => {
+		trenazher_abacus.appendChild(inputAnswer);
+	}, arrData.length * time2);
+};
+
+// ==========================================================================
+export const startMental = () => {
 	for (let i = 0; i < steps.length; i++) {
 		const table = document.querySelector('#app_simulator');
 		let stepic;
@@ -39,46 +68,6 @@ export const start1 = () => {
 			}
 		});
 	}
-	
 };
 
-
-
-// ==========================================================================
-const showCart = (arr, callback) => {
-	arr.forEach(function (data, index) {
-		setTimeout(() => {
-			const cart = document.createElement('div');
-			cart.classList.add('mental');
-			cart.appendChild(document.createTextNode(data));
-			setTimeout(() => {
-				cart.style.display = 'none';
-			}, 400);
-			cart.style.display = 'flex';
-			trenazher_abacus.appendChild(cart);
-		}, index * 800);
-	});
-	callback();
-};
-
-const createCartMental = (arrData) => {
-	
-	showCart(arrData, showInpFromAnswer);
-	
-	/*setTimeout(() => {
-		showInpFromAnswer();
-	},  5000);
-	*/
-	
-};
-
-const showInpFromAnswer = () => {
-	trenazher_abacus.appendChild(inputAnswer);
-};
-
-const chooseMental = (step, method) => {
-	console.log(`==========${step}==========`);
-	title.innerHTML = 'Mental-арифметика';
-	Arr = method;
-	createCartMental(Arr.countsArr);
-};
+// start1();

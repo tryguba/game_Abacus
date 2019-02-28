@@ -39,7 +39,6 @@ export const sound = {
 		Au_t_ZEVOK_2,
 		Au_t_ZEVOK_3
 	},
-	
 };
 
 

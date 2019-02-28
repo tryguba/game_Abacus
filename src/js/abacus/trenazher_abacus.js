@@ -1,12 +1,11 @@
 import Abacus from "./Abacus";
 import {sound} from "../sound";
 
-
-
 const audio_Au_t_1 = new Audio(sound.trenazhor.Au_t_1);
 const audio_Au_t_2 = new Audio(sound.trenazhor.Au_t_2);
 const audio_Au_t_3 = new Audio(sound.trenazhor.Au_t_3);
-audio_Au_t_3.play();
+
+// audio_Au_t_3.play();
 
 
 let Arr, N;
@@ -61,7 +60,7 @@ const createTableAbacus = (tableData) => {
 	});
 	
 	showAnswer.addEventListener('click', () => {
-		audio_Au_t_2.play();
+		// audio_Au_t_2.play();
 		const answer = document.querySelectorAll('.answer'),
 			inp = document.querySelectorAll('input'),
 			arrTypedAnswers = [];
@@ -109,13 +108,14 @@ const chooseAbacus = (step, method, className) => {
 	} else addClass(className);
 	
 };
-const start = () => {
+
+export const startAbacus = () => {
 	for (let i = 0; i < steps.length; i++) {
 		const table = document.querySelector('#app_simulator');
 		let stepic;
 		let step;
 		steps[i].addEventListener("click", () => {
-			audio_Au_t_1.play();
+			// audio_Au_t_1.play();
 			table.innerHTML = null;
 			stepic = steps[i];
 			step = stepic.getAttribute('name');
@@ -187,4 +187,3 @@ const start = () => {
 	}
 };
 
-start();
