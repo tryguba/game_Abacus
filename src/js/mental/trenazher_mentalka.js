@@ -6,7 +6,7 @@ const M = 10,
 	steps = document.querySelectorAll('.step[name]'),
 	title = document.querySelector('.title'),
 	inputAnswer = document.createElement('input'),
-	trenazher_abacus = document.querySelector('#app_simulator'),
+	trenazher = document.querySelector('#app_simulator'),
 	checkingAnswer = document.querySelector('#button');
 
 
@@ -33,11 +33,11 @@ const createCartMental = (arrData) => {
 				cart.style.display = 'none';
 			}, time1);
 			cart.style.display = 'flex';
-			trenazher_abacus.appendChild(cart);
+			trenazher.appendChild(cart);
 		}, index * time2);
 	});
 	setTimeout(() => {
-		trenazher_abacus.appendChild(inputAnswer);
+		trenazher.appendChild(inputAnswer);
 	}, arrData.length * time2);
 };
 
@@ -51,17 +51,17 @@ export const startMental = () => {
 			stepic = steps[i];
 			const step = stepic.getAttribute('name');
 			switch (step) {
-				case 'M_step_1_2_3':
-					const M_step_1_2_3 = new Mental();
-					chooseMental(step, M_step_1_2_3.getMental(M));
+				case 'M_level_3':
+					const M_level_3 = new Mental();
+					chooseMental(step, M_level_3.getMental(M));
 					break;
-				case 'M_step_4':
-					const M_step_4 = new Mental();
-					chooseMental(step, M_step_4.getMental(M));
+				case 'M_level_4':
+					const M_level_4 = new Mental();
+					chooseMental(step, M_level_4.getMental(M));
 					break;
-				case 'M_step_5_6':
-					const M_step_5_6 = new Mental();
-					chooseMental(step, M_step_5_6.getMental(M));
+				case 'M_level_5':
+					const M_level_5 = new Mental();
+					chooseMental(step, M_level_5.getMental(M));
 					break;
 				default:
 					console.log('Я таких значений не знаю');
@@ -70,4 +70,4 @@ export const startMental = () => {
 	}
 };
 
-// start1();
+// startMental();
