@@ -87,7 +87,7 @@ body {
 }
 
 input {
-  margin-top: 30px;
+  margin-top: 20px;
   border: none;
   padding: 5px;
   width: 100%;
@@ -193,4 +193,69 @@ input {
 .inputAnswer {
   width: 319px;
   height: 196px;
+}
+
+.fleshCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inp__flash input {
+  margin-top: 30px;
+  border: none;
+  padding: 5px;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #96294d;
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  box-shadow: inset 0 0 35px 1px rgba(0, 7, 5, 0.31);
+  -moz-appearance: textfield;
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+}
+
+.column-flash {
+  width: 65px;
+  height: 300px;
+  background: url("../../src/img/flash-colum.png") no-repeat center center;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin: 0 15px;
+  position: relative;
+  &__count {
+    text-align: center;
+    min-height: 50px;
+    margin: 3px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .image {
+      width: auto;
+    }
+    &:first-child{
+      margin: 10px 0 15px;
+    }
+    .first{
+      margin-top: 80px;
+    }
+  }
+  &__input {
+    position: absolute;
+    bottom: -70px;
+    input {
+      margin-top: 20px;
+    }
+  }
 }

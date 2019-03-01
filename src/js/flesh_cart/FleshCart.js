@@ -1,3 +1,5 @@
+import {image} from "../image_flash";
+
 // Load the full build.
 const _ = require('lodash');
 
@@ -9,76 +11,77 @@ export default class FleshCart {
 		this.digit = digit;
 	}
 	
-	duplicate(arr) {
-		const obj = {};
-		return arr.filter((a) => {
-			return a in obj ? 0 : obj[a] = 1;
-		});
-	}
-	
 	//================================================================================
 	
-	getAbacusSimpleDouble(columns, rows) {
+	
+	getFleshCart() {
 		
-		const genSimple = (prev, j, sumRes) => {
-			const change = j % 2;
-			let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2),
-				smallCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
-			
-			let result = count;
-			
-			if (change) {
-				count = smallCount;
-			}
-			
-			console.log(`sss${sumRes} `);
-			
-			if (parseFloat(sumRes) >= parseFloat(count)) {
-				result = parseFloat(count) * -1;
-				console.log(`+| prev=${prev} count= ${count} res= ${result}`);
-			}
-			else {
-				result = parseFloat(count);
-				console.log(`-| prev=${prev} count= ${count} res= ${result}`);
-			}
-			
-			//проверка и присвоения первого числа в уравнении
-			if (!j) {
-				result = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
-				// console.log(`================ firstCount ==================== ${result}`);
-			}
-			
-			result = parseFloat(result).toFixed(2).toString().replace(".", ",");
-			return result;
-		};
+		const star = image.flashCart.star,
+			ball = image.flashCart.ball,
+			dog = image.flashCart.dog,
+			cat = image.flashCart.cat,
+			fish = image.flashCart.fish,
+			heart = image.flashCart.heart,
+			apple = image.flashCart.apple,
+			circle = image.flashCart.circle,
+			flower = image.flashCart.flower,
+			bear = image.flashCart.bear;
 		
-		const result = [];
-		const sums = [];
-		for (let i = 0; i < columns; i++) {
-			result[i] = [];
-			const sumArr = [];
-			let sumRes = 0;
-			for (let j = 0; j < rows; j++) {
-				result[i][j] = genSimple(result[i][j - 1], j, sumRes);
-				sumRes += parseFloat(result[i][j]);
+		const arrFlashName = [star, ball, circle, apple, fish, heart, cat, dog, flower, bear];
+		const flash = [[''], [''], [''], [''], [''], [''], [''], [''], [''], ['']];
+		const summArr = [[], [], [], [], [], [], [], [], [], []];
+		let finSummArr = [[], [], [], [], [], [], [], [], [], []];
+		
+		
+		arrFlashName.forEach((item, index) => {
+			const rand = Math.floor(Math.random() * 5);
+			for (let i = 0; i < rand; i++) {
+				flash[index].push(arrFlashName[index]);
 			}
-			console.log(result[i]);
-// =========================================================================
-			result[i].forEach((item) => {
-				item = parseFloat(item.replace(",", "."));
-				sumArr.push(item);
-			});
-// =========================================================================
-			sums[i] = _.sum(sumArr).toFixed(2);
-			// console.log(`sums=${sums[i]} sum=${sum}`);
+		});
+		
+		//добавляем перввий елемент массива
+		for (let i = 0; i < flash.length; i++) {
+			const randFirstCount = Math.random() >= 0.5;
+			if (randFirstCount) {
+				flash[i].shift();
+				flash[i].unshift(arrFlashName[i]);
+			}
 		}
+		
+		let sum = 0;
+		
+		for (let i = 0; i < flash.length; i++) {
+			if (!flash[i][0].length) {
+				if (flash[i].length) {
+					summArr[i].push(flash[i].length - 1);
+				}
+			}
+			if (flash[i][0].length) {
+				summArr[i].push(5);
+				if (flash[i].length) {
+					summArr[i].push(flash[i].length - 1);
+				}
+			}
+		}
+		
+		const result = flash;
+		
+		summArr.forEach((value, index)=>{
+			
+			finSummArr[index] = summArr[index].reduce(function(a, b) {
+				return a + b;
+			});
+		});
+		
 		console.log(`======= result ====== `, result);
-		console.log(`======= sum ====== `, sums);
+		console.log(`======= sum ====== `, finSummArr);
+		
 		return {
 			countsArr: result,
-			sumArr: sums
+			sumArr: finSummArr
 		}
 	}
-	
 }
+
 
