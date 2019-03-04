@@ -1,7 +1,7 @@
 import {image} from "../image_flash";
 
 // Load the full build.
-const _ = require('lodash');
+// const _ = require('lodash');
 
 export default class FleshCart {
 	
@@ -29,8 +29,8 @@ export default class FleshCart {
 		
 		const arrFlashName = [star, ball, circle, apple, fish, heart, cat, dog, flower, bear];
 		const flash = [[''], [''], [''], [''], [''], [''], [''], [''], [''], ['']];
-		const summArr = [[], [], [], [], [], [], [], [], [], []];
-		let finSummArr = [[], [], [], [], [], [], [], [], [], []];
+		const sumArr = [[], [], [], [], [], [], [], [], [], []];
+		let finSumArr = [[], [], [], [], [], [], [], [], [], []];
 		
 		
 		arrFlashName.forEach((item, index) => {
@@ -49,37 +49,35 @@ export default class FleshCart {
 			}
 		}
 		
-		let sum = 0;
-		
 		for (let i = 0; i < flash.length; i++) {
 			if (!flash[i][0].length) {
 				if (flash[i].length) {
-					summArr[i].push(flash[i].length - 1);
+					sumArr[i].push(flash[i].length - 1);
 				}
 			}
 			if (flash[i][0].length) {
-				summArr[i].push(5);
+				sumArr[i].push(5);
 				if (flash[i].length) {
-					summArr[i].push(flash[i].length - 1);
+					sumArr[i].push(flash[i].length - 1);
 				}
 			}
 		}
 		
 		const result = flash;
 		
-		summArr.forEach((value, index)=>{
+		sumArr.forEach((value, index)=>{
 			
-			finSummArr[index] = summArr[index].reduce(function(a, b) {
+			finSumArr[index] = sumArr[index].reduce(function(a, b) {
 				return a + b;
 			});
 		});
 		
-		console.log(`======= result ====== `, result);
-		console.log(`======= sum ====== `, finSummArr);
+		// console.log(`======= result ====== `, result);
+		console.log(`======= sum ====== `, finSumArr);
 		
 		return {
 			countsArr: result,
-			sumArr: finSummArr
+			sumArr: finSumArr
 		}
 	}
 }

@@ -75,8 +75,10 @@ const config = {
 			},
 			{
 				test: /\.(mp3|wav|mp4)$/,
-				// include: SRC,
-				loader: 'file-loader'
+				use:{
+					loader: 'file-loader',
+					options: {name: 'sound/[name][hash].[ext]'}
+				}
 			}]
 	},
 	plugins: [

@@ -17,6 +17,8 @@ import Au_t_ZEVOK from '../sound/trenazhor/Au_t_ZEVOK.wav';
 import Au_t_ZEVOK_2 from '../sound/trenazhor/Au_t_ZEVOK_2.wav';
 import Au_t_ZEVOK_3 from '../sound/trenazhor/Au_t_ZEVOK_3.wav';
 
+import Zv_2 from '../sound/tune/Zv_2.mp3'
+import Zv_3 from '../sound/tune/Zv_3.mp3'
 
 export const sound = {
 	trenazhor: {
@@ -39,6 +41,11 @@ export const sound = {
 		Au_t_ZEVOK_2,
 		Au_t_ZEVOK_3
 	},
+	tune: {
+		Zv_2,
+		Zv_3,
+	},
+	
 };
 
 
