@@ -56,6 +56,7 @@ const createTableFlashCart = (tableData) => {
 			inp = row.lastChild;
 		
 		if (+Arr.sumArr[count] === +inp.value) {
+			Zv_3.play();
 			count++;
 			tt.style.display = 'none';
 			if (count === tableData.length) {
@@ -85,9 +86,9 @@ const createTableFlashCart = (tableData) => {
 					looser = 0;
 					count = 0;
 				} else if (looser => 9) {
+					audio_Au_t_5.play();
 					best.innerText = "Хорошо, давай попробуем еще раз?";
 					table.appendChild(best);
-					audio_Au_t_5.play();
 					looser = 0;
 					count = 0;
 				}
@@ -96,6 +97,7 @@ const createTableFlashCart = (tableData) => {
 			createColumn(tableData[count]);
 			console.log(`zbs`);
 		} else {
+			Zv_2.play();
 			looser++;
 			console.log(`looser=${looser}`);
 			inp.value = '';
