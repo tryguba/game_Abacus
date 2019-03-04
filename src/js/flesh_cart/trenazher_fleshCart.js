@@ -1,64 +1,119 @@
 import FleshCart from "./FleshCart";
+import {sound} from "../sound";
+import Abacus from "../abacus/Abacus";
 
 
-let Arr, N;
+const audio_Au_t_3 = new Audio(sound.trenazhor.Au_t_3);
+const audio_Au_t_4 = new Audio(sound.trenazhor.Au_t_4);
+const audio_Au_t_5 = new Audio(sound.trenazhor.Au_t_5);
+const audio_Au_t_6 = new Audio(sound.trenazhor.Au_t_6);
+const audio_Au_t_7 = new Audio(sound.trenazhor.Au_t_7);
+const audio_Au_t_8 = new Audio(sound.trenazhor.Au_t_8);
+const audio_Au_t_9 = new Audio(sound.trenazhor.Au_t_9);
+const Zv_2 = new Audio(sound.tune.Zv_2);
+const Zv_3 = new Audio(sound.tune.Zv_3);
+
+let Arr;
 const M = 10,
 	steps = document.querySelectorAll('.step[name]'),
 	title = document.querySelector('.title'),
-	trenazher = document.querySelector('#app_simulator'),
 	checkingAnswer = document.querySelector('#button');
 
-const checkValueArr = (arr, arr2) => {
-	if (arr.length !== arr2.length) return false;
-	let on = 0;
-	for (let i = 0; i < arr.length; i++) {
-		for (let j = 0; j < arr2.length; j++) {
-			if (+arr[i] === +arr2[j]) {
-				on++;
-				break;
-			}
-		}
-	}
-	return on === arr.length;
+
+const table = document.querySelector('#app_simulator');
+
+
+const createColumn = (column) => {
+	const row = document.createElement('div'),
+		cell = document.createElement('div'),
+		input = document.createElement("input");
+	row.classList.add('column-flash');
+	cell.classList.add('column-flash__input');
+	input.setAttribute("type", "number");
+	
+	column.forEach((stepData) => {
+		const cell = document.createElement('div');
+		cell.classList.add('column-flash__image');
+		const img = document.createElement('img');
+		img.setAttribute('src', stepData);
+		cell.appendChild(img);
+		row.appendChild(cell);
+	});
+	table.appendChild(row);
+	row.appendChild(cell);
+	cell.appendChild(input);
 };
 
+
 const createTableFlashCart = (tableData) => {
-	
-	const table = document.querySelector('#app_simulator'),
-		showAnswer = document.querySelector('#button');
-	
-	tableData.forEach((item, index) => {
-		const row = document.createElement('div'),
-			cell = document.createElement('div'),
-			input = document.createElement("input"),
-			answer = document.createElement("div"),
-			answerText = document.createTextNode(Arr.sumArr[index]);
-		row.classList.add('column-flash');
-		cell.classList.add('column-flash__input');
-		input.setAttribute("type", "number");
+	let count = 0;
+	let looser = 0;
+	createColumn(tableData[count]);
+	checkingAnswer.addEventListener('click', () => {
 		
-		item.forEach((cellData) => {
-			const cell = document.createElement('div');
-			cell.classList.add('column-flash__count');
-			const img = document.createElement('img');
-			img.classList.add('image');
-			img.setAttribute('src', cellData);
-			cell.appendChild(img);
-			row.appendChild(cell);
-		});
+		const tt = table.lastChild,
+			row = tt.lastChild,
+			inp = row.lastChild;
 		
-		table.appendChild(row);
-		row.appendChild(cell);
-		cell.appendChild(input);
-		answer.appendChild(answerText);
+		if (+Arr.sumArr[count] === +inp.value) {
+			Zv_3.play();
+			count++;
+			tt.style.display = 'none';
+			if (count === tableData.length) {
+				document.querySelector('.column-flash').remove();
+				const best = document.createElement('div');
+				
+				if (looser <= 2) {
+					best.innerText = "Круто!";
+					table.appendChild(best);
+					audio_Au_t_8.play();
+					setTimeout(() => {
+						best.innerText = "Вот это да!";
+						table.appendChild(best);
+						audio_Au_t_9.play();
+					}, 1000);
+					looser = 0;
+					count = 0;
+				} else if (5 <= looser && looser <= 8) {
+					best.innerText = "Молодец!";
+					table.appendChild(best);
+					audio_Au_t_6.play();
+					setTimeout(() => {
+						best.innerText = "Умница!";
+						table.appendChild(best);
+						audio_Au_t_7.play();
+					}, 1000);
+					looser = 0;
+					count = 0;
+				} else if (looser => 9) {
+					audio_Au_t_5.play();
+					best.innerText = "Хорошо, давай попробуем еще раз?";
+					table.appendChild(best);
+					looser = 0;
+					count = 0;
+				}
+				return false;
+			}
+			createColumn(tableData[count]);
+			console.log(`zbs`);
+		} else {
+			Zv_2.play();
+			looser++;
+			console.log(`looser=${looser}`);
+			inp.value = '';
+			inp.classList.add('red');
+		}
+		
+		
 	});
-	
 };
+
 
 const chooseFleshCart = (step, method) => {
 	console.log(`==========${step}==========`);
 	title.innerHTML = `Флеш - карты`;
 	Arr = method;
+	
 	createTableFlashCart(Arr.countsArr);
 };
 
@@ -68,7 +123,7 @@ const startFleshCart = () => {
 		let stepic;
 		let step;
 		steps[i].addEventListener("click", () => {
-			
+			// audio_Au_t_1.play();
 			table.innerHTML = null;
 			stepic = steps[i];
 			step = stepic.getAttribute('name');

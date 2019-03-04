@@ -234,16 +234,13 @@ input {
   align-items: center;
   margin: 0 15px;
   position: relative;
-  &__count {
+  &__image {
     text-align: center;
     min-height: 50px;
     margin: 3px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    .image {
-      width: auto;
-    }
     &:first-child{
       margin: 10px 0 15px;
     }
