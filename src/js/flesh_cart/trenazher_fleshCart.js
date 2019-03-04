@@ -103,8 +103,6 @@ const createTableFlashCart = (tableData) => {
 			inp.value = '';
 			inp.classList.add('red');
 		}
-		
-		
 	});
 };
 
