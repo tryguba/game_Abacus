@@ -1,0 +1,60 @@
+/*Rocket*/
+.mover {
+  animation-duration: 1.5s;
+  animation-fill-mode: both;
+}
+
+/* rocketRotate */
+@keyframes rocketRotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(720deg);
+  }
+}
+
+@-webkit-keyframes rocketRotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(720deg);
+  }
+}
+
+.rocketRotate {
+  animation-name: rocketRotate;
+}
+
+/* only for target: targetPulse */
+@-webkit-keyframes targetPulse {
+  0%, 20%, 60% {
+    transform: scale3d(1, 1, 1);
+  }
+  40%, 80% {
+    transform: scale3d(1.2, 1.2, 1.2);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes targetPulse {
+  0%, 20%, 60% {
+    transform: scale3d(1, 1, 1);
+  }
+  40%, 80% {
+    transform: scale3d(1.2, 1.2, 1.2);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.targetPulse {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: targetPulse;
+  animation-delay: 1.2s;
+}

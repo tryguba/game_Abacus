@@ -9,7 +9,6 @@ const M = 10,
 	trenazher = document.querySelector('#app_simulator'),
 	checkingAnswer = document.querySelector('#button');
 
-
 inputAnswer.classList.add('inputAnswer');
 
 

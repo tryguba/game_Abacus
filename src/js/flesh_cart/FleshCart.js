@@ -1,4 +1,4 @@
-import {image} from "../image_flash";
+import {image} from "../image";
 
 // Load the full build.
 // const _ = require('lodash');
