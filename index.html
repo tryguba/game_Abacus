@@ -80,13 +80,22 @@
             </li>
         </ul>
     </nav>
-    <div id="tablo">Табло</div>
+    <div id="tablo">Табло Звезд: <img src="src/img/honorStar/star.png" alt="star"><span class="stars">0</span></div>
 </header>
 <main id="main">
 
     <h1 class="title"></h1>
     <div id="app_simulator"></div>
-    <div id="button">ПРОВЕРИТЬ</div>
+    <!--<div id="button">ПРОВЕРИТЬ</div>-->
+    <input id="button" type="submit" value="ПРОВЕРИТЬ">
 </main>
+
+<div class="modal">
+    <p class="modal__text"></p>
+    <div class="modal__buttons">
+        <input type="submit" value="Продолжить" class="button nextButton">
+        <input type="submit" value="Повторить" class="button repeatButton">
+    </div>
+</div>
 </body>
 </html>

@@ -31,7 +31,7 @@ body {
 }
 
 #tablo {
-  width: 100px;
+  min-width: 100px;
   height: 50px;
   position: absolute;
   right: 0;
@@ -41,6 +41,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px;
+  img{
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+  }
 }
 
 #main {
@@ -172,6 +178,7 @@ input {
   letter-spacing: 3.1px;
   box-shadow: 5px 8px 5px #941b1b;
   margin: 100px auto 0;
+  outline: none;
   &:active {
     box-shadow: none;
   }
@@ -245,8 +252,8 @@ input {
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  margin: 0 15px;
   position: relative;
+  margin: -30px 15px 0;
   &__image {
     text-align: center;
     min-height: 50px;
@@ -282,10 +289,9 @@ input {
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 0 30px;
-  display: flex;
   justify-content: space-around;
   flex-direction: column;
-
+  display: none;
   &__text {
     font-size: 25px;
   }
@@ -304,6 +310,7 @@ input {
       line-height: 1;
       border: none;
       box-shadow: 3px 5px 10px #941b1b;
+      outline: none;
       &:hover {
         box-shadow: none;
       }

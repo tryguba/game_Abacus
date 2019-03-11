@@ -1,12 +1,12 @@
 import Abacus from "./Abacus";
-import {sound} from "../sound";
+import {sound} from "../other/sound";
 
 const audio_Au_t_1 = new Audio(sound.trenazhor.Au_t_1);
 const audio_Au_t_2 = new Audio(sound.trenazhor.Au_t_2);
 const audio_Au_t_3 = new Audio(sound.trenazhor.Au_t_3);
 
-// audio_Au_t_3.play();
 
+// audio_Au_t_3.play();
 
 let Arr, N;
 const M = 10,
@@ -187,5 +187,4 @@ export const startAbacus = () => {
 	}
 };
 
-
-startAbacus();
+// startAbacus();

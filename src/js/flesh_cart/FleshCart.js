@@ -1,35 +1,28 @@
-import {image} from "../image";
-
-// Load the full build.
-// const _ = require('lodash');
+import {image} from "../other/image";
 
 export default class FleshCart {
 	
-	constructor(firstCountArr, lastCountArr, digit) {
+	constructor(firstCountArr) {
 		this.firstCountArr = firstCountArr;
-		this.lastCountArr = lastCountArr;
-		this.digit = digit;
 	}
 	
 	//================================================================================
-	
-	
 	getFleshCart() {
 		
-		const star = image.flashCart.star,
-			ball = image.flashCart.ball,
-			dog = image.flashCart.dog,
-			cat = image.flashCart.cat,
-			fish = image.flashCart.fish,
-			heart = image.flashCart.heart,
-			apple = image.flashCart.apple,
-			circle = image.flashCart.circle,
-			flower = image.flashCart.flower,
-			bear = image.flashCart.bear;
-		
-		const arrFlashName = [star, ball, circle, apple, fish, heart, cat, dog, flower, bear];
+		const arrFlashName = [
+			image.flashCart.star,
+			image.flashCart.ball,
+			image.flashCart.circle,
+			image.flashCart.apple,
+			image.flashCart.fish,
+			image.flashCart.heart,
+			image.flashCart.cat,
+			image.flashCart.dog,
+			image.flashCart.flower,
+			image.flashCart.bear
+		];
 		const flash = [[''], [''], [''], [''], [''], [''], [''], [''], [''], ['']];
-		const sumArr = [[], [], [], [], [], [], [], [], [], []];
+		const sumArr  = [[], [], [], [], [], [], [], [], [], []];
 		let finSumArr = [[], [], [], [], [], [], [], [], [], []];
 		
 		
@@ -65,9 +58,9 @@ export default class FleshCart {
 		
 		const result = flash;
 		
-		sumArr.forEach((value, index)=>{
+		sumArr.forEach((value, index) => {
 			
-			finSumArr[index] = sumArr[index].reduce(function(a, b) {
+			finSumArr[index] = sumArr[index].reduce(function (a, b) {
 				return a + b;
 			});
 		});

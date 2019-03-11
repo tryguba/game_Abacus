@@ -1,6 +1,3 @@
-// Load the full build.
-const _ = require('lodash');
-
 export default class Abacus {
 	
 	constructor(firstCountArr, lastCountArr, digit) {
@@ -101,7 +98,9 @@ export default class Abacus {
 			result[i][0] = randArr[Math.floor((Math.random() * (randArr.length - 1)) + 1)];
 			result[i][1] = genSimple(result[i][0], operation);
 			result[i][2] = res(result[i][0], result[i][1], operation);
-			sums[i] = _.sum(result[i]);
+			sums[i] = result[i].reduce(function (a, b) {
+				return a + b;
+			});
 		}
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
@@ -176,7 +175,9 @@ export default class Abacus {
 			result[i][0] = randArr[Math.floor((Math.random() * (randArr.length - 1)) + 1)];
 			result[i][1] = genSimple(result[i][0], true);
 			result[i][2] = genSimple(result[i][1] + result[i][0], false);
-			sums[i] = _.sum(result[i]);
+			sums[i] = result[i].reduce(function (a, b) {
+				return a + b;
+			});
 		}
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
@@ -253,7 +254,9 @@ export default class Abacus {
 			result[i][0] = randArr[Math.floor((Math.random() * (randArr.length - 1)) + 1)];
 			result[i][1] = genSimple(result[i][0], true) * -1;
 			result[i][2] = res(result[i][0], result[i][1]) * (-1);
-			sums[i] = _.sum(result[i]);
+			sums[i] = result[i].reduce(function (a, b) {
+				return a + b;
+			});
 		}
 		
 		//проверка на  одинаковые уравнение
@@ -309,7 +312,9 @@ export default class Abacus {
 			result[i][0] = Math.floor((Math.random() * 8) + 1);
 			result[i][1] = genSimple(result[i][0]);
 			result[i][2] = genSimple(result[i][1] + result[i][0]);
-			sums[i] = _.sum(result[i]);
+			sums[i] = result[i].reduce(function (a, b) {
+				return a + b;
+			});
 		}
 		
 		//проверка на  одинаковые уравнение
@@ -367,7 +372,9 @@ export default class Abacus {
 			result[i][0] = randArr[Math.floor((Math.random() * (randArr.length - 1)) + 1)];
 			result[i][1] = genSimple(result[i][0]);
 			result[i][2] = genSimple(result[i][1] + result[i][0]);
-			sums[i] = _.sum(result[i]);
+			sums[i] = result[i].reduce(function (a, b) {
+				return a + b;
+			});
 		}
 		
 		//проверка на  одинаковые уравнение
@@ -420,7 +427,9 @@ export default class Abacus {
 			for (let j = 0; j < rows; j++) {
 				result[i][j] = genSimple(result[i][j - 1], operation, j);
 			}
-			sums[i] = _.sum(result[i]);
+			sums[i] = result[i].reduce(function (a, b) {
+				return a + b;
+			});
 		}
 		
 		//проверка на  одинаковые уравнение
@@ -474,7 +483,9 @@ export default class Abacus {
 				sumArr.push(item);
 			});
 // =========================================================================
-			sums[i] = _.sum(sumArr).toFixed(2);
+			sums[i] = sumArr.reduce(function (a, b) {
+				return a + b;
+			}).toFixed(2);
 		}
 		console.log(`======= result ====== `, result);
 		
@@ -535,7 +546,9 @@ export default class Abacus {
 				sumArr.push(item);
 			});
 // =========================================================================
-			sums[i] = _.sum(sumArr).toFixed(2);
+			sums[i] = sumArr.reduce(function (a, b) {
+				return a + b;
+			}).toFixed(2);
 			// console.log(`sums=${sums[i]} sum=${sum}`);
 		}
 		console.log(`======= result ====== `, result);

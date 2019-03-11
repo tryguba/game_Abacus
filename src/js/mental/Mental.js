@@ -1,6 +1,3 @@
-// Load the full build.
-const _ = require('lodash');
-
 export default class Mental {
 	
 	constructor(firstCountArr, lastCountArr) {
@@ -10,10 +7,14 @@ export default class Mental {
 	
 	getMental() {
 		
-		const proba = [9, 3, 5, 2, 9, 6, 7, 2,];
+		const proba = [55, 3, 5];
 		
 		const result = proba;
-		let sums = _.sum(result);
+		
+		
+		let sums = result.reduce(function (a, b) {
+			return a + b;
+		});
 		
 		
 		console.log(`======= result ====== `, result);
