@@ -4,9 +4,7 @@ import {sound} from "../other/sound";
 const audio_Au_t_1 = new Audio(sound.trenazhor.Au_t_1);
 const audio_Au_t_2 = new Audio(sound.trenazhor.Au_t_2);
 const audio_Au_t_3 = new Audio(sound.trenazhor.Au_t_3);
-
-
-// audio_Au_t_3.play();
+const au_AA = new Audio(sound.theory.au_AA);
 
 let Arr, N;
 const M = 10,
@@ -31,7 +29,7 @@ const checkValueArr = (arr, arr2) => {
 const createTableAbacus = (tableData) => {
 	const table = document.querySelector('#app_simulator'),
 		showAnswer = document.querySelector('#button');
-	
+	audio_Au_t_1.play();
 	tableData.forEach((item, index) => {
 		const row = document.createElement('div'),
 			cell = document.createElement('div'),
@@ -187,4 +185,4 @@ export const startAbacus = () => {
 	}
 };
 
-// startAbacus();
+startAbacus();

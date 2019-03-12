@@ -104,7 +104,7 @@ export default class Abacus {
 		}
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length < 10) {
+		if (verifiedArray.length < columns) {
 			return this.getAbacusSimple(columns);
 		}
 		else {
@@ -181,7 +181,7 @@ export default class Abacus {
 		}
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length < 10) {
+		if (verifiedArray.length < columns) {
 			return this.getAbacusSimpleStep_3(columns);
 		}
 		else {
@@ -261,7 +261,7 @@ export default class Abacus {
 		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length < 10) {
+		if (verifiedArray.length < columns) {
 			return this.getAbacusSimpleStep_4(columns);
 		}
 		else {
@@ -319,7 +319,7 @@ export default class Abacus {
 		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length < 10) {
+		if (verifiedArray.length < columns) {
 			return this.getAbacusSimpleStep_5_6(columns);
 		}
 		else {
@@ -379,7 +379,7 @@ export default class Abacus {
 		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length < 10) {
+		if (verifiedArray.length < columns) {
 			return this.getAbacusSimpleStep_7_8(columns);
 		}
 		else {
@@ -434,7 +434,7 @@ export default class Abacus {
 		
 		//проверка на  одинаковые уравнение
 		const verifiedArray = this.duplicate(result);
-		if (verifiedArray.length < 10) {
+		if (verifiedArray.length < columns) {
 			return this.getAbacusSimpleStep_9(columns);
 		}
 		else {
