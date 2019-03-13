@@ -14,7 +14,7 @@ import Au_t_12 from '../../sound/trenazhor/Au_t_12.wav';
 import Au_t_13 from '../../sound/trenazhor/Au_t_13.wav';
 import Au_t_14 from '../../sound/trenazhor/Au_t_14.wav';
 import Au_t_15 from '../../sound/trenazhor/Au_t_15.wav';
-import Au_t_ZEVOK from '../../sound/trenazhor/Au_t_ZEVOK.wav';
+// import Au_t_ZEVOK from '../../sound/trenazhor/Au_t_ZEVOK.wav';
 import Au_t_ZEVOK_2 from '../../sound/trenazhor/Au_t_ZEVOK_2.wav';
 import Au_t_ZEVOK_3 from '../../sound/trenazhor/Au_t_ZEVOK_3.wav';
 //===================tune==========================
@@ -40,7 +40,7 @@ export const sound = {
 		Au_t_13,
 		Au_t_14,
 		Au_t_15,
-		Au_t_ZEVOK,
+		// Au_t_ZEVOK,
 		Au_t_ZEVOK_2,
 		Au_t_ZEVOK_3
 	},
