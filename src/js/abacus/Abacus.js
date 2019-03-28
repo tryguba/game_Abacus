@@ -1,6 +1,6 @@
 export default class Abacus {
 	
-	constructor(firstCountArr, lastCountArr, digit) {
+	constructor(firstCountArr = 1, lastCountArr = 9, digit) {
 		this.firstCountArr = firstCountArr;
 		this.lastCountArr = lastCountArr;
 		this.digit = digit;
@@ -72,7 +72,6 @@ export default class Abacus {
 			sums = [],
 			randArr = [],
 			operation = Math.random() >= 0.5;
-		
 		for (let i = 1; i <= 8; i++) {
 			if (i === 5) {
 				continue;
@@ -108,6 +107,7 @@ export default class Abacus {
 			return this.getAbacusSimple(columns);
 		}
 		else {
+			console.log(`======= result ====== `, sums);
 			return {
 				countsArr: result,
 				sumArr: sums
@@ -185,6 +185,7 @@ export default class Abacus {
 			return this.getAbacusSimpleStep_3(columns);
 		}
 		else {
+			console.log(`======= result ====== `, sums);
 			return {
 				countsArr: result,
 				sumArr: sums
@@ -265,6 +266,7 @@ export default class Abacus {
 			return this.getAbacusSimpleStep_4(columns);
 		}
 		else {
+			console.log(`======= result ====== `, sums);
 			return {
 				countsArr: result,
 				sumArr: sums
@@ -323,6 +325,7 @@ export default class Abacus {
 			return this.getAbacusSimpleStep_5_6(columns);
 		}
 		else {
+			console.log(`======= result ====== `, sums);
 			return {
 				countsArr: result,
 				sumArr: sums
@@ -383,6 +386,7 @@ export default class Abacus {
 			return this.getAbacusSimpleStep_7_8(columns);
 		}
 		else {
+			console.log(`======= result ====== `, sums);
 			return {
 				countsArr: result,
 				sumArr: sums
@@ -414,7 +418,6 @@ export default class Abacus {
 			//проверка и присвоения первого числа в уравнении
 			if (j === 0) {
 				result = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
-				// console.log(`================ firstCount ==================== ${result}`);
 			}
 			return result;
 		};
@@ -427,6 +430,9 @@ export default class Abacus {
 			for (let j = 0; j < rows; j++) {
 				result[i][j] = genSimple(result[i][j - 1], operation, j);
 			}
+			
+			// console.log(result[i]);
+			
 			sums[i] = result[i].reduce(function (a, b) {
 				return a + b;
 			});
@@ -438,6 +444,7 @@ export default class Abacus {
 			return this.getAbacusSimpleStep_9(columns);
 		}
 		else {
+			console.log(`======= result ====== `, sums);
 			return {
 				countsArr: result,
 				sumArr: sums
@@ -502,6 +509,9 @@ export default class Abacus {
 			let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2),
 				smallCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
 			
+			// let count = (Math.random() * (999 - 10) + 10).toFixed(2),
+			// 	smallCount = (Math.random() * (99 - 10) + 10).toFixed(2);
+			
 			let result = count;
 			
 			if (change) {
@@ -520,10 +530,10 @@ export default class Abacus {
 			}
 			
 			//проверка и присвоения первого числа в уравнении
-			if (!j) {
-				result = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
-				// console.log(`================ firstCount ==================== ${result}`);
-			}
+			// if (!j) {
+			// 	result = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
+			// 	// console.log(`================ firstCount ==================== ${result}`);
+			// }
 			
 			result = parseFloat(result).toFixed(2).toString().replace(".", ",");
 			return result;
@@ -558,6 +568,4 @@ export default class Abacus {
 			sumArr: sums
 		}
 	}
-	
 }
-

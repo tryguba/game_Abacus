@@ -8,7 +8,6 @@ export default class FleshCart {
 	
 	//================================================================================
 	getFleshCart() {
-		
 		const arrFlashName = [
 			image.flashCart.star,
 			image.flashCart.ball,
@@ -24,7 +23,6 @@ export default class FleshCart {
 		const flash = [[''], [''], [''], [''], [''], [''], [''], [''], [''], ['']];
 		const sumArr  = [[], [], [], [], [], [], [], [], [], []];
 		let finSumArr = [[], [], [], [], [], [], [], [], [], []];
-		
 		
 		arrFlashName.forEach((item, index) => {
 			const rand = Math.floor(Math.random() * 5);

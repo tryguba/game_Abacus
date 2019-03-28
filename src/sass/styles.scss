@@ -88,11 +88,11 @@ body {
   transform: translate(-50%, -50%);
   .column {
     margin: 0 5px;
-    padding: 5px;
     font-size: 3.4rem;
+    background: rgba(255,255,255,.3);
     &__count {
       padding: 0 5px;
-      min-width: 56px;
+      max-width: 90px;
       height: auto;
       display: flex;
       align-items: center;
@@ -105,8 +105,7 @@ body {
     input {
       margin-top: 20px;
       border: none;
-      //padding: 5px;
-      width: 100%;
+      max-width: 90px;
       height: 60px;
       display: flex;
       align-items: center;
@@ -154,7 +153,7 @@ body {
 
 #button {
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   left: 50%;
   transform: translate(-50%);
   width: 223px;
@@ -171,8 +170,8 @@ body {
   line-height: 3.77px;
   letter-spacing: 3.1px;
   box-shadow: 5px 8px 5px #941b1b;
-  margin: 100px auto 0;
   outline: none;
+  border: none;
   &:active {
     box-shadow: none;
   }
@@ -296,7 +295,7 @@ body {
   box-shadow: 0 0 57px 9px rgba(255, 203, 43, 0.54);
   border-radius: 23px;
   border: 7px solid #ac8341;
-  background: rgba(255, 255, 255, .8);
+  background: rgba(255, 255, 255, 1);
   position: absolute;
   left: 50%;
   top: 50%;

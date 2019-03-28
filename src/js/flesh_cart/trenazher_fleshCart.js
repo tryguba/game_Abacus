@@ -1,6 +1,5 @@
-import FleshCart from "./FleshCart";
-import {sound} from "../other/sound";
-import {levelStep} from "../levelStep";
+import FleshCart    from "./FleshCart";
+import {sound}      from "../other/sound";
 import {createStar} from "../game";
 
 
@@ -15,27 +14,26 @@ const audio_Au_t_9 = new Audio(sound.trenazhor.Au_t_9);
 // ======================================================================
 
 // ======================================================================
-let Arr;
-const title = document.querySelector('.title'),
-	checkingAnswer = document.querySelector('#button'),
-	modal = document.querySelector('.modal'),
-	table = document.querySelector('#app_simulator');
 
-// ======================================================================
-
-export const runFlash = (level, step, trenazher) => {
+export function runFlash(level, step, trenazher){
+	let Arr;
+	const title = document.querySelector('.title'),
+		checkingAnswer = document.querySelector('#button'),
+		modal = document.querySelector('.modal'),
+		table = document.querySelector('#app_simulator');
 	
-	const startFlashCart = (levelStep) => {
+	function startFlashCart(levelStep){
 		
 		levelStep = new FleshCart();
 		Arr = levelStep.getFleshCart();
 		title.innerHTML = `Флеш - карты`;
 		
-		let count = 0;
+		let count = 8;
 		let loser = 0;
 		let res = 0;
 		
-		const createColumn = (colData) => {
+		function createColumn (colData) {
+			const main = document.querySelector('#main');
 			const row = document.createElement('div'),
 				cell = document.createElement('div'),
 				input = document.createElement("input");
@@ -45,51 +43,61 @@ export const runFlash = (level, step, trenazher) => {
 			input.setAttribute("autofocus", "");
 			
 			colData.forEach((stepData) => {
+				
 				const cell = document.createElement('div');
 				cell.classList.add('column-flash__image');
 				const img = document.createElement('img');
 				img.setAttribute('src', stepData);
 				cell.appendChild(img);
 				row.appendChild(cell);
+				
 			});
 			table.appendChild(row);
 			row.appendChild(cell);
 			cell.appendChild(input);
-		};
+			
+			// создаем кнопку "ПРОВЕРИТЬ"
+			const button = document.querySelector('#button');
+			if (!button) {
+				const button = document.createElement('div');
+				button.setAttribute('id', 'button');
+				button.innerText = 'ПРОВЕРИТЬ';
+				main.appendChild(button);
+			}
+			
+		}
 		
 		createColumn(Arr.countsArr[count]);
 		
-		const checkValue = () => {
+		function checkValue (e) {
+			
+			e.stopPropagation();
+			
 			const tt = table.lastChild;
-			const row = tt.lastChild,
-				inp = row.lastChild;
-			if (+Arr.sumArr[count] === +inp.value) {
-				tt.style.display = 'none';
+			let	inp = tt.lastChild.lastChild;
+			if (+Arr.sumArr[count] === +inp.value && inp.value !== '') {
+				// tt.style.display = 'none';
+				tt.remove();
 				createStar(table);
-				new Audio(sound.tune.Zv_3).play();
+				// new Audio(sound.tune.Zv_3).play();
 				count++;
-				
 				//виводитсься после окончания уровнений
 				if (count === Arr.countsArr.length) {
 					res = count - loser;
-					checkingAnswer.removeEventListener('click', checkValue, true);
+					checkingAnswer.removeEventListener('click', checkValue);
 					if (loser <= 2) {
-						let text = "Круто!";
-						let text1 = "Вот это да!";
-						// =======================================================
+						const text = "Круто!";
+						// const text1 = "Вот это да!";
 						showModalWindow(res, text, audio_Au_t_8);
-						// =======================================================
-					} else if (5 >= loser && loser <= 8) {
-						let text = "Умница!";
-						let text1 = "Молодец!";
-						// =======================================================
+					}
+					else if (5 >= loser && loser <= 8) {
+						const text = "Умница!";
+						// const text1 = "Молодец!";
 						showModalWindow(res, text, audio_Au_t_7);
-						// =======================================================
-					} else if (loser => 9) {
+					}
+					else {
 						let text = "Хорошо, давай попробуем еще раз?";
-						// =======================================================
 						showModalWindow(res, text, audio_Au_t_5);
-						// =======================================================
 					}
 					return;
 				}
@@ -97,27 +105,28 @@ export const runFlash = (level, step, trenazher) => {
 					createColumn(Arr.countsArr[count]);
 				}, 1000);
 				// ======================================
-			} else {
-				new Audio(sound.tune.Zv_2).play();
-				loser++;
-				inp.value = '';
+			}
+			else {
+				// new Audio(sound.tune.Zv_2).play();
 				inp.style.background = '#d24a43';
 				inp.style.color = '#fff';
+				inp.value = '';
+				loser++;
 			}
-		};
-		checkingAnswer.addEventListener('click', checkValue, true);
+		}
+		checkingAnswer.addEventListener('click', checkValue);
 		return true;
-	};
+	}
 	
 	startFlashCart(level, step, trenazher);
 	
-	const repeat = (step) => {
-		modal.style.display = 'none';
-		table.innerHTML = '';
-		startFlashCart(step);
-	};
-	
-	const showModalWindow = (res, text, soundName) => {
+	function showModalWindow(res, text, soundName){
+		const repeat = (e, step) => {
+			e.stopPropagation();
+			modal.style.display = 'none';
+			table.innerHTML = '';
+			startFlashCart(step);
+		};
 		const modalText = document.querySelector('.modal__text'),
 			countAll = document.querySelector(".stars"),
 			repeatBtn = document.querySelector('.repeatButton');
@@ -129,7 +138,8 @@ export const runFlash = (level, step, trenazher) => {
 		let starWord = 'звезд';
 		if (res === 1) {
 			starWord = `звезду`;
-		} else if (res <= 4 && res >= 2) {
+		}
+		else if (res <= 4 && res >= 2) {
 			starWord = `звезды`;
 		}
 		modalText.innerText =
@@ -137,13 +147,12 @@ export const runFlash = (level, step, trenazher) => {
 		${text}`;
 		countAll.innerHTML = res;
 		soundName.play();
-		repeatBtn.addEventListener('click', repeat, true);
-	};
-};
+		repeatBtn.addEventListener('click', repeat);
+	}
+}
 
 
 /*
-
 // runFlash(levelStep.level_1.step_1.fleshCart);
 
 // ======================== TEST =============================================
