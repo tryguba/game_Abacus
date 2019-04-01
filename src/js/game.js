@@ -1,8 +1,9 @@
 import {image}     from "./other/image";
 import anime       from "animejs";
 import {levelStep} from "./levelStep";
-import {runFlash}  from "./flesh_cart/trenazher_fleshCart";
-import {runAbacus} from "./abacus/trenazher_abacus";
+// import {runFlash}  from "./flesh_cart/trenazher_fleshCart";
+import RunFlashCart from "./flesh_cart/trenazher_fleshCart"
+// import {runAbacus} from "./abacus/trenazher_abacus";
 import RunAbacus   from "./abacus/trenazher_abacus";
 
 
@@ -24,55 +25,20 @@ export function createStar(teg) {
 		translateY: y,
 		easing: 'easeInOutQuad',
 		opacity: .5,
-		// scale: 2,
+		scale: 1.5,
 		rotate: '2turn'
 	});
 	setTimeout(() => {
-		star.classList.add('d-none')
+		star.remove();
 	}, 1000);
 }
 
-export function openModal(runMethod, res) {
-	const modalText = document.querySelector('.modal__text'),
-		countAll = document.querySelector(".stars"),
-		modal = document.querySelector('.modal'),
-		repeatBtn = document.querySelector('.repeatButton');
-	
-	
-	modal.style.display = 'flex';
-	if (res < 0) {
-		res = 0;
-	}
-	let starWord = 'звезд';
-	if (res === 1) {
-		starWord = `звезду`;
-	}
-	else if (res <= 4 && res >= 2) {
-		starWord = `звезды`;
-	}
-	modalText.innerText =
-		`Ты набрал ${res} ${starWord}!`;
-	countAll.innerHTML = res;
-	
-	
-	repeatBtn.removeEventListener('click', repBtn);
-	repeatBtn.addEventListener('click', repBtn);
-	
-	function repBtn(e) {
-		modal.style.display = 'none';
-		runMethod();
-		check();
-		return false;
-	}
-}
-
-
 const steps = document.querySelectorAll('.step[name]');
-
 
 function start() {
 	
 	let newExemplyar;
+	
 // ======================== TEST =============================================
 	for (let i = 0; i < steps.length; i++) {
 		const choseStep = () => {
@@ -81,8 +47,11 @@ function start() {
 			switch (step) {
 				// ====================== flashCart ==========================
 				case 'F_l1_step_1_2_3':
-					runFlash(levelStep.level_1.step_1.fleshCart);
+					newExemplyar = new RunFlashCart('level_1', 'step_1');
+					newExemplyar.startFlashCart();
 					break;
+					// runFlash(levelStep.level_1.step_1.fleshCart);
+					// break;
 				case 'F_l1_step_4':
 					runFlash(levelStep.level_1.step_1.fleshCart);
 					break;
@@ -97,23 +66,23 @@ function start() {
 					break;
 				// ====================== abacus ==========================
 				case 'step_1_2':
-					newExemplyar = new RunAbacus('level_1', 'step_1', 3);
+					newExemplyar = new RunAbacus('level_1', 'step_1', 10);
 					newExemplyar.startAbacus();
 					break;
 				case 'step_3':
-					newExemplyar = new RunAbacus('level_1', 'step_3', 3);
+					newExemplyar = new RunAbacus('level_1', 'step_3', 10);
 					newExemplyar.startAbacus();
 					break;
 				case 'step_4':
-					newExemplyar = new RunAbacus('level_1', 'step_4', 3);
+					newExemplyar = new RunAbacus('level_1', 'step_4', 10);
 					newExemplyar.startAbacus();
 					break;
 				case 'step_5_6':
-					newExemplyar = new RunAbacus('level_1', 'step_5', 3);
+					newExemplyar = new RunAbacus('level_1', 'step_5', 10);
 					newExemplyar.startAbacus();
 					break;
 				case 'step_7_8':
-					newExemplyar = new RunAbacus('level_1', 'step_7', 3);
+					newExemplyar = new RunAbacus('level_1', 'step_7', 10);
 					newExemplyar.startAbacus();
 					break;
 				case 'step_9':
@@ -164,7 +133,6 @@ function start() {
 		steps[i].addEventListener("click", choseStep);
 	}
 // ======================== END TEST ==========================================
-	return false;
 }
 
 start();

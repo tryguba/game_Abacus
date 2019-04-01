@@ -494,7 +494,8 @@ export default class Abacus {
 				return a + b;
 			}).toFixed(2);
 		}
-		console.log(`======= result ====== `, result);
+		// console.log(`======= result ====== `, result);
+		console.log(`======= sums ====== `, sums);
 		
 		return {
 			countsArr: result,
@@ -509,24 +510,19 @@ export default class Abacus {
 			let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2),
 				smallCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
 			
-			// let count = (Math.random() * (999 - 10) + 10).toFixed(2),
-			// 	smallCount = (Math.random() * (99 - 10) + 10).toFixed(2);
-			
 			let result = count;
 			
 			if (change) {
 				count = smallCount;
 			}
 			
-			console.log(`sss${sumRes} `);
-			
 			if (parseFloat(sumRes) >= parseFloat(count)) {
 				result = parseFloat(count) * -1;
-				console.log(`+| prev=${prev} count= ${count} res= ${result}`);
+				// console.log(`+| prev=${prev} count= ${count} res= ${result}`);
 			}
 			else {
 				result = parseFloat(count);
-				console.log(`-| prev=${prev} count= ${count} res= ${result}`);
+				// console.log(`-| prev=${prev} count= ${count} res= ${result}`);
 			}
 			
 			//проверка и присвоения первого числа в уравнении
@@ -549,7 +545,7 @@ export default class Abacus {
 				result[i][j] = genSimple(result[i][j - 1], j, sumRes);
 				sumRes += parseFloat(result[i][j]);
 			}
-			console.log(result[i]);
+			// console.log(result[i]);
 // =========================================================================
 			result[i].forEach((item) => {
 				item = parseFloat(item.replace(",", "."));
@@ -559,9 +555,8 @@ export default class Abacus {
 			sums[i] = sumArr.reduce(function (a, b) {
 				return a + b;
 			}).toFixed(2);
-			// console.log(`sums=${sums[i]} sum=${sum}`);
 		}
-		console.log(`======= result ====== `, result);
+		// console.log(`======= result ====== `, result);
 		console.log(`======= sum ====== `, sums);
 		return {
 			countsArr: result,

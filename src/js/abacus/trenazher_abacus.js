@@ -1,220 +1,12 @@
-import Abacus       from "./Abacus";
-import {sound}      from "../other/sound";
-import {createStar} from "../game";
-import {openModal}  from "../game";
+import Abacus                  from "./Abacus";
+import {sound}                 from "../other/sound";
+import {createStar, openModal} from "../game";
 
 const audio_Au_t_1 = new Audio(sound.trenazhor.Au_t_1);
 const audio_Au_t_2 = new Audio(sound.trenazhor.Au_t_2);
 const audio_Au_t_3 = new Audio(sound.trenazhor.Au_t_3);
 const au_AA = new Audio(sound.theory.au_AA);
 // =======================================================================================================================
-
-
-/*
-export function runAbacus(level, step, trenazher) {
-	let Arr, N;
-	const M = 3;
-	const table = document.querySelector('#app_simulator');
-	const checkAnswer = document.querySelector('#button');
-	let isGameStarted = false;
-// =============================================================================================================
-	
-	if (level === 'level_1') {
-		switch (step) {
-			case 'step_1':
-				trenazher = new Abacus();
-				chooseAbacus(trenazher.getAbacusSimple(M));
-				break;
-			case 'step_2':
-				trenazher = new Abacus();
-				chooseAbacus(trenazher.getAbacusSimple(M));
-				break;
-			case 'step_3':
-				trenazher = new Abacus();
-				chooseAbacus(trenazher.getAbacusSimpleStep_3(M));
-				break;
-			case 'step_4':
-				trenazher = new Abacus();
-				chooseAbacus(trenazher.getAbacusSimpleStep_4(M));
-				break;
-			case 'step_5':
-				trenazher = new Abacus();
-				chooseAbacus(trenazher.getAbacusSimpleStep_5_6(M));
-				break;
-			case 'step_6':
-				trenazher = new Abacus();
-				chooseAbacus(trenazher.getAbacusSimpleStep_5_6(M));
-				break;
-			case 'step_7':
-				trenazher = new Abacus();
-				chooseAbacus(trenazher.getAbacusSimpleStep_7_8(M));
-				break;
-			case 'step_8':
-				trenazher = new Abacus();
-				chooseAbacus(trenazher.getAbacusSimpleStep_7_8(M));
-				break;
-			case 'step_9':
-				trenazher = new Abacus(1, 9);
-				chooseAbacus(trenazher.getAbacusSimpleStep_9(M, N = 3));
-				break;
-			default:
-				console.log('Я таких значений не знаю в 1 левеле');
-		}
-	}
-	else {
-		switch (level) {
-			case 'level_2':
-				level = new Abacus(1, 9);
-				chooseAbacus(level.getAbacusSimpleStep_9(M, N = 5), 'middleFont');
-				break;
-			case 'level_3':
-				level = new Abacus(1, 9);
-				chooseAbacus(level.getAbacusSimpleStep_9(M, N = 7), 'middleFont');
-				break;
-			case 'level_4':
-				level = new Abacus(1, 9, true);
-				chooseAbacus(level.getAbacusSimpleStep_9(M, N = 8), 'middleFont');
-				break;
-			case 'level_5':
-				level = new Abacus(10, 89, true);
-				chooseAbacus(level.getAbacusSimpleStep_9(M, N = 10), 'middleFont');
-				break;
-			case 'level_6':
-				level = new Abacus(10, 89);
-				chooseAbacus(level.getAbacusSimpleStep_9(M, N = 10), 'middleFont');
-				break;
-			case 'level_7':
-				level = new Abacus(0.01, 9);
-				chooseAbacus(level.getAbacusSimpleDoubleOne(M, N = 10), 'smallFont');
-				break;
-			case 'level_8':
-				level = new Abacus(0.01, 9, 99);
-				chooseAbacus(level.getAbacusSimpleDouble(M, N = 10), 'smallFont');
-				break;
-			case 'level_9':
-				level = new Abacus(10, 99.99);
-				chooseAbacus(level.getAbacusSimpleDoubleOne(M, N = 10), 'smallFont');
-				break;
-			case 'level_10':
-				level = new Abacus(10, 999, 99);
-				chooseAbacus(level.getAbacusSimpleDouble(M, N = 10), 'smallFont');
-				break;
-			default:
-				console.log('Я таких значений не знаю');
-		}
-	}
-// =============================================================================================================
-	//вибор метода
-	function chooseAbacus(method, className = '') {
-		// запись заголовка
-		document.querySelector('.title').innerHTML = `Аbacus-арифметика`;
-		Arr = method;
-		createTableAbacus(Arr.countsArr);
-		if (className === '') {
-			className = null;
-		}
-		else {
-			const smallFont = document.querySelectorAll('.column');
-			smallFont.forEach((item) => {
-				item.classList.add(className);
-			});
-		}
-	}
-
-// отрисовка таблици
-	function createTableAbacus(tableData) {
-		// audio_Au_t_1.play();
-		tableData.forEach((item) => {
-			const row = document.createElement('div'),
-				cell = document.createElement('div'),
-				input = document.createElement("input");
-			row.classList.add('column');
-			cell.classList.add('inp');
-			input.setAttribute("type", "number");
-			item.forEach((cellData) => {
-				const cell = document.createElement('div');
-				cell.classList.add('column__count');
-				cell.appendChild(document.createTextNode(cellData));
-				row.appendChild(cell);
-			});
-			table.appendChild(row);
-			row.appendChild(cell);
-			cell.appendChild(input);
-		});
-		
-		
-		const inp = document.querySelectorAll('.column .inp input');
-		let arrTypedAnswers = []; // массив ответов
-		let res = 0;
-		
-		check();
-
-const checkAllArr = checkValueArr(arrTypedAnswers, Arr.sumArr);
-		
-		function check() {
-			
-			checkAnswer.removeEventListener('click', checkAllAnswer);
-			checkAnswer.addEventListener('click', checkAllAnswer);
-			
-			function checkAllAnswer(e) {
-				
-				e.preventDefault();
-				// audio_Au_t_2.play();
-				
-				// проверка на ответ
-				for (let i = 0; i < inp.length; i++) {
-					
-					arrTypedAnswers[i] = inp[i].value;
-					if (!inp[i].value) {
-						inp[i].classList.add('red');
-					}
-					if (+Arr.sumArr[i] === +inp[i].value && inp[i].value !== '') {
-						// inp[i].classList.remove('red');
-						inp[i].style.backgroundColor = 'green';
-						res++;
-						const xxx = inp[i].parentElement.parentElement;
-						createStar(xxx);
-						setTimeout(() => { xxx.remove(); }, 500);
-					}
-					else {
-						// inp[i].classList.add('red');
-						inp[i].style.backgroundColor = 'red';
-						inp[i].style.color = 'white';
-						inp[i].value = '';
-					}
-				}
-// ===========================================================================================
-				console.log(arrTypedAnswers);
-// ===========================================================================================
-				//======== проверка степа ===================
-				if (checkAllArr) {
-					table.innerHTML = '';
-					console.log(`You are the best!!!`);
-					// show modal window
-					openModal(res, this.runAbacus);
-					// arrTypedAnswers = [];
-				}
-			}
-		}
-		
-		function checkValueArr(arr, arr2) {
-			if (arr.length !== arr2.length) return false;
-			let on = 0;
-			for (let i = 0; i < arr.length; i++) {
-				for (let j = 0; j < arr2.length; j++) {
-					if (+arr[i] === +arr2[j]) {
-						on++;
-						break;
-					}
-				}
-			}
-			return on === arr.length;
-		}
-	}
-	
-	return false;
-}
-*/
 
 
 export default class RunAbacus extends Abacus {
@@ -229,11 +21,9 @@ export default class RunAbacus extends Abacus {
 	
 	startAbacus() {
 		
-		let data = this.choose(this.level, this.step); // отримання левела і степа
-		
-		this.createTableAbacus(data.countsArr, 'middleFont'); //отрисовка таблиці
-		this.check(data.sumArr);
-		/*проверяем уравнение на правильность*/
+		const data = this.choose(this.level, this.step); // отримання левела і степа
+		this.createTableAbacus(data.countsArr); //отрисовка таблици
+		this.check(data.sumArr); //проверяем уравнение на правильность
 		
 	}
 	
@@ -333,8 +123,7 @@ export default class RunAbacus extends Abacus {
 		});
 		
 		// создаем кнопку "ПРОВЕРИТЬ"
-		const button = document.querySelector('#button');
-		if (!button) {
+		if (!document.querySelector('#button')) {
 			const button = document.createElement('input');
 			button.setAttribute('id', 'button');
 			button.setAttribute('type', 'button');
@@ -369,14 +158,17 @@ export default class RunAbacus extends Abacus {
 	
 	check(sumArr) {
 		
-		const checkAnswer = document.querySelector('#button');
-		let arrTypedAnswers = []; // массив ответов
-		const inp = document.querySelectorAll('.column .inp input');
+		const table = document.querySelector('#app_simulator'),
+			inp = document.querySelectorAll('.column .inp input'),
+			checkAnswer = document.querySelector('#button'),
+			arrTypedAnswers = []; // массив ответов
+		
+		let stars = document.querySelector('.stars');
+		
 		let res = 0;
-		const table = document.querySelector('#app_simulator');
-		checkAnswer.removeAttribute('disabled');
+		
 		checkAnswer.addEventListener('click', () => {
-			
+			res = 0;
 			// audio_Au_t_2.play();
 			
 			// проверка на ответ
@@ -391,7 +183,8 @@ export default class RunAbacus extends Abacus {
 					res++;
 					const xxx = inp[i].parentElement.parentElement;
 					createStar(xxx);
-					setTimeout(() => { xxx.remove(); }, 500);
+					stars.innerHTML = res;
+					setTimeout(() => { xxx.remove(); }, 1000);
 				}
 				else {
 					inp[i].style.backgroundColor = '#eb6969';
@@ -424,8 +217,7 @@ export default class RunAbacus extends Abacus {
 			modalBtn = document.querySelector('.modal__buttons'),
 			repeatBtn = document.querySelector('.repeatButton');
 		modal.style.display = 'flex';
-		button.setAttribute('disabled', '');
-		
+		button.remove();
 		
 		if (res < 0) {
 			res = 0;

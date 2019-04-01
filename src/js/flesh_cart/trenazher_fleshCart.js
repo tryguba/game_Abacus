@@ -14,97 +14,167 @@ const audio_Au_t_9 = new Audio(sound.trenazhor.Au_t_9);
 // ======================================================================
 
 // ======================================================================
-
-export function runFlash(level, step, trenazher){
-	let Arr;
-	const title = document.querySelector('.title'),
-		checkingAnswer = document.querySelector('#button'),
-		modal = document.querySelector('.modal'),
-		table = document.querySelector('#app_simulator');
+export default class RunFlashCart extends FleshCart {
 	
-	function startFlashCart(levelStep){
+	constructor(level, step) {
+		super();
+		this.level = level;
+		this.step = step;
+	}
+	
+	startFlashCart() {
 		
-		levelStep = new FleshCart();
-		Arr = levelStep.getFleshCart();
-		title.innerHTML = `Флеш - карты`;
+		const data = this.choose(this.level, this.step); // get level and step
 		
-		let count = 8;
+		this.createColumn(data.countsArr, data.sumArr, 8);
+		
+	}
+	
+	
+	choose(level, step) {
+		let data;
+		if (level === 'level_1') {
+			switch (step) {
+				case 'step_1':
+					data = this.getFleshCart();
+					break;
+				case 'step_2':
+					data = this.getFleshCart();
+					break;
+				case 'step_3':
+					data = this.getAbacusSimpleStep_3(this.columns);
+					break;
+				case 'step_4':
+					data = this.getAbacusSimpleStep_4(this.columns);
+					break;
+				case 'step_5':
+					data = this.getAbacusSimpleStep_5_6(this.columns);
+					break;
+				case 'step_6':
+					data = this.getAbacusSimpleStep_5_6(this.columns);
+					break;
+				case 'step_7':
+					data = this.getAbacusSimpleStep_7_8(this.columns);
+					break;
+				case 'step_8':
+					data = this.getAbacusSimpleStep_7_8(this.columns);
+					break;
+				case 'step_9':
+					data = this.getAbacusSimpleStep_9(this.columns, this.rows);
+					break;
+				default:
+					console.log('Я таких значений не знаю в 1 левеле');
+			}
+		}
+		else {
+			switch (level) {
+				case 'level_2':
+					data = this.getAbacusSimpleStep_9(this.columns, this.rows);
+					break;
+				case 'level_3':
+					data = this.getAbacusSimpleStep_9(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
+					break;
+				case 'level_4':
+					data = this.getAbacusSimpleStep_9(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
+					break;
+				case 'level_5':
+					data = this.getAbacusSimpleStep_9(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
+					break;
+				case 'level_6':
+					data = this.getAbacusSimpleStep_9(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
+					break;
+				case 'level_7':
+					data = this.getAbacusSimpleDoubleOne(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
+					break;
+				case 'level_8':
+					data = this.getAbacusSimpleDouble(this.columns, this.rows, this.firstCountArr, this.lastCountArr, this.digit);
+					break;
+				case 'level_9':
+					data = this.getAbacusSimpleDoubleOne(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
+					break;
+				case 'level_10':
+					data = this.getAbacusSimpleDouble(this.columns, this.rows, this.firstCountArr, this.lastCountArr, this.digit);
+					break;
+				default:
+					console.log('Я таких значений не знаю');
+			}
+		}
+		return data;
+	}
+	
+	createColumn(colDataArr, sumArr, index) {
+		document.querySelector('.title').innerHTML = `Флеш - карты`;
+		
+		const table = document.querySelector('#app_simulator'),
+			row = document.createElement('div'),
+			cell = document.createElement('div'),
+			input = document.createElement("input"),
+			main = document.querySelector('#main');
+		row.classList.add('column-flash');
+		cell.classList.add('column-flash__input');
+		input.setAttribute("type", "number");
+		input.setAttribute("autofocus", "");
+		
+		
+		colDataArr[index].forEach((stepData) => {
+			const cell = document.createElement('div');
+			cell.classList.add('column-flash__image');
+			const img = document.createElement('img');
+			img.setAttribute('src', stepData);
+			cell.appendChild(img);
+			row.appendChild(cell);
+		});
+		
+		table.appendChild(row);
+		row.appendChild(cell);
+		cell.appendChild(input);
+		
+		// создаем кнопку "ПРОВЕРИТЬ"
+		if (!document.querySelector('#button')) {
+			const button = document.createElement('input');
+			button.setAttribute('id', 'button');
+			button.setAttribute('type', 'button');
+			button.setAttribute('value', 'ПРОВЕРИТЬ');
+			main.appendChild(button);
+		}
+		
+		
+		const tt = table.lastChild;
+		let inp = tt.lastChild.lastChild;
+		
 		let loser = 0;
 		let res = 0;
 		
-		function createColumn (colData) {
-			const main = document.querySelector('#main');
-			const row = document.createElement('div'),
-				cell = document.createElement('div'),
-				input = document.createElement("input");
-			row.classList.add('column-flash');
-			cell.classList.add('column-flash__input');
-			input.setAttribute("type", "number");
-			input.setAttribute("autofocus", "");
-			
-			colData.forEach((stepData) => {
-				
-				const cell = document.createElement('div');
-				cell.classList.add('column-flash__image');
-				const img = document.createElement('img');
-				img.setAttribute('src', stepData);
-				cell.appendChild(img);
-				row.appendChild(cell);
-				
-			});
-			table.appendChild(row);
-			row.appendChild(cell);
-			cell.appendChild(input);
-			
-			// создаем кнопку "ПРОВЕРИТЬ"
-			const button = document.querySelector('#button');
-			if (!button) {
-				const button = document.createElement('div');
-				button.setAttribute('id', 'button');
-				button.innerText = 'ПРОВЕРИТЬ';
-				main.appendChild(button);
-			}
-			
-		}
 		
-		createColumn(Arr.countsArr[count]);
-		
-		function checkValue (e) {
+		button.addEventListener('click', (e) => {
 			
-			e.stopPropagation();
-			
-			const tt = table.lastChild;
-			let	inp = tt.lastChild.lastChild;
-			if (+Arr.sumArr[count] === +inp.value && inp.value !== '') {
-				// tt.style.display = 'none';
+			if (+sumArr[index] === +inp.value && inp.value !== '') {
 				tt.remove();
+				e.target.remove();
 				createStar(table);
-				// new Audio(sound.tune.Zv_3).play();
-				count++;
-				//виводитсься после окончания уровнений
-				if (count === Arr.countsArr.length) {
-					res = count - loser;
-					checkingAnswer.removeEventListener('click', checkValue);
+				index++;
+				// виводитсься после окончания уровнений
+				if (index === sumArr.length) {
+					res = index - loser;
 					if (loser <= 2) {
 						const text = "Круто!";
 						// const text1 = "Вот это да!";
-						showModalWindow(res, text, audio_Au_t_8);
+						this.showModalWindow(res, text, audio_Au_t_8);
 					}
 					else if (5 >= loser && loser <= 8) {
 						const text = "Умница!";
 						// const text1 = "Молодец!";
-						showModalWindow(res, text, audio_Au_t_7);
+						this.showModalWindow(res, text, audio_Au_t_7);
 					}
 					else {
 						let text = "Хорошо, давай попробуем еще раз?";
-						showModalWindow(res, text, audio_Au_t_5);
+						this.showModalWindow(res, text, audio_Au_t_5);
 					}
 					return;
 				}
 				setTimeout(() => {
-					createColumn(Arr.countsArr[count]);
+					this.createColumn(colDataArr, sumArr, index);
 				}, 1000);
-				// ======================================
 			}
 			else {
 				// new Audio(sound.tune.Zv_2).play();
@@ -113,22 +183,17 @@ export function runFlash(level, step, trenazher){
 				inp.value = '';
 				loser++;
 			}
-		}
-		checkingAnswer.addEventListener('click', checkValue);
-		return true;
+		});
+		
+		
 	}
 	
-	startFlashCart(level, step, trenazher);
 	
-	function showModalWindow(res, text, soundName){
-		const repeat = (e, step) => {
-			e.stopPropagation();
-			modal.style.display = 'none';
-			table.innerHTML = '';
-			startFlashCart(step);
-		};
+	showModalWindow(res, text) {
 		const modalText = document.querySelector('.modal__text'),
 			countAll = document.querySelector(".stars"),
+			modal = document.querySelector('.modal'),
+			modalBtn = document.querySelector('.modal__buttons'),
 			repeatBtn = document.querySelector('.repeatButton');
 		modal.style.display = 'flex';
 		
@@ -143,74 +208,29 @@ export function runFlash(level, step, trenazher){
 			starWord = `звезды`;
 		}
 		modalText.innerText =
-			`Ты набрал ${res} ${starWord}!
-		${text}`;
+			`Ты набрал ${res} ${starWord}!`;
 		countAll.innerHTML = res;
-		soundName.play();
-		repeatBtn.addEventListener('click', repeat);
+		
+		if (!repeatBtn) {
+			const repeatBtn = document.createElement("input");
+			repeatBtn.classList.add('button', 'repeatButton');
+			repeatBtn.setAttribute('value', 'Повторить');
+			repeatBtn.setAttribute('type', 'submit');
+			modalBtn.appendChild(repeatBtn);
+			
+			repeatBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				this.startFlashCart();
+			});
+		}
+		else {
+			repeatBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				this.startFlashCart();
+			});
+		}
 	}
 }
-
-
-/*
-// runFlash(levelStep.level_1.step_1.fleshCart);
-
-// ======================== TEST =============================================
-/!*
-for (let i = 0; i < steps.length; i++) {
-	const choseStep = () => {
-		let step = steps[i].getAttribute('name');
-		switch (step) {
-			case 'F_l1_step_1_2_3':
-				startFlashCart('F_l1_step_1_2_3');
-				break;
-			case 'F_l1_step_4':
-				startFlashCart('F_l1_step_4');
-				break;
-			case 'F_l1_step_5_6':
-				startFlashCart('F_l1_step_5_6');
-				break;
-			case 'F_l1_step_7':
-				startFlashCart('F_l1_step_7');
-				break;
-			case 'F_l1_step_8_9':
-				startFlashCart('F_l1_step_7');
-				break;
-			/!*!// ==================== level 2 ================================
-			case 'F_l2_step_1_2':
-				const F_l2_step_1_2 = new FleshCart(1, 9);
-				chooseAbacus(step, F_l2_step_1_2.getFleshCart(M));
-				break;
-			case 'F_l2_step_3':
-				const F_l2_step_3 = new FleshCart(1, 9);
-				chooseAbacus(step, F_l2_step_3.getFleshCart(M));
-				break;
-			case 'F_l2_step_4':
-				const F_l2_step_4 = new FleshCart(1, 9);
-				chooseAbacus(step, F_l2_step_4.getFleshCart(M));
-				break;
-			case 'F_l2_step_5':
-				const F_l2_step_5 = new FleshCart(1, 9, true);
-				chooseAbacus(step, F_l2_step_5.getFleshCart(M));
-				break;
-			case 'F_l2_step_6':
-				const F_l2_step_6 = new FleshCart(10, 89, true);
-				chooseAbacus(step, F_l2_step_6.getFleshCart(M));
-				break;
-			case 'F_l2_step_7':
-				const F_l2_step_7 = new FleshCart(10, 89);
-				chooseAbacus(step, F_l2_step_7.getFleshCart(M));
-				break;*!/
-			default:
-				console.log('Я таких значений не знаю');
-		}
-	};
-	// steps[i].removeEventListener("click", choseStep, true);
-	steps[i].addEventListener("click", choseStep);
-}
-*!/
-// ======================== END TEST ==========================================*/
-
-
-
 
