@@ -16,20 +16,20 @@ const audio_Au_t_9 = new Audio(sound.trenazhor.Au_t_9);
 // ======================================================================
 export default class RunFlashCart extends FleshCart {
 	
-	constructor(level, step) {
+	constructor(level, step, bitNumber, bool) {
+		// bitNumber --- розрядность числа от 1 до 3
 		super();
 		this.level = level;
 		this.step = step;
+		this.bitNumber = bitNumber;
+		this.bool = bool;
 	}
 	
-	startFlashCart() {
-		
-		const data = this.choose(this.level, this.step); // get level and step
-		
-		this.createColumn(data.countsArr, data.sumArr, 8);
-		
-	}
-	
+	static createHtmlElement(str) {
+		const el = document.createElement('div');
+		el.innerHTML = str;
+		return el.firstElementChild;
+	};
 	
 	choose(level, step) {
 		let data;
@@ -42,25 +42,25 @@ export default class RunFlashCart extends FleshCart {
 					data = this.getFleshCart();
 					break;
 				case 'step_3':
-					data = this.getAbacusSimpleStep_3(this.columns);
+					data = this.getFleshCart();
 					break;
 				case 'step_4':
-					data = this.getAbacusSimpleStep_4(this.columns);
+					data = this.getFleshCart();
 					break;
 				case 'step_5':
-					data = this.getAbacusSimpleStep_5_6(this.columns);
+					data = this.getFleshCart();
 					break;
 				case 'step_6':
-					data = this.getAbacusSimpleStep_5_6(this.columns);
+					data = this.getFleshCart();
 					break;
 				case 'step_7':
-					data = this.getAbacusSimpleStep_7_8(this.columns);
+					data = this.getFleshCart();
 					break;
 				case 'step_8':
-					data = this.getAbacusSimpleStep_7_8(this.columns);
+					data = this.getFleshCart();
 					break;
 				case 'step_9':
-					data = this.getAbacusSimpleStep_9(this.columns, this.rows);
+					data = this.getFleshCart();
 					break;
 				default:
 					console.log('Я таких значений не знаю в 1 левеле');
@@ -101,61 +101,157 @@ export default class RunFlashCart extends FleshCart {
 		}
 		return data;
 	}
+
+// ======================================================================
 	
-	createColumn(colDataArr, sumArr, index) {
+	startFlashCart() {
+		const index = 0;
+		const dataObj = this.choose(this.level, this.step); // get level and step
+		
+		this.createColumn(this.bitNumber, dataObj, index);
+	}
+	
+	createColumn(bitNumber, dataObj, index) {
+// ======================================================================
+		let mainArr = dataObj.sumArr;
+		if (bitNumber === 2) {
+			mainArr = dataObj.sumAllArr;
+		}
+		else if (bitNumber === 3) {
+			mainArr = dataObj.sumAllArr3;
+		}
+		
+		console.log(mainArr);
+// ======================================================================
 		document.querySelector('.title').innerHTML = `Флеш - карты`;
 		
-		const table = document.querySelector('#app_simulator'),
-			row = document.createElement('div'),
-			cell = document.createElement('div'),
-			input = document.createElement("input"),
-			main = document.querySelector('#main');
-		row.classList.add('column-flash');
-		cell.classList.add('column-flash__input');
-		input.setAttribute("type", "number");
-		input.setAttribute("autofocus", "");
+		const row = RunFlashCart.createHtmlElement(`<div class="column-flash flashLine1"></div>`);
+		const row2 = RunFlashCart.createHtmlElement(`<div class="column-flash"></div>`);
+		const row3 = RunFlashCart.createHtmlElement(`<div class="column-flash"></div>`);
+		const divInput = RunFlashCart.createHtmlElement(`<div class="column-flash__input">
+																<input type="number" autofocus/>
+															</div>`);
+		
+		const table = document.querySelector('#app_simulator');
+		const main = document.querySelector('#main');
+		
+		const oneColumn = () => {
+			dataObj.countsArr[index].forEach((stepData) => {
+				const cell = RunFlashCart.createHtmlElement(`
+				<div class="column-flash__image">
+					<img src=${stepData}>
+				</div>`);
+				row.appendChild(cell);
+			});
+			row.appendChild(divInput);
+			table.appendChild(row);
+		};
+		
+		const twoColumn = () => {
+			row.classList.remove('flashLine1');
+			row2.classList.add('flashLine2');
+			dataObj.countsArr[index].forEach((stepData) => {
+				const cell = RunFlashCart.createHtmlElement(`
+				<div class="column-flash__image">
+					<img src=${stepData}>
+				</div>`);
+				row.appendChild(cell);
+			});
+			
+			dataObj.countsArr2[index].forEach((stepData) => {
+				const cell = RunFlashCart.createHtmlElement(`
+				<div class="column-flash__image">
+					<img src=${stepData}>
+				</div>`);
+				row2.appendChild(cell);
+			});
+			table.appendChild(row);
+			table.appendChild(row2);
+			row2.appendChild(divInput);
+		};
+		
+		const threeColumn = () => {
+			row.classList.remove('flashLine1');
+			row3.classList.add('flashLine3');
+			
+			dataObj.countsArr[index].forEach((stepData) => {
+				const cell = RunFlashCart.createHtmlElement(`
+				<div class="column-flash__image">
+					<img src=${stepData}>
+				</div>`);
+				row.appendChild(cell);
+			});
+			dataObj.countsArr2[index].forEach((stepData) => {
+				const cell = RunFlashCart.createHtmlElement(`
+				<div class="column-flash__image">
+					<img src=${stepData}>
+				</div>`);
+				row2.appendChild(cell);
+			});
+			
+			dataObj.countsArr3[index].forEach((stepData) => {
+				const cell = RunFlashCart.createHtmlElement(`
+				<div class="column-flash__image">
+					<img src=${stepData}>
+				</div>`);
+				row3.appendChild(cell);
+			});
+			table.appendChild(row);
+			table.appendChild(row2);
+			table.appendChild(row3);
+			row3.appendChild(divInput);
+		};
 		
 		
-		colDataArr[index].forEach((stepData) => {
-			const cell = document.createElement('div');
-			cell.classList.add('column-flash__image');
-			const img = document.createElement('img');
-			img.setAttribute('src', stepData);
-			cell.appendChild(img);
-			row.appendChild(cell);
-		});
+		const rand = Math.random() >= 0.5;
 		
-		table.appendChild(row);
-		row.appendChild(cell);
-		cell.appendChild(input);
+		if (bitNumber === 2) {
+			
+			if (rand) {
+				twoColumn();
+			}
+			else {
+				if (this.bool) {
+					oneColumn();
+				}
+				else {
+					twoColumn();
+				}
+			}
+		}
+		else if (bitNumber === 3) {
+			
+			threeColumn();
+		}
+		else oneColumn();
+		
 		
 		// создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
-			const button = document.createElement('input');
-			button.setAttribute('id', 'button');
-			button.setAttribute('type', 'button');
-			button.setAttribute('value', 'ПРОВЕРИТЬ');
+			const button = RunFlashCart.createHtmlElement(`
+				<input id="button" type="button" value="ПРОВЕРИТЬ">`);
 			main.appendChild(button);
 		}
 		
-		
-		const tt = table.lastChild;
-		let inp = tt.lastChild.lastChild;
+		const colArr = document.querySelectorAll('.column-flash');
+		const inp = document.querySelector('.column-flash__input input');
 		
 		let loser = 0;
-		let res = 0;
-		
 		
 		button.addEventListener('click', (e) => {
-			
-			if (+sumArr[index] === +inp.value && inp.value !== '') {
-				tt.remove();
-				e.target.remove();
-				createStar(table);
+			let res = document.querySelector('.stars').innerHTML;
+			if (+mainArr[index] === +inp.value && inp.value !== '') {
+				//удаляем колонки с правильним ответом
+				for (let i = 0; i < colArr.length; i++) {
+					colArr[i].remove();
+				}
+				e.currentTarget.remove();
+				res++;
+				createStar(table, res);
 				index++;
 				// виводитсься после окончания уровнений
-				if (index === sumArr.length) {
-					res = index - loser;
+				if (index === dataObj.sumArr.length) {
+					// res = index - loser;
 					if (loser <= 2) {
 						const text = "Круто!";
 						// const text1 = "Вот это да!";
@@ -173,7 +269,7 @@ export default class RunFlashCart extends FleshCart {
 					return;
 				}
 				setTimeout(() => {
-					this.createColumn(colDataArr, sumArr, index);
+					this.createColumn(bitNumber, dataObj, index);
 				}, 1000);
 			}
 			else {
@@ -184,10 +280,7 @@ export default class RunFlashCart extends FleshCart {
 				loser++;
 			}
 		});
-		
-		
 	}
-	
 	
 	showModalWindow(res, text) {
 		const modalText = document.querySelector('.modal__text'),
@@ -208,14 +301,14 @@ export default class RunFlashCart extends FleshCart {
 			starWord = `звезды`;
 		}
 		modalText.innerText =
-			`Ты набрал ${res} ${starWord}!`;
+			`${text}
+			Ты набрал ${res} ${starWord}!`;
 		countAll.innerHTML = res;
 		
 		if (!repeatBtn) {
-			const repeatBtn = document.createElement("input");
-			repeatBtn.classList.add('button', 'repeatButton');
-			repeatBtn.setAttribute('value', 'Повторить');
-			repeatBtn.setAttribute('type', 'submit');
+			const repeatBtn = RunFlashCart.createHtmlElement(`
+				<input type="submit" value="Повторить" class="button repeatButton">`);
+			
 			modalBtn.appendChild(repeatBtn);
 			
 			repeatBtn.addEventListener('click', () => {

@@ -1,14 +1,15 @@
-import {image}     from "./other/image";
-import anime       from "animejs";
-import {levelStep} from "./levelStep";
+import {image}      from "./other/image";
+import anime        from "animejs";
+import {levelStep}  from "./levelStep";
 // import {runFlash}  from "./flesh_cart/trenazher_fleshCart";
 import RunFlashCart from "./flesh_cart/trenazher_fleshCart"
 // import {runAbacus} from "./abacus/trenazher_abacus";
-import RunAbacus   from "./abacus/trenazher_abacus";
+import RunAbacus    from "./abacus/trenazher_abacus";
 
 
-export function createStar(teg) {
+export function createStar(teg, starCount) {
 	//create star
+	let stars = document.querySelector('.stars');
 	const star = document.createElement('img');
 	star.classList.add('star_img');
 	star.setAttribute('src', image.honorStar.starPng);
@@ -29,6 +30,7 @@ export function createStar(teg) {
 		rotate: '2turn'
 	});
 	setTimeout(() => {
+		stars.innerHTML = starCount;
 		star.remove();
 	}, 1000);
 }
@@ -38,7 +40,7 @@ const steps = document.querySelectorAll('.step[name]');
 function start() {
 	
 	let newExemplyar;
-	
+
 // ======================== TEST =============================================
 	for (let i = 0; i < steps.length; i++) {
 		const choseStep = () => {
@@ -47,22 +49,24 @@ function start() {
 			switch (step) {
 				// ====================== flashCart ==========================
 				case 'F_l1_step_1_2_3':
-					newExemplyar = new RunFlashCart('level_1', 'step_1');
+					newExemplyar = new RunFlashCart('level_1', 'step_1',1);
 					newExemplyar.startFlashCart();
 					break;
-					// runFlash(levelStep.level_1.step_1.fleshCart);
-					// break;
 				case 'F_l1_step_4':
-					runFlash(levelStep.level_1.step_1.fleshCart);
+					newExemplyar = new RunFlashCart('level_1', 'step_4', 2);
+					newExemplyar.startFlashCart();
 					break;
 				case 'F_l1_step_5_6':
-					runFlash(levelStep.level_1.step_1.fleshCart);
+					newExemplyar = new RunFlashCart('level_1', 'step_5', 2, true);
+					newExemplyar.startFlashCart();
 					break;
 				case 'F_l1_step_7':
-					runFlash(levelStep.level_1.step_1.fleshCart);
+					newExemplyar = new RunFlashCart('level_1', 'step_7',3);
+					newExemplyar.startFlashCart();
 					break;
 				case 'F_l1_step_8_9':
-					runFlash(levelStep.level_1.step_1.fleshCart);
+					newExemplyar = new RunFlashCart('level_1', 'step_8', 3, true);
+					newExemplyar.startFlashCart();
 					break;
 				// ====================== abacus ==========================
 				case 'step_1_2':
