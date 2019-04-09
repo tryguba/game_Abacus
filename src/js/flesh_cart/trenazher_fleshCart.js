@@ -219,13 +219,12 @@ export default class RunFlashCart extends FleshCart {
 				}
 			}
 		}
-		else if (bitNumber === 3) {
+	else if (bitNumber === 3) {
 			
 			threeColumn();
 		}
 		else oneColumn();
-		
-		
+
 		// создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
 			const button = RunFlashCart.createHtmlElement(`
@@ -326,4 +325,3 @@ export default class RunFlashCart extends FleshCart {
 		}
 	}
 }
-
