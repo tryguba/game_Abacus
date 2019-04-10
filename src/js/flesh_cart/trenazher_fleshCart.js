@@ -113,16 +113,6 @@ export default class RunFlashCart extends FleshCart {
 	
 	createColumn(bitNumber, dataObj, index) {
 // ======================================================================
-		let mainArr = dataObj.sumArr;
-		if (bitNumber === 2) {
-			mainArr = dataObj.sumAllArr;
-		}
-		else if (bitNumber === 3) {
-			mainArr = dataObj.sumAllArr3;
-		}
-		
-		console.log(mainArr);
-// ======================================================================
 		document.querySelector('.title').innerHTML = `Флеш - карты`;
 		
 		const row = RunFlashCart.createHtmlElement(`<div class="column-flash flashLine1"></div>`);
@@ -135,8 +125,8 @@ export default class RunFlashCart extends FleshCart {
 		const table = document.querySelector('#app_simulator');
 		const main = document.querySelector('#main');
 		
-		const oneColumn = () => {
-			dataObj.countsArr[index].forEach((stepData) => {
+		const createCol = (arr, row) => {
+			arr.forEach((stepData) => {
 				const cell = RunFlashCart.createHtmlElement(`
 				<div class="column-flash__image">
 					<img src=${stepData}>
@@ -147,84 +137,64 @@ export default class RunFlashCart extends FleshCart {
 			table.appendChild(row);
 		};
 		
+		const oneColumn = () => {
+			createCol(dataObj.countsArr[index], row);
+		};
+		
 		const twoColumn = () => {
-			row.classList.remove('flashLine1');
-			row2.classList.add('flashLine2');
-			dataObj.countsArr[index].forEach((stepData) => {
-				const cell = RunFlashCart.createHtmlElement(`
-				<div class="column-flash__image">
-					<img src=${stepData}>
-				</div>`);
-				row.appendChild(cell);
-			});
 			
-			dataObj.countsArr2[index].forEach((stepData) => {
-				const cell = RunFlashCart.createHtmlElement(`
-				<div class="column-flash__image">
-					<img src=${stepData}>
-				</div>`);
-				row2.appendChild(cell);
-			});
-			table.appendChild(row);
-			table.appendChild(row2);
-			row2.appendChild(divInput);
+			
+			// Последовательность можно сделать
+			// 2,4,8,10 - однозначные, 1,3,5,6,7,9 - двухзначные
+			if (this.bool) {
+				if (index % 2 !== 0 && index !== 5) {
+					createCol(dataObj.countsArr[index], row);
+				}
+				else {
+					row.classList.remove('flashLine1');
+					row2.classList.add('flashLine2');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+				}
+			}
+			else {
+				row.classList.remove('flashLine1');
+				row2.classList.add('flashLine2');
+				createCol(dataObj.countsArr[index], row);
+				createCol(dataObj.countsArr2[index], row2);
+			}
+			
 		};
 		
 		const threeColumn = () => {
 			row.classList.remove('flashLine1');
 			row3.classList.add('flashLine3');
-			
-			dataObj.countsArr[index].forEach((stepData) => {
-				const cell = RunFlashCart.createHtmlElement(`
-				<div class="column-flash__image">
-					<img src=${stepData}>
-				</div>`);
-				row.appendChild(cell);
-			});
-			dataObj.countsArr2[index].forEach((stepData) => {
-				const cell = RunFlashCart.createHtmlElement(`
-				<div class="column-flash__image">
-					<img src=${stepData}>
-				</div>`);
-				row2.appendChild(cell);
-			});
-			
-			dataObj.countsArr3[index].forEach((stepData) => {
-				const cell = RunFlashCart.createHtmlElement(`
-				<div class="column-flash__image">
-					<img src=${stepData}>
-				</div>`);
-				row3.appendChild(cell);
-			});
-			table.appendChild(row);
-			table.appendChild(row2);
-			table.appendChild(row3);
-			row3.appendChild(divInput);
+			createCol(dataObj.countsArr[index], row);
+			createCol(dataObj.countsArr2[index], row2);
+			createCol(dataObj.countsArr3[index], row3);
 		};
 		
 		
-		const rand = Math.random() >= 0.5;
-		
+		let mainArr = dataObj.sumArr;
 		if (bitNumber === 2) {
-			
-			if (rand) {
-				twoColumn();
-			}
-			else {
-				if (this.bool) {
-					oneColumn();
-				}
-				else {
-					twoColumn();
-				}
+			twoColumn();
+			mainArr = dataObj.sumAllArr;
+			if (this.bool) {
+				mainArr = dataObj.sumAllArr.map((i) => {
+					if (index % 2 !== 0 && index !== 5) {
+						return i = i[0];
+					}else return i;
+				});
 			}
 		}
 		else if (bitNumber === 3) {
-			
 			threeColumn();
+			mainArr = dataObj.sumAllArr3;
 		}
 		else oneColumn();
-		
+// ======================================================================
+		console.log(mainArr);
+// ======================================================================
 		
 		// создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
