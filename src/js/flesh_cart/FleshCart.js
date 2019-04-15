@@ -15,12 +15,19 @@ export default class FleshCart {
 			x.cat, x.dog, x.flower, x.bear
 		];
 		
+		const newArr = (array) =>{
+			return  array.map(function (arr) {
+				return arr.slice();
+			});
+		};
+		
 		const flash = [[''], [''], [''], [''], [''], [''], [''], [''], [''], ['']];
-		const flash2 = [[''], [''], [''], [''], [''], [''], [''], [''], [''], ['']];
-		const flash3 = [[''], [''], [''], [''], [''], [''], [''], [''], [''], ['']];
+		const flash2 = newArr(flash);
+		const flash3 = newArr(flash);
 		const sumArr = [[], [], [], [], [], [], [], [], [], []];
-		const sumArr2 = [[], [], [], [], [], [], [], [], [], []];
-		const sumArr3 = [[], [], [], [], [], [], [], [], [], []];
+		const sumArr2 = newArr(sumArr);
+		const sumArr3 = newArr(sumArr);
+		
 		let finSumArr = [];
 		let finSumArr2 = [];
 		let finSumArr3 = [];
@@ -64,7 +71,6 @@ export default class FleshCart {
 			
 		};
 		
-		
 		//добавляем елементи в массив (кроме первого)
 		for (let i = 0; i < arrFlashName.length; i++) {
 			const rand = Math.floor((Math.random() * (5 - 1)) + 1); // рандом от 1 до 4
@@ -87,6 +93,25 @@ export default class FleshCart {
 		calculateSum(flash2, sumArr2, finSumArr2);
 		calculateSum(flash3, sumArr3, finSumArr3);
 		
+		const allSum = (...arrays) => {
+			let xxx = arrays;
+			let endArray = [];
+			
+			for (let i = 0; i < xxx.length; i++) {
+				for (let j = 0; j < arrays[i].length; j++) {
+					endArray[i] = String(arrays[i][j]);
+				}
+			}
+			console.log(endArray);
+			// for (let i = 0; i < arrays[0].length; i++) {
+			//
+			// 	endArray[i] = String(arrays[0][i]);
+			// }
+			return endArray;
+		};
+		
+		// let two = allSum(finSumArr, finSumArr2);
+		// let three = allSum(finSumArr, finSumArr2, finSumArr3);
 		
 		for (let i = 0; i < finSumArr2.length; i++) {
 			finishSumArr[i] = String(finSumArr[i]) + finSumArr2[i];

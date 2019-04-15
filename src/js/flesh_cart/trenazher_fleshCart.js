@@ -1,7 +1,6 @@
-import FleshCart    from "./FleshCart";
-import {sound}      from "../other/sound";
-import {createStar} from "../game";
-
+import FleshCart                       from "./FleshCart";
+import {sound}                         from "../other/sound";
+import {createStar, createHtmlElement} from "../game";
 
 // ======================================================================
 const audio_Au_t_3 = new Audio(sound.trenazhor.Au_t_3);
@@ -24,12 +23,6 @@ export default class RunFlashCart extends FleshCart {
 		this.bitNumber = bitNumber;
 		this.bool = bool;
 	}
-	
-	static createHtmlElement(str) {
-		const el = document.createElement('div');
-		el.innerHTML = str;
-		return el.firstElementChild;
-	};
 	
 	choose(level, step) {
 		let data;
@@ -105,7 +98,7 @@ export default class RunFlashCart extends FleshCart {
 // ======================================================================
 	
 	startFlashCart() {
-		const index = 0;
+		const index = 7;
 		const dataObj = this.choose(this.level, this.step); // get level and step
 		
 		this.createColumn(this.bitNumber, dataObj, index);
@@ -115,10 +108,10 @@ export default class RunFlashCart extends FleshCart {
 // ======================================================================
 		document.querySelector('.title').innerHTML = `Флеш - карты`;
 		
-		const row = RunFlashCart.createHtmlElement(`<div class="column-flash flashLine1"></div>`);
-		const row2 = RunFlashCart.createHtmlElement(`<div class="column-flash"></div>`);
-		const row3 = RunFlashCart.createHtmlElement(`<div class="column-flash"></div>`);
-		const divInput = RunFlashCart.createHtmlElement(`<div class="column-flash__input">
+		const row = createHtmlElement(`<div class="column-flash flashLine1"></div>`);
+		const row2 = createHtmlElement(`<div class="column-flash"></div>`);
+		const row3 = createHtmlElement(`<div class="column-flash"></div>`);
+		const divInput = createHtmlElement(`<div class="column-flash__input">
 																<input type="number" autofocus/>
 															</div>`);
 		
@@ -127,7 +120,7 @@ export default class RunFlashCart extends FleshCart {
 		
 		const createCol = (arr, row) => {
 			arr.forEach((stepData) => {
-				const cell = RunFlashCart.createHtmlElement(`
+				const cell = createHtmlElement(`
 				<div class="column-flash__image">
 					<img src=${stepData}>
 				</div>`);
@@ -142,8 +135,6 @@ export default class RunFlashCart extends FleshCart {
 		};
 		
 		const twoColumn = () => {
-			
-			
 			// Последовательность можно сделать
 			// 2,4,8,10 - однозначные, 1,3,5,6,7,9 - двухзначные
 			if (this.bool) {
@@ -167,14 +158,36 @@ export default class RunFlashCart extends FleshCart {
 		};
 		
 		const threeColumn = () => {
-			row.classList.remove('flashLine1');
-			row3.classList.add('flashLine3');
-			createCol(dataObj.countsArr[index], row);
-			createCol(dataObj.countsArr2[index], row2);
-			createCol(dataObj.countsArr3[index], row3);
+			//Последовательность можно сделать - 3,7 однозначные, 1,5,9 - двухзначные, 2,4,6,8,10 - трехзначные
+			if (this.bool) {
+				
+				if (index === 2 || index === 6) {
+					createCol(dataObj.countsArr[index], row);
+				}
+				else if (index === 0 || index === 4 || index === 8) {
+					row.classList.remove('flashLine1');
+					row2.classList.add('flashLine2');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+				}
+				else {
+					row.classList.remove('flashLine1');
+					row3.classList.add('flashLine3');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+				}
+			}
+			else {
+				row.classList.remove('flashLine1');
+				row3.classList.add('flashLine3');
+				createCol(dataObj.countsArr[index], row);
+				createCol(dataObj.countsArr2[index], row2);
+				createCol(dataObj.countsArr3[index], row3);
+			}
 		};
 		
-		
+		// проверка и присвоение елементов массива нужного результата
 		let mainArr = dataObj.sumArr;
 		if (bitNumber === 2) {
 			twoColumn();
@@ -182,32 +195,44 @@ export default class RunFlashCart extends FleshCart {
 			if (this.bool) {
 				mainArr = dataObj.sumAllArr.map((i) => {
 					if (index % 2 !== 0 && index !== 5) {
-						return i = i[0];
-					}else return i;
+						// return i = i[0];
+						return i = (i / 10 | 0);
+					}
+					else return i;
 				});
 			}
 		}
 		else if (bitNumber === 3) {
 			threeColumn();
 			mainArr = dataObj.sumAllArr3;
+			if (this.bool) {
+				mainArr = dataObj.sumAllArr3.map((i) => {
+					if (index === 0 || index === 4 || index === 8) {
+						// return i = i[0] + i[1];
+						return i = (i / 10 | 0);
+					}
+					else if (index === 2 || index === 6) {
+						// return i = i[0];
+						return i = (i / 100 | 0);
+					}
+					else return i;
+				});
+			}
 		}
 		else oneColumn();
+
 // ======================================================================
 		console.log(mainArr);
 // ======================================================================
-		
 		// создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
-			const button = RunFlashCart.createHtmlElement(`
+			const button = createHtmlElement(`
 				<input id="button" type="button" value="ПРОВЕРИТЬ">`);
 			main.appendChild(button);
 		}
-		
 		const colArr = document.querySelectorAll('.column-flash');
 		const inp = document.querySelector('.column-flash__input input');
-		
 		let loser = 0;
-		
 		button.addEventListener('click', (e) => {
 			let res = document.querySelector('.stars').innerHTML;
 			if (+mainArr[index] === +inp.value && inp.value !== '') {
@@ -276,7 +301,7 @@ export default class RunFlashCart extends FleshCart {
 		countAll.innerHTML = res;
 		
 		if (!repeatBtn) {
-			const repeatBtn = RunFlashCart.createHtmlElement(`
+			const repeatBtn = createHtmlElement(`
 				<input type="submit" value="Повторить" class="button repeatButton">`);
 			
 			modalBtn.appendChild(repeatBtn);
@@ -296,4 +321,3 @@ export default class RunFlashCart extends FleshCart {
 		}
 	}
 }
-

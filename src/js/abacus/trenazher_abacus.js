@@ -1,6 +1,6 @@
-import Abacus                  from "./Abacus";
-import {sound}                 from "../other/sound";
-import {createStar, openModal} from "../game";
+import Abacus                          from "./Abacus";
+import {sound}                         from "../other/sound";
+import {createStar, createHtmlElement} from "../game";
 
 const audio_Au_t_1 = new Audio(sound.trenazhor.Au_t_1);
 const audio_Au_t_2 = new Audio(sound.trenazhor.Au_t_2);
@@ -24,7 +24,6 @@ export default class RunAbacus extends Abacus {
 		const data = this.choose(this.level, this.step); // отримання левела і степа
 		this.createTableAbacus(data.countsArr); //отрисовка таблици
 		this.check(data.sumArr); //проверяем уравнение на правильность
-		
 	}
 	
 	choose(level, step) {
@@ -105,15 +104,15 @@ export default class RunAbacus extends Abacus {
 		const main = document.querySelector('#main');
 		// audio_Au_t_1.play();
 		tableData.forEach((item) => {
-			const row = document.createElement('div'),
-				cell = document.createElement('div'),
-				input = document.createElement("input");
-			row.classList.add('column');
-			cell.classList.add('inp');
-			input.setAttribute("type", "number");
+			
+			const row = createHtmlElement(`<div class="column"></div>`);
+			const cell = createHtmlElement(`<div class="inp"></div>`);
+			const input = createHtmlElement(`<input class="inp" type="number"/>`);
+			
 			item.forEach((cellData) => {
-				const cell = document.createElement('div');
-				cell.classList.add('column__count');
+				
+				const cell = createHtmlElement(`<div class="column__count"></div>`);
+				
 				cell.appendChild(document.createTextNode(cellData));
 				row.appendChild(cell);
 			});
@@ -124,10 +123,8 @@ export default class RunAbacus extends Abacus {
 		
 		// создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
-			const button = document.createElement('input');
-			button.setAttribute('id', 'button');
-			button.setAttribute('type', 'button');
-			button.setAttribute('value', 'ПРОВЕРИТЬ');
+			const button = createHtmlElement(`
+				<input id="button" type="button" value="ПРОВЕРИТЬ">`);
 			main.appendChild(button);
 		}
 		
@@ -163,7 +160,7 @@ export default class RunAbacus extends Abacus {
 			checkAnswer = document.querySelector('#button'),
 			arrTypedAnswers = []; // массив ответов
 		
-		let stars = document.querySelector('.stars');
+		// let stars = document.querySelector('.stars');
 		
 		let res = 0;
 		
@@ -182,8 +179,8 @@ export default class RunAbacus extends Abacus {
 					inp[i].style.backgroundColor = '#94ec5a';
 					res++;
 					const xxx = inp[i].parentElement.parentElement;
-					createStar(xxx);
-					stars.innerHTML = res;
+					createStar(xxx, res);
+					// stars.innerHTML = res;
 					setTimeout(() => { xxx.remove(); }, 1000);
 				}
 				else {
@@ -234,10 +231,10 @@ export default class RunAbacus extends Abacus {
 		countAll.innerHTML = res;
 		
 		if (!repeatBtn) {
-			const repeatBtn = document.createElement("input");
-			repeatBtn.classList.add('button', 'repeatButton');
-			repeatBtn.setAttribute('value', 'Повторить');
-			repeatBtn.setAttribute('type', 'submit');
+			
+			const repeatBtn = createHtmlElement(`<input class="button repeatButton"
+															value="Повторить"
+															type="submit"/>`);
 			modalBtn.appendChild(repeatBtn);
 			
 			repeatBtn.addEventListener('click', () => {
