@@ -1,6 +1,7 @@
 import Abacus                          from "./Abacus";
 import {sound}                         from "../other/sound";
 import {createStar, createHtmlElement} from "../game";
+import {image}                         from "../other/image";
 
 const audio_Au_t_1 = new Audio(sound.trenazhor.Au_t_1);
 const audio_Au_t_2 = new Audio(sound.trenazhor.Au_t_2);
@@ -19,11 +20,14 @@ export default class RunAbacus extends Abacus {
 		this.step = step;
 	}
 	
-	startAbacus() {
-		
-		const data = this.choose(this.level, this.step); // отримання левела і степа
-		this.createTableAbacus(data.countsArr); //отрисовка таблици
-		this.check(data.sumArr); //проверяем уравнение на правильность
+	async startAbacus() {
+		try {
+			const data = this.choose(this.level, this.step); // отримання левела і степа
+			this.createTableAbacus(await data.countsArr); //отрисовка таблици
+			this.check(await data.sumArr); //проверяем уравнение на правильность
+		} catch (e) {
+			console.log(e);
+		}
 	}
 	
 	choose(level, step) {
@@ -154,7 +158,6 @@ export default class RunAbacus extends Abacus {
 	}
 	
 	check(sumArr) {
-		
 		const table = document.querySelector('#app_simulator'),
 			inp = document.querySelectorAll('.column .inp input'),
 			checkAnswer = document.querySelector('#button'),
@@ -163,25 +166,23 @@ export default class RunAbacus extends Abacus {
 		// let stars = document.querySelector('.stars');
 		
 		let res = 0;
-		
 		checkAnswer.addEventListener('click', () => {
-			res = 0;
 			// audio_Au_t_2.play();
-			
+			res = 0;
 			// проверка на ответ
 			for (let i = 0; i < inp.length; i++) {
 				if (!inp[i].value) {
 					inp[i].style.backgroundColor = '#eb6969';
 				}
-				
 				if (+sumArr[i] === +inp[i].value && inp[i].value !== '') {
 					arrTypedAnswers[i] = +inp[i].value;
+					const column = inp[i].parentNode.parentNode;
+					const star = createHtmlElement(`<img class="star_img" src="${image.honorStar.starPng}">`);
 					inp[i].style.backgroundColor = '#94ec5a';
 					res++;
-					const xxx = inp[i].parentElement.parentElement;
-					createStar(xxx, res);
-					// stars.innerHTML = res;
-					setTimeout(() => { xxx.remove(); }, 1000);
+					// createStar(column, res);
+					column.appendChild(star);
+					setTimeout(() => {column.remove();}, 1000);
 				}
 				else {
 					inp[i].style.backgroundColor = '#eb6969';
@@ -189,6 +190,7 @@ export default class RunAbacus extends Abacus {
 					inp[i].value = '';
 				}
 			}
+			
 			// удаляем пустие елементи массива
 			let filtered = arrTypedAnswers.filter(function (el) {
 				return el != null;
@@ -196,10 +198,12 @@ export default class RunAbacus extends Abacus {
 			
 			//======== проверка степа ===================
 			if (filtered.length === inp.length) {
-				table.innerHTML = null;
-				console.log(`You are the best!!!`);
-				// show modal window
-				this.openModal(res);
+				setTimeout(() => {
+					table.innerHTML = null;
+					console.log(`You are the best!!!`);
+					// show modal window
+					this.openModal(res);
+				}, 1000);
 			}
 		});
 		

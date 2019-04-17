@@ -11,20 +11,28 @@ export const createHtmlElement = (str) => {
 	return el.firstElementChild;
 };
 
+
 export function createStar(teg, starCount) {
 	//create star
 	const stars = document.querySelector('.stars');
-	const star = createHtmlElement(`<img class="star_img" src="${image.honorStar.starPng}"></img>`);
-	
+	const star = createHtmlElement(`<img class="star_imgFlash" src="${image.honorStar.starPng}"></img>`);
 	teg.appendChild(star);
+	
+	const getCoords = (elem) => {
+		let box = elem.getBoundingClientRect();
+		return {
+			top: box.top + pageYOffset,
+			left: box.left + pageXOffset
+		};
+	}
+	
 	// move star
 	const tablo = document.querySelector("#tablo img");
-	const rect = tablo.getBoundingClientRect();
-	const xxx = star.getBoundingClientRect();
-	const y = rect.top - xxx.top - 40;
-	const x = rect.left - xxx.left - 40;
+	const x = getCoords(tablo).left - getCoords(star).left - 40;
+	const y = getCoords(tablo).top - getCoords(star).top - 40;
+	
 	anime({
-		targets: '.star_img',
+		targets: '.star_imgFlash',
 		translateX: x,
 		translateY: y,
 		easing: 'easeInOutQuad',
@@ -38,14 +46,12 @@ export function createStar(teg, starCount) {
 	}, 1000);
 }
 
-
 const menu = document.querySelector('#header');
 menu.addEventListener('click', function (e) {
 	const name = e.target;
 	let step = name.getAttribute('name');
 	startGame(step);
 })
-
 
 function startGame(step) {
 	let newExempl;

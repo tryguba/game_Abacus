@@ -273,6 +273,7 @@ body {
   align-items: center;
   position: relative;
   background: rgba(255, 255, 255, 0.3);
+
   &__image {
     text-align: center;
     height: 50px;
@@ -280,10 +281,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
     &:first-child {
       padding: 30px 0;
       margin-bottom: 10px;
     }
+
     .first {
       margin-top: 80px;
     }
@@ -292,6 +295,7 @@ body {
   &__input {
     position: absolute;
     bottom: -68px;
+
     input {
       margin-top: 20px;
       border: none;
@@ -316,9 +320,11 @@ body {
     }
   }
 }
-.flashLine3{
+
+.flashLine3 {
   position: relative;
-  &:before{
+
+  &:before {
     content: '';
     width: 196px;
     height: 2px;
@@ -327,6 +333,7 @@ body {
     top: 64px;
     right: 0;
   }
+
   &::after {
     content: '';
     position: absolute;
@@ -338,16 +345,19 @@ body {
     background: black;
     border-radius: 50%;
   }
-  .column-flash__input{
-    input{
+
+  .column-flash__input {
+    input {
       width: 300%;
       margin-left: -200%;
     }
   }
 }
-.flashLine2{
+
+.flashLine2 {
   position: relative;
-  &:before{
+
+  &:before {
     content: '';
     width: 130px;
     height: 2px;
@@ -356,6 +366,7 @@ body {
     top: 64px;
     right: 0;
   }
+
   &::after {
     content: '';
     position: absolute;
@@ -367,17 +378,19 @@ body {
     background: black;
     border-radius: 50%;
   }
-  .column-flash__input{
-    input{
+
+  .column-flash__input {
+    input {
       width: 200%;
       margin-left: -100%;
     }
   }
 }
 
-.flashLine1{
+.flashLine1 {
   position: relative;
-  &:before{
+
+  &:before {
     content: '';
     width: 65px;
     height: 2px;
@@ -386,6 +399,7 @@ body {
     top: 64px;
     right: 0;
   }
+
   &::after {
     content: '';
     position: absolute;
@@ -449,8 +463,33 @@ body {
   }
 }
 
+
+.star_imgFlash {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+
 .star_img {
   position: absolute;
   width: 100px;
   height: 100px;
+  animation-duration: 2s;
+  animation-name: moveStar;
+}
+
+
+@keyframes moveStar {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1.0);
+  }
+
+  100% {
+    margin-top: -80%;
+    margin-left: 40%;
+    opacity: .2;
+    transform: rotate(1000deg) scale(2.0);
+  }
 }
