@@ -192,7 +192,7 @@ export default class RunFlashCart extends FleshCart {
 		};
 		
 		const fourColumn = () => {
-			row.classList.remove('flashLine1');
+			// row.classList.remove('flashLine1');
 			row4.classList.add('flashLine4');
 			createCol(dataObj.countsArr[index], row);
 			createCol(dataObj.countsArr2[index], row2);
@@ -205,7 +205,7 @@ export default class RunFlashCart extends FleshCart {
 			// 2,4,8,10 - однозначные, 1,3,5,6,7,9 - двухзначные
 			if (this.bool) {
 				if (index % 2 !== 0 && index !== 5) {
-					row.classList.remove('flashLine1');
+					// row.classList.remove('flashLine1');
 					row4.classList.add('flashLine4');
 					createCol(dataObj.countsArr[index], row);
 					createCol(dataObj.countsArr2[index], row2);
@@ -215,6 +215,7 @@ export default class RunFlashCart extends FleshCart {
 				else {
 					row.classList.remove('flashLine1');
 					row5.classList.add('flashLine5');
+					row2.classList.add('flashLine2');
 					createCol(dataObj.countsArr[index], row);
 					createCol(dataObj.countsArr2[index], row2);
 					createCol(dataObj.countsArr3[index], row3);
@@ -225,6 +226,7 @@ export default class RunFlashCart extends FleshCart {
 			else {
 				row.classList.remove('flashLine1');
 				row5.classList.add('flashLine5');
+				row2.classList.add('flashLine2');
 				createCol(dataObj.countsArr[index], row);
 				createCol(dataObj.countsArr2[index], row2);
 				createCol(dataObj.countsArr3[index], row3);
@@ -237,7 +239,7 @@ export default class RunFlashCart extends FleshCart {
 			//Последовательность можно сделать  3,7 - 4значные, 1,5,9 - 5значные, 2,4,6,8,10 - 6значные
 			if (this.bool) {
 				if (index === 2 || index === 6) {
-					row.classList.remove('flashLine1');
+					// row.classList.remove('flashLine1');
 					row4.classList.add('flashLine4');
 					createCol(dataObj.countsArr[index], row);
 					createCol(dataObj.countsArr2[index], row2);
@@ -247,6 +249,7 @@ export default class RunFlashCart extends FleshCart {
 				else if (index === 0 || index === 4 || index === 8) {
 					row.classList.remove('flashLine1');
 					row5.classList.add('flashLine5');
+					row2.classList.add('flashLine2');
 					createCol(dataObj.countsArr[index], row);
 					createCol(dataObj.countsArr2[index], row2);
 					createCol(dataObj.countsArr3[index], row3);
@@ -256,6 +259,7 @@ export default class RunFlashCart extends FleshCart {
 				else {
 					row.classList.remove('flashLine1');
 					row6.classList.add('flashLine6');
+					row3.classList.add('flashLine3');
 					createCol(dataObj.countsArr[index], row);
 					createCol(dataObj.countsArr2[index], row2);
 					createCol(dataObj.countsArr3[index], row3);
@@ -267,6 +271,7 @@ export default class RunFlashCart extends FleshCart {
 			else {
 				row.classList.remove('flashLine1');
 				row6.classList.add('flashLine6');
+				row3.classList.add('flashLine3');
 				createCol(dataObj.countsArr[index], row);
 				createCol(dataObj.countsArr2[index], row2);
 				createCol(dataObj.countsArr3[index], row3);
@@ -280,7 +285,6 @@ export default class RunFlashCart extends FleshCart {
 			// Последовательность можно сделать 1,5 - 4x значные; 3,7 - 5значные; 2,9 - 6значные; 4,6 - 7значные;
 			if (this.bool) {
 				if (index === 0 || index === 4) {
-					row.classList.remove('flashLine1');
 					row4.classList.add('flashLine4');
 					createCol(dataObj.countsArr[index], row);
 					createCol(dataObj.countsArr2[index], row2);
@@ -290,6 +294,7 @@ export default class RunFlashCart extends FleshCart {
 				else if (index === 2 || index === 6) {
 					row.classList.remove('flashLine1');
 					row5.classList.add('flashLine5');
+					row2.classList.add('flashLine2');
 					createCol(dataObj.countsArr[index], row);
 					createCol(dataObj.countsArr2[index], row2);
 					createCol(dataObj.countsArr3[index], row3);
@@ -298,6 +303,7 @@ export default class RunFlashCart extends FleshCart {
 				} else if (index === 1 || index === 8) {
 					row.classList.remove('flashLine1');
 					row6.classList.add('flashLine6');
+					row3.classList.add('flashLine3');
 					createCol(dataObj.countsArr[index], row);
 					createCol(dataObj.countsArr2[index], row2);
 					createCol(dataObj.countsArr3[index], row3);
@@ -306,8 +312,8 @@ export default class RunFlashCart extends FleshCart {
 					createCol(dataObj.countsArr6[index], row6);
 				}
 				else {
-					row.classList.remove('flashLine1');
 					row7.classList.add('flashLine7');
+					row4.classList.add('flashLine4');
 					createCol(dataObj.countsArr[index], row);
 					createCol(dataObj.countsArr2[index], row2);
 					createCol(dataObj.countsArr3[index], row3);
@@ -318,8 +324,8 @@ export default class RunFlashCart extends FleshCart {
 				}
 			}
 			else {
-				row.classList.remove('flashLine1');
 				row7.classList.add('flashLine7');
+				row4.classList.add('flashLine4');
 				createCol(dataObj.countsArr[index], row);
 				createCol(dataObj.countsArr2[index], row2);
 				createCol(dataObj.countsArr3[index], row3);
