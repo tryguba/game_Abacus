@@ -1,7 +1,7 @@
-import Abacus                          from "./Abacus";
-import {sound}                         from "../other/sound";
-import {createStar, createHtmlElement} from "../game";
-import {image}                         from "../other/image";
+import Abacus              from "./Abacus";
+import {sound}             from "../other/sound";
+import {createHtmlElement} from "../game";
+import {image}             from "../other/image";
 
 const audio_Au_t_1 = new Audio(sound.trenazhor.Au_t_1);
 const audio_Au_t_2 = new Audio(sound.trenazhor.Au_t_2);
@@ -162,32 +162,36 @@ export default class RunAbacus extends Abacus {
 			inp = document.querySelectorAll('.column .inp input'),
 			checkAnswer = document.querySelector('#button'),
 			arrTypedAnswers = []; // массив ответов
+		let stars = document.querySelector('.stars');
 		
-		// let stars = document.querySelector('.stars');
-		
-		let res = 0;
 		checkAnswer.addEventListener('click', () => {
 			// audio_Au_t_2.play();
-			res = 0;
+			let loser = 0;
 			// проверка на ответ
 			for (let i = 0; i < inp.length; i++) {
 				if (!inp[i].value) {
 					inp[i].style.backgroundColor = '#eb6969';
 				}
+				
 				if (+sumArr[i] === +inp[i].value && inp[i].value !== '') {
 					arrTypedAnswers[i] = +inp[i].value;
 					const column = inp[i].parentNode.parentNode;
 					const star = createHtmlElement(`<img class="star_img" src="${image.honorStar.starPng}">`);
 					inp[i].style.backgroundColor = '#94ec5a';
-					res++;
-					// createStar(column, res);
+					
 					column.appendChild(star);
-					setTimeout(() => {column.remove();}, 1000);
+					setTimeout(() => {
+						// console.log(loser);
+						// loser++;
+						stars.innerHTML++;
+						column.remove();
+					}, 1000);
 				}
 				else {
 					inp[i].style.backgroundColor = '#eb6969';
 					inp[i].style.color = 'white';
 					inp[i].value = '';
+					loser++;
 				}
 			}
 			
@@ -202,7 +206,7 @@ export default class RunAbacus extends Abacus {
 					table.innerHTML = null;
 					console.log(`You are the best!!!`);
 					// show modal window
-					this.openModal(res);
+					this.openModal(stars.innerHTML);
 				}, 1000);
 			}
 		});

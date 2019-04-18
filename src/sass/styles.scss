@@ -263,7 +263,6 @@ body {
   }
 }
 
-
 .column-flash {
   width: 65px;
   height: 312px;
@@ -321,12 +320,13 @@ body {
   }
 }
 
-.flashLine3 {
+
+.flashLine1, .flashLine2, .flashLine3, .flashLine4,
+.flashLine5, .flashLine6, .flashLine7 {
   position: relative;
 
   &:before {
     content: '';
-    width: 196px;
     height: 2px;
     background: #ac8341;
     position: absolute;
@@ -345,7 +345,65 @@ body {
     background: black;
     border-radius: 50%;
   }
+}
 
+
+.flashLine7 {
+
+  &:before {
+    width: 454px;
+  }
+
+  .column-flash__input {
+    input {
+      width: 700%;
+      margin-left: -600%;
+    }
+  }
+}
+
+.flashLine6 {
+  &:before {
+    width: 390px;
+  }
+
+  .column-flash__input {
+    input {
+      width: 600%;
+      margin-left: -500%;
+    }
+  }
+}
+
+.flashLine5 {
+  &:before {
+    width: 324px;
+  }
+
+  .column-flash__input {
+    input {
+      width: 500%;
+      margin-left: -400%;
+    }
+  }
+}
+
+.flashLine4 {
+  &:before {
+    width: 260px;
+  }
+  .column-flash__input {
+    input {
+      width: 400%;
+      margin-left: -300%;
+    }
+  }
+}
+
+.flashLine3 {
+  &:before {
+    width: 196px;
+  }
   .column-flash__input {
     input {
       width: 300%;
@@ -355,30 +413,9 @@ body {
 }
 
 .flashLine2 {
-  position: relative;
-
   &:before {
-    content: '';
     width: 130px;
-    height: 2px;
-    background: #ac8341;
-    position: absolute;
-    top: 64px;
-    right: 0;
   }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 11px;
-    height: 11px;
-    background: black;
-    border-radius: 50%;
-  }
-
   .column-flash__input {
     input {
       width: 200%;
@@ -388,28 +425,8 @@ body {
 }
 
 .flashLine1 {
-  position: relative;
-
   &:before {
-    content: '';
     width: 65px;
-    height: 2px;
-    background: #ac8341;
-    position: absolute;
-    top: 64px;
-    right: 0;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 11px;
-    height: 11px;
-    background: black;
-    border-radius: 50%;
   }
 }
 
@@ -488,7 +505,7 @@ body {
 
   100% {
     margin-top: -80%;
-    margin-left: 40%;
+    margin-left: 80%;
     opacity: .2;
     transform: rotate(1000deg) scale(2.0);
   }

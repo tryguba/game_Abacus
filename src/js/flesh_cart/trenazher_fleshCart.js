@@ -62,7 +62,7 @@ export default class RunFlashCart extends FleshCart {
 		else {
 			switch (level) {
 				case 'level_2':
-					data = this.getAbacusSimpleStep_9(this.columns, this.rows);
+					data = this.getFleshCart();
 					break;
 				case 'level_3':
 					data = this.getAbacusSimpleStep_9(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
@@ -98,7 +98,7 @@ export default class RunFlashCart extends FleshCart {
 // ======================================================================
 	
 	startFlashCart() {
-		const index = 7;
+		const index = 0;
 		const dataObj = this.choose(this.level, this.step); // get level and step
 		
 		this.createColumn(this.bitNumber, dataObj, index);
@@ -111,6 +111,10 @@ export default class RunFlashCart extends FleshCart {
 		const row = createHtmlElement(`<div class="column-flash flashLine1"></div>`);
 		const row2 = createHtmlElement(`<div class="column-flash"></div>`);
 		const row3 = createHtmlElement(`<div class="column-flash"></div>`);
+		const row4 = createHtmlElement(`<div class="column-flash"></div>`);
+		const row5 = createHtmlElement(`<div class="column-flash"></div>`);
+		const row6 = createHtmlElement(`<div class="column-flash"></div>`);
+		const row7 = createHtmlElement(`<div class="column-flash"></div>`);
 		const divInput = createHtmlElement(`<div class="column-flash__input">
 																<input type="number" autofocus/>
 															</div>`);
@@ -187,16 +191,156 @@ export default class RunFlashCart extends FleshCart {
 			}
 		};
 		
+		const fourColumn = () => {
+			row.classList.remove('flashLine1');
+			row4.classList.add('flashLine4');
+			createCol(dataObj.countsArr[index], row);
+			createCol(dataObj.countsArr2[index], row2);
+			createCol(dataObj.countsArr3[index], row3);
+			createCol(dataObj.countsArr4[index], row4);
+		};
+		
+		const fiveColumn = () => {
+			// Последовательность можно сделать
+			// 2,4,8,10 - однозначные, 1,3,5,6,7,9 - двухзначные
+			if (this.bool) {
+				if (index % 2 !== 0 && index !== 5) {
+					row.classList.remove('flashLine1');
+					row4.classList.add('flashLine4');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+					createCol(dataObj.countsArr4[index], row4);
+				}
+				else {
+					row.classList.remove('flashLine1');
+					row5.classList.add('flashLine5');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+					createCol(dataObj.countsArr4[index], row4);
+					createCol(dataObj.countsArr5[index], row5);
+				}
+			}
+			else {
+				row.classList.remove('flashLine1');
+				row5.classList.add('flashLine5');
+				createCol(dataObj.countsArr[index], row);
+				createCol(dataObj.countsArr2[index], row2);
+				createCol(dataObj.countsArr3[index], row3);
+				createCol(dataObj.countsArr4[index], row4);
+				createCol(dataObj.countsArr5[index], row5);
+			}
+		};
+		
+		const sixColumn = () => {
+			//Последовательность можно сделать  3,7 - 4значные, 1,5,9 - 5значные, 2,4,6,8,10 - 6значные
+			if (this.bool) {
+				if (index === 2 || index === 6) {
+					row.classList.remove('flashLine1');
+					row4.classList.add('flashLine4');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+					createCol(dataObj.countsArr4[index], row4);
+				}
+				else if (index === 0 || index === 4 || index === 8) {
+					row.classList.remove('flashLine1');
+					row5.classList.add('flashLine5');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+					createCol(dataObj.countsArr4[index], row4);
+					createCol(dataObj.countsArr5[index], row5);
+				}
+				else {
+					row.classList.remove('flashLine1');
+					row6.classList.add('flashLine6');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+					createCol(dataObj.countsArr4[index], row4);
+					createCol(dataObj.countsArr5[index], row5);
+					createCol(dataObj.countsArr6[index], row6);
+				}
+			}
+			else {
+				row.classList.remove('flashLine1');
+				row6.classList.add('flashLine6');
+				createCol(dataObj.countsArr[index], row);
+				createCol(dataObj.countsArr2[index], row2);
+				createCol(dataObj.countsArr3[index], row3);
+				createCol(dataObj.countsArr4[index], row4);
+				createCol(dataObj.countsArr5[index], row5);
+				createCol(dataObj.countsArr6[index], row6);
+			}
+		};
+		
+		const sevenColumn = () => {
+			// Последовательность можно сделать 1,5 - 4x значные; 3,7 - 5значные; 2,9 - 6значные; 4,6 - 7значные;
+			if (this.bool) {
+				if (index === 0 || index === 4) {
+					row.classList.remove('flashLine1');
+					row4.classList.add('flashLine4');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+					createCol(dataObj.countsArr4[index], row4);
+				}
+				else if (index === 2 || index === 6) {
+					row.classList.remove('flashLine1');
+					row5.classList.add('flashLine5');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+					createCol(dataObj.countsArr4[index], row4);
+					createCol(dataObj.countsArr5[index], row5);
+				} else if (index === 1 || index === 8) {
+					row.classList.remove('flashLine1');
+					row6.classList.add('flashLine6');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+					createCol(dataObj.countsArr4[index], row4);
+					createCol(dataObj.countsArr5[index], row5);
+					createCol(dataObj.countsArr6[index], row6);
+				}
+				else {
+					row.classList.remove('flashLine1');
+					row7.classList.add('flashLine7');
+					createCol(dataObj.countsArr[index], row);
+					createCol(dataObj.countsArr2[index], row2);
+					createCol(dataObj.countsArr3[index], row3);
+					createCol(dataObj.countsArr4[index], row4);
+					createCol(dataObj.countsArr5[index], row5);
+					createCol(dataObj.countsArr6[index], row6);
+					createCol(dataObj.countsArr7[index], row7);
+				}
+			}
+			else {
+				row.classList.remove('flashLine1');
+				row7.classList.add('flashLine7');
+				createCol(dataObj.countsArr[index], row);
+				createCol(dataObj.countsArr2[index], row2);
+				createCol(dataObj.countsArr3[index], row3);
+				createCol(dataObj.countsArr4[index], row4);
+				createCol(dataObj.countsArr5[index], row5);
+				createCol(dataObj.countsArr6[index], row6);
+				createCol(dataObj.countsArr7[index], row7);
+			}
+		};
+		
 		// проверка и присвоение елементов массива нужного результата
-		let mainArr = dataObj.sumArr;
+		let
+			mainArr = dataObj.sumArr;
+		
 		if (bitNumber === 2) {
 			twoColumn();
 			mainArr = dataObj.sumAllArr;
 			if (this.bool) {
 				mainArr = dataObj.sumAllArr.map((i) => {
 					if (index % 2 !== 0 && index !== 5) {
-						// return i = i[0];
-						return i = (i / 10 | 0);
+						return (i / 10 | 0);
 					}
 					else return i;
 				});
@@ -208,12 +352,59 @@ export default class RunFlashCart extends FleshCart {
 			if (this.bool) {
 				mainArr = dataObj.sumAllArr3.map((i) => {
 					if (index === 0 || index === 4 || index === 8) {
-						// return i = i[0] + i[1];
-						return i = (i / 10 | 0);
+						return (i / 10 | 0);
 					}
 					else if (index === 2 || index === 6) {
-						// return i = i[0];
-						return i = (i / 100 | 0);
+						return (i / 100 | 0);
+					}
+					else return i;
+				});
+			}
+		}
+		else if (bitNumber === 4) {
+			fourColumn();
+			mainArr = dataObj.sumAllArr4;
+		}
+		else if (bitNumber === 5) {
+			fiveColumn();
+			mainArr = dataObj.sumAllArr5;
+			if (this.bool) {
+				mainArr = dataObj.sumAllArr5.map((i) => {
+					if (index % 2 !== 0 && index !== 5) {
+						return (i / 10 | 0);
+					}
+					else return i;
+				});
+			}
+		}
+		else if (bitNumber === 6) {
+			sixColumn();
+			mainArr = dataObj.sumAllArr6;
+			if (this.bool) {
+				mainArr = dataObj.sumAllArr6.map((i) => {
+					if (index === 0 || index === 4 || index === 8) {
+						return (i / 10 | 0);
+					}
+					else if (index === 2 || index === 6) {
+						return (i / 100 | 0);
+					}
+					else return i;
+				});
+			}
+		}
+		else if (bitNumber === 7) {
+			sevenColumn();
+			mainArr = dataObj.sumAllArr7;
+			if (this.bool) {
+				mainArr = dataObj.sumAllArr7.map((i) => {
+					if (index === 0 || index === 4) {
+						return (i / 1000 | 0);
+					}
+					else if (index === 2 || index === 6) {
+						return (i / 100 | 0);
+					}
+					else if (index === 1 || index === 8) {
+						return (i / 10 | 0);
 					}
 					else return i;
 				});
@@ -224,7 +415,7 @@ export default class RunFlashCart extends FleshCart {
 // ======================================================================
 		console.log(mainArr);
 // ======================================================================
-		// создаем кнопку "ПРОВЕРИТЬ"
+// создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
 			const button = createHtmlElement(`
 				<input id="button" type="button" value="ПРОВЕРИТЬ">`);
