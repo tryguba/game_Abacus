@@ -2,8 +2,7 @@ import {image} from "../other/image";
 
 export default class FleshCart {
 	
-	constructor(firstCountArr) {
-		this.firstCountArr = firstCountArr;
+	constructor() {
 	}
 	
 	getFleshCart() {
@@ -15,11 +14,7 @@ export default class FleshCart {
 			x.cat, x.dog, x.flower, x.bear
 		];
 		
-		const newArr = (array) => {
-			return array.map(function (arr) {
-				return arr.slice();
-			});
-		};
+		const newArr = (array) => { return array.map((x) => x.slice()); };
 		
 		const flash = [[''], [''], [''], [''], [''], [''], [''], [''], [''], ['']];
 		const flash2 = newArr(flash);
@@ -120,26 +115,27 @@ export default class FleshCart {
 		calculateSum(flash5, sumArr5, finSumArr5);
 		calculateSum(flash6, sumArr6, finSumArr6);
 		calculateSum(flash7, sumArr7, finSumArr7);
-		
+		/*
 		const allSum = (...arrays) => {
-			let xxx = arrays;
-			let endArray = [];
+			const maxLength = Math.max(...arrays.map(x => x.length));
 			
-			for (let i = 0; i < xxx.length; i++) {
-				for (let j = 0; j < arrays[i].length; j++) {
-					endArray[i] = String(arrays[i][j]);
-				}
-			}
-			console.log(endArray);
-			// for (let i = 0; i < arrays[0].length; i++) {
-			//
-			// 	endArray[i] = String(arrays[0][i]);
-			// }
-			return endArray;
+			return Array.from({ length: maxLength }).map((_, i) => {
+				
+				return Array.from({ length: arrays.length }, (_, k) => arrays[k][i]);
+				
+			});
 		};
 		
-		// let two = allSum(finSumArr, finSumArr2);
-		// let three = allSum(finSumArr, finSumArr2, finSumArr3);
+		// allSum(finSumArr, finSumArr2);
+		let seven = allSum(finSumArr, finSumArr2, finSumArr3, finSumArr4, finSumArr5, finSumArr6, finSumArr7);
+		let six = allSum(finSumArr, finSumArr2, finSumArr3, finSumArr4, finSumArr5, finSumArr6);
+		let five = allSum(finSumArr, finSumArr2, finSumArr3, finSumArr4, finSumArr5);
+		let four = allSum(finSumArr, finSumArr2, finSumArr3, finSumArr4);
+		let three = allSum(finSumArr, finSumArr2, finSumArr3);
+		let two = allSum(finSumArr, finSumArr2 );
+		
+		console.log(three);
+		*/
 		
 		for (let i = 0; i < finSumArr2.length; i++) {
 			finishSumArr[i] = String(finSumArr[i]) + finSumArr2[i];
@@ -160,8 +156,6 @@ export default class FleshCart {
 		for (let i = 0; i < finSumArr7.length; i++) {
 			finishSumArr7[i] = String(finSumArr[i]) + finSumArr2[i] + finSumArr3[i] + finSumArr4[i] + finSumArr5[i] + finSumArr6[i] + finSumArr7[i];
 		}
-		
-		
 		
 		
 		return {

@@ -15,92 +15,18 @@ const audio_Au_t_9 = new Audio(sound.trenazhor.Au_t_9);
 // ======================================================================
 export default class RunFlashCart extends FleshCart {
 	
-	constructor(level, step, bitNumber, bool) {
+	constructor(bitNumber, bool) {
 		// bitNumber --- розрядность числа от 1 до 3
 		super();
-		this.level = level;
-		this.step = step;
 		this.bitNumber = bitNumber;
 		this.bool = bool;
 	}
-	
-	choose(level, step) {
-		let data;
-		if (level === 'level_1') {
-			switch (step) {
-				case 'step_1':
-					data = this.getFleshCart();
-					break;
-				case 'step_2':
-					data = this.getFleshCart();
-					break;
-				case 'step_3':
-					data = this.getFleshCart();
-					break;
-				case 'step_4':
-					data = this.getFleshCart();
-					break;
-				case 'step_5':
-					data = this.getFleshCart();
-					break;
-				case 'step_6':
-					data = this.getFleshCart();
-					break;
-				case 'step_7':
-					data = this.getFleshCart();
-					break;
-				case 'step_8':
-					data = this.getFleshCart();
-					break;
-				case 'step_9':
-					data = this.getFleshCart();
-					break;
-				default:
-					console.log('Я таких значений не знаю в 1 левеле');
-			}
-		}
-		else {
-			switch (level) {
-				case 'level_2':
-					data = this.getFleshCart();
-					break;
-				case 'level_3':
-					data = this.getAbacusSimpleStep_9(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
-					break;
-				case 'level_4':
-					data = this.getAbacusSimpleStep_9(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
-					break;
-				case 'level_5':
-					data = this.getAbacusSimpleStep_9(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
-					break;
-				case 'level_6':
-					data = this.getAbacusSimpleStep_9(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
-					break;
-				case 'level_7':
-					data = this.getAbacusSimpleDoubleOne(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
-					break;
-				case 'level_8':
-					data = this.getAbacusSimpleDouble(this.columns, this.rows, this.firstCountArr, this.lastCountArr, this.digit);
-					break;
-				case 'level_9':
-					data = this.getAbacusSimpleDoubleOne(this.columns, this.rows, this.firstCountArr, this.lastCountArr);
-					break;
-				case 'level_10':
-					data = this.getAbacusSimpleDouble(this.columns, this.rows, this.firstCountArr, this.lastCountArr, this.digit);
-					break;
-				default:
-					console.log('Я таких значений не знаю');
-			}
-		}
-		return data;
-	}
-
-// ======================================================================
+	// ======================================================================
 	
 	startFlashCart() {
-		const index = 0;
-		const dataObj = this.choose(this.level, this.step); // get level and step
 		
+		const index = 7;
+		const dataObj = this.getFleshCart(); // get level and step
 		this.createColumn(this.bitNumber, dataObj, index);
 	}
 	
@@ -120,6 +46,7 @@ export default class RunFlashCart extends FleshCart {
 															</div>`);
 		
 		const table = document.querySelector('#app_simulator');
+		table.innerHTML = null;
 		const main = document.querySelector('#main');
 		
 		const createCol = (arr, row) => {
@@ -139,8 +66,7 @@ export default class RunFlashCart extends FleshCart {
 		};
 		
 		const twoColumn = () => {
-			// Последовательность можно сделать
-			// 2,4,8,10 - однозначные, 1,3,5,6,7,9 - двухзначные
+			// Последовательность 2,4,8,10 - однозначные, 1,3,5,6,7,9 - двухзначные
 			if (this.bool) {
 				if (index % 2 !== 0 && index !== 5) {
 					createCol(dataObj.countsArr[index], row);
@@ -300,7 +226,8 @@ export default class RunFlashCart extends FleshCart {
 					createCol(dataObj.countsArr3[index], row3);
 					createCol(dataObj.countsArr4[index], row4);
 					createCol(dataObj.countsArr5[index], row5);
-				} else if (index === 1 || index === 8) {
+				}
+				else if (index === 1 || index === 8) {
 					row.classList.remove('flashLine1');
 					row6.classList.add('flashLine6');
 					row3.classList.add('flashLine3');
@@ -337,9 +264,7 @@ export default class RunFlashCart extends FleshCart {
 		};
 		
 		// проверка и присвоение елементов массива нужного результата
-		let
-			mainArr = dataObj.sumArr;
-		
+		let mainArr = dataObj.sumArr;
 		if (bitNumber === 2) {
 			twoColumn();
 			mainArr = dataObj.sumAllArr;
@@ -417,9 +342,9 @@ export default class RunFlashCart extends FleshCart {
 			}
 		}
 		else oneColumn();
-
-// ======================================================================
 		console.log(mainArr);
+// ======================================================================
+
 // ======================================================================
 // создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {

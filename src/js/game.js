@@ -3,7 +3,7 @@ import anime        from "animejs";
 import {levelStep}  from "./levelStep";
 import RunFlashCart from "./flesh_cart/trenazher_fleshCart"
 import RunAbacus    from "./abacus/trenazher_abacus";
-
+import RunMental    from "./mental/trenazher_mentalka"
 
 export const createHtmlElement = (str) => {
 	const el = document.createElement('div');
@@ -59,52 +59,52 @@ function startGame(step) {
 	switch (step) {
 		// ====================== flashCart ==========================
 		case 'F_l1_step_1_2_3':
-			newExempl = new RunFlashCart('level_1', 'step_1', 1);
+			newExempl = new RunFlashCart(1);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l1_step_4':
-			newExempl = new RunFlashCart('level_1', 'step_4', 2);
+			newExempl = new RunFlashCart(2);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l1_step_5_6':
-			newExempl = new RunFlashCart('level_1', 'step_5', 2, true);
+			newExempl = new RunFlashCart(2, true);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l1_step_7':
-			newExempl = new RunFlashCart('level_1', 'step_7', 3);
+			newExempl = new RunFlashCart(3);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l1_step_8_9':
-			newExempl = new RunFlashCart('level_1', 'step_8', 3, true);
+			newExempl = new RunFlashCart(3, true);
 			newExempl.startFlashCart();
 			break;
 		// ====================== flashCart l2==========================
 		case 'F_l2_step_1_2':
-			newExempl = new RunFlashCart('level_2', 'step_1', 4);
+			newExempl = new RunFlashCart(4);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l2_step_3':
-			newExempl = new RunFlashCart('level_2', 'step_3', 5);
+			newExempl = new RunFlashCart(5);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l2_step_4':
-			newExempl = new RunFlashCart('level_2', 'step_4', 5, true);
+			newExempl = new RunFlashCart(5, true);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l2_step_5':
-			newExempl = new RunFlashCart('level_2', 'step_5', 6);
+			newExempl = new RunFlashCart(6);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l2_step_6':
-			newExempl = new RunFlashCart('level_2', 'step_6', 6, true);
+			newExempl = new RunFlashCart(6, true);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l2_step_7':
-			newExempl = new RunFlashCart('level_2', 'step_7', 7);
+			newExempl = new RunFlashCart(7);
 			newExempl.startFlashCart();
 			break;
 		case 'F_l2_step_8_9':
-			newExempl = new RunFlashCart('level_2', 'step_8_9', 7, true);
+			newExempl = new RunFlashCart(7, true);
 			newExempl.startFlashCart();
 			break;
 		// ====================== abacus ==========================
@@ -167,6 +167,20 @@ function startGame(step) {
 		case 'level_10':
 			newExempl = new RunAbacus('level_10', 'step_1', 10, 10, 10, 999, 99);
 			newExempl.startAbacus();
+			break;
+		
+		// ====================== mental ==========================
+		case 'M_level_3':
+			newExempl = new RunMental('level_3');
+			newExempl.startMental();
+			break;
+		case 'M_level_4':
+			newExempl = new RunMental('level_4');
+			newExempl.startMental();
+			break;
+		case 'M_level_5':
+			newExempl = new RunMental('level_5');
+			newExempl.startMental();
 			break;
 		default:
 			console.log('Я таких значений не знаю');

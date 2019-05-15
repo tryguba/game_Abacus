@@ -1,3 +1,5 @@
+import Abacus from "../abacus/Abacus";
+
 export default class Mental {
 	
 	constructor(firstCountArr, lastCountArr) {
@@ -5,20 +7,21 @@ export default class Mental {
 		this.lastCountArr = lastCountArr;
 	}
 	
-	getMental() {
+	static getMental() {
 		
-		const proba = [55, 3, 5];
-		
-		const result = proba;
-		
-		
-		let sums = result.reduce(function (a, b) {
-			return a + b;
-		});
-		
-		
-		console.log(`======= result ====== `, result);
-		console.log(`======= sum ====== `, sums);
+		const result = [];
+		const sums = [];
+		// const operation = Math.random() >= 0.5;
+		for (let i = 0; i < 10; i++) {
+			result[i] = [];
+			for (let j = 0; j < 3; j++) {
+				result[i][j] = Math.floor((Math.random() * (9)) + 1);
+				// result[i][j] = genSimple(result[i][j - 1], operation, j);
+			}
+			sums[i] = result[i].reduce(function (a, b) {
+				return a + b;
+			});
+		}
 		
 		return {
 			countsArr: result,

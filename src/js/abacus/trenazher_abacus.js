@@ -20,11 +20,11 @@ export default class RunAbacus extends Abacus {
 		this.step = step;
 	}
 	
-	async startAbacus() {
+	startAbacus() {
 		try {
 			const data = this.choose(this.level, this.step); // отримання левела і степа
-			this.createTableAbacus(await data.countsArr); //отрисовка таблици
-			this.check(await data.sumArr); //проверяем уравнение на правильность
+			this.createTableAbacus(data.countsArr); //отрисовка таблици
+			this.check(data.sumArr); //проверяем уравнение на правильность
 		} catch (e) {
 			console.log(e);
 		}
@@ -105,6 +105,7 @@ export default class RunAbacus extends Abacus {
 		
 		document.querySelector('.title').innerHTML = `Аbacus-арифметика`;
 		const table = document.querySelector('#app_simulator');
+		table.innerHTML = null;
 		const main = document.querySelector('#main');
 		// audio_Au_t_1.play();
 		tableData.forEach((item) => {
@@ -114,9 +115,7 @@ export default class RunAbacus extends Abacus {
 			const input = createHtmlElement(`<input class="inp" type="number"/>`);
 			
 			item.forEach((cellData) => {
-				
 				const cell = createHtmlElement(`<div class="column__count"></div>`);
-				
 				cell.appendChild(document.createTextNode(cellData));
 				row.appendChild(cell);
 			});

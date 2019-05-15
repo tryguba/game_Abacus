@@ -107,7 +107,7 @@ export default class Abacus {
 			return this.getAbacusSimple(columns);
 		}
 		else {
-			console.log(`======= result ====== `, sums);
+			console.table(`======= result ====== `, sums);
 			return {
 				countsArr: result,
 				sumArr: sums
