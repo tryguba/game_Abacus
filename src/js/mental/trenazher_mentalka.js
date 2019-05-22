@@ -1,16 +1,19 @@
 import Mental                          from "./Mental";
 import {createHtmlElement, createStar} from "../game";
-import Abacus                          from "../abacus/Abacus";
+
+import Abacus from "../abacus/Abacus";
 
 export default class RunMental extends Mental {
 	constructor(level) {
 		super();
 		this.level = level;
-		
+		this.iterator = 0;
 	}
 	
 	startMental() {
 		try {
+			let zzz = this.iterator++;
+			console.log(zzz);
 			const dataObj = this.choose(this.level);
 			this.createCartMental(dataObj);
 		} catch (error) {
@@ -18,11 +21,29 @@ export default class RunMental extends Mental {
 		}
 	}
 	
+	createCount() {
+		
+		const result = [];
+		
+		for (let i = 0; i < 3; i++) {
+			result[i] = Math.floor((Math.random() * (9)) + 1);
+		}
+		const sums = result.reduce(function (a, b) {
+			return a + b;
+		});
+		
+		return {
+			result,
+			sums
+		}
+	}
+	
+	
 	choose(level) {
 		let data;
 		switch (level) {
 			case 'level_3':
-				data = Mental.getMental();
+				data = this.createCount();
 				break;
 			case 'level_4':
 				data = Mental.getMental();
@@ -45,7 +66,7 @@ export default class RunMental extends Mental {
 			default:
 				console.log('Я таких значений не знаю');
 		}
-		console.log(data);
+		console.table(data);
 		return data;
 	};
 	
@@ -54,50 +75,34 @@ export default class RunMental extends Mental {
 		const main = document.querySelector('#main');
 		const table = document.querySelector('#app_simulator');
 		table.innerHTML = null;
+		const button = createHtmlElement(`<input id="button" type="button" value="ПРОВЕРИТЬ">`);
 		const inputAnswer = createHtmlElement(`<input class="inputAnswer" type="number"/>`);
 		const time1 = 500;
-		const time2 = time1 * 1.3;
+		const time2 = time1 * 1.5;
 		
-		
-		// for (let i = 0; i < arrData.countsArr.length; i++) {
-		// 	const cart = createHtmlElement(`<div class="mental"></div>`);
-		// 	for (let j = 0; j < arrData.countsArr[i].length; j++) {
-		// 		setTimeout(() => {
-		// 			console.log(arrData.countsArr[i]);
-		// 			cart.appendChild(document.createTextNode(arrData.countsArr[i][j]));
-		// 			setTimeout(() => {
-		// 				cart.remove();
-		// 			}, time1);
-		// 			cart.style.display = 'flex';
-		// 			table.appendChild(cart);
-		// 		}, i * time2);
-		// 		setTimeout(() => {
-		// 			table.appendChild(inputAnswer);
-		// 		}, arrData.countsArr.length * time2);
-		// 	}
-		// }
-		
-		console.log(arrData.countsArr);
-		console.log(arrData.sumArr);
-		
-		let nArr = [];
-		
-		for (let i = 0; i < arrData.countsArr.length; i++) {
-			for (let j = 0; j < arrData.countsArr[i].length; j++) {
-				nArr.push(createHtmlElement(`<div class="mental">${arrData.countsArr[i][j]}</div>`));
-				// const cart = createHtmlElement(`<div class="mental">${arrData.countsArr[i][j]}</div>`);
-				
+		let current = 0;
+		let int = setInterval(function () {
+			const cart = createHtmlElement(`<div class="mental">${arrData.result[current]}</div>`);
+			setTimeout(() => {
+				cart.remove();
+			}, time1);
+			table.appendChild(cart);
+			current++;
+			if (current > arrData.result.length) {
+				clearInterval(int);
+				table.innerHTML = null;
+				table.appendChild(inputAnswer);
+				if (!document.querySelector('#button')) {
+					main.appendChild(button);
+				}
 			}
-			table.appendChild(nArr[i]);
-		}
-		console.log(nArr);
-		
+		}, time2);
 		
 		// arrData.countsArr.forEach(function (data, index) {
 		// 	const cart = createHtmlElement(`<div class="mental"></div>`);
 		//
 		// 	setTimeout(() => {
-		// 		cart.appendChild(document.createTextNode(data));
+		//
 		// 		setTimeout(() => {
 		// 			cart.remove();
 		// 		}, time1);
@@ -110,30 +115,43 @@ export default class RunMental extends Mental {
 		// 	}, arrData.countsArr.length * time2);
 		// });
 		
-		// создаем кнопку "ПРОВЕРИТЬ"
-		if (!document.querySelector('#button')) {
-			const button = createHtmlElement(`
-				<input id="button" type="button" value="ПРОВЕРИТЬ">`);
-			main.appendChild(button);
-		}
-		let loser = 0;
+		
 		button.addEventListener('click', (e) => {
 			let result = document.querySelector('.stars').innerHTML;
 			result++;
-			if (+arrData.sumArr[0] === +inputAnswer.value && inputAnswer.value !== '') {
-				// res ;
-				createStar(table, +result);
-				inputAnswer.remove();
+			if (+arrData.sums === +inputAnswer.value && inputAnswer.value !== '') {
 				e.target.remove();
-				this.showModalWindow(result, 'СУПЕР!!!')
+				inputAnswer.remove();
+				createStar(table, +result);
+				
+				setTimeout(() => {
+					this.startMental();
+				}, 1500);
+				
+				if (this.iterator === 3) {
+					this.iterator = 0;
+					e.target.remove();
+					this.showModalWindow(result, 'СУПЕР!!!');
+					return false;
+				}
+				// this.showModalWindow(result, 'СУПЕР!!!')
 			}
 			else {
+				if (this.iterator === 3) {
+					this.iterator = 0;
+					e.target.remove();
+					console.log(this);
+					this.showModalWindow(result, 'СУПЕР!!!');
+					return false;
+				}
 				console.log(` не верно `);
 				// new Audio(sound.tune.Zv_2).play();
 				inputAnswer.style.background = '#d24a43';
-				inputAnswer.style.color = '#fff';
-				inputAnswer.value = '';
-				loser++;
+				inputAnswer.style.color = '#ffffff';
+				e.target.remove();
+				setTimeout(() => {
+					this.startMental();
+				}, 1500);
 			}
 		});
 	}
@@ -180,7 +198,6 @@ export default class RunMental extends Mental {
 				this.startMental();
 			});
 		}
-		
 	};
 }
 

@@ -16,13 +16,11 @@ export default class Mental {
 			result[i] = [];
 			for (let j = 0; j < 3; j++) {
 				result[i][j] = Math.floor((Math.random() * (9)) + 1);
-				// result[i][j] = genSimple(result[i][j - 1], operation, j);
 			}
 			sums[i] = result[i].reduce(function (a, b) {
 				return a + b;
 			});
 		}
-		
 		return {
 			countsArr: result,
 			sumArr: sums
