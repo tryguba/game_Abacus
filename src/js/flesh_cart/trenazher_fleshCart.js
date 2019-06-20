@@ -42,9 +42,8 @@ export default class RunFlashCart extends FleshCart {
 		const row6 = createHtmlElement(`<div class="column-flash"></div>`);
 		const row7 = createHtmlElement(`<div class="column-flash"></div>`);
 		const divInput = createHtmlElement(`<div class="column-flash__input">
-																<input type="number" autofocus/>
-															</div>`);
-		
+													<input type="number" autofocus/>
+												</div>`);
 		const table = document.querySelector('#app_simulator');
 		table.innerHTML = null;
 		const main = document.querySelector('#main');
