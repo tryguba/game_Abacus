@@ -25,7 +25,7 @@ export default class RunFlashCart extends FleshCart {
 	
 	startFlashCart() {
 		
-		const index = 7;
+		const index = 0;
 		const dataObj = this.getFleshCart(); // get level and step
 		this.createColumn(this.bitNumber, dataObj, index);
 	}

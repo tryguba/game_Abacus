@@ -450,6 +450,7 @@ export default class Abacus {
 				sumArr: sums
 			};
 		}
+		
 	}
 	
 	getAbacusSimpleDoubleOne(columns, rows) {
