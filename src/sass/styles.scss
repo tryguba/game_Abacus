@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 
 .d-none {
@@ -19,8 +20,9 @@ body {
   background-size: cover;
   font-size: 20px;
   position: relative;
-  font-family: $main-font;
+  font-family: $main-font, sans-serif;
   overflow: hidden;
+  //font-weight: 700;
 }
 
 #header {
@@ -31,7 +33,7 @@ body {
 }
 
 #tablo {
-  min-width: 100px;
+  min-width: 250px;
   height: 50px;
   position: absolute;
   right: 0;
@@ -39,10 +41,10 @@ body {
   border: 3px solid #ac8341;
   background: rebeccapurple;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   padding: 10px;
-
+  font-weight: bold;
   img {
     width: 30px;
     height: 30px;
@@ -61,7 +63,6 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, calc(-50% + 20px));
-
   .title {
     color: $main-color;
     font-size: 46px;
@@ -88,7 +89,6 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-
   .column {
     margin: 0 5px;
     font-size: 3.4rem;
@@ -213,7 +213,6 @@ body {
 }
 
 .mental {
-  margin-top: 30px;
   width: 319px;
   height: 196px;
   background: rgba(255, 255, 255, .3);
@@ -225,7 +224,6 @@ body {
   font-weight: 700;
   line-height: 11.15px;
   text-transform: uppercase;
-
 }
 
 
@@ -233,9 +231,9 @@ body {
   width: 319px;
   height: 196px;
   border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
   color: #96294d;
   font-size: 6rem;
   font-weight: 700;

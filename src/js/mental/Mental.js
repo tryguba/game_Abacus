@@ -1,21 +1,18 @@
 import {createHtmlElement, createStar} from "../game";
-import Abacus                          from "../abacus/Abacus";
 
 export default class Mental {
-	constructor(level, M = 10, N = 3) {
+	constructor(level, M = 4, N = 3) {
 		this.level = level;
 		this.iterator = 0;
 		this.M = M;
 		this.N = N;
-		this.lastCountArr = 9;
+		this.lastCountArr = 10;
 		this.firstCountArr = 1;
 		this.digit = true;
-		this.columns = 9;
 	}
 	
 	startMental() {
 		try {
-			this.iterator++;
 			const dataObj = this.choose(this.level);
 			console.log(dataObj);
 			this.createCartMental(dataObj);
@@ -42,16 +39,9 @@ export default class Mental {
 		}
 	}
 	
-	duplicate(arr) {
-		const obj = {};
-		return arr.filter((a) => {
-			return a in obj ? 0 : obj[a] = 1;
-		});
-	}
-	
 	createCountDouble() {
 		
-		let genSimple = (prevCount, operation, j) => {
+		let genSimple = (prevCount, operation, firstCount) => {
 			let result = 0;
 			let count = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
 			// if (this.digit) {
@@ -64,52 +54,34 @@ export default class Mental {
 			// }
 			if (prevCount >= count) {
 				result = count * (-1);
-				// console.log(`- prevCount= ${prevCount} count= ${count} `)
 			}
 			else {
 				result = count;
-				// console.log(`+ prevCount= ${prevCount} count= ${count} `)
 			}
 			//проверка и присвоения первого числа в уравнении
-			if (j === 0) {
+			if (firstCount === 0) {
 				result = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
 			}
 			return result;
 		};
 		
 		const result = [];
-		// const sums = [];
 		const operation = Math.random() >= 0.5;
-		
 		for (let i = 0; i < this.N; i++) {
-			result[i] = genSimple(result[i - 1], operation);
+			result[i] = genSimple(result[i - 1], operation, i);
 		}
-		
-		const sums = result.reduce(function (a, b) {
-			return a + b;
-		});
-		
-		//проверка на  одинаковые уравнение
-		const verifiedArray = this.duplicate(result);
-		
-		if (verifiedArray.length < this.N) {
-			return this.createCountDouble(this.N);
-		}
-		
-		else {
-			console.log(`======= result ====== `, sums);
-			return {
-				countsArr: result,
-				sumArr: sums
-			};
-		}
+		const sums = result.reduce((a, b) => { return a + b });
+		return {
+			countsArr: result,
+			sumArr: sums
+		};
 	}
 	
 	choose(level) {
 		let data;
 		switch (level) {
 			case 'level_3':
-				data = this.createCountDouble(9,1);
+				data = this.createCountDouble();
 				break;
 			case 'level_4':
 				data = this.createCount();
@@ -150,7 +122,6 @@ export default class Mental {
 		table.appendChild(cart);
 		
 		const myInterval = () => {
-			// const cartCount = createHtmlElement(`<div class="mental__count">${arrData.result[current]}</div>`);
 			const cartCount = createHtmlElement(`<div class="mental__count">${arrData.countsArr[current]}</div>`);
 			
 			cart.appendChild(cartCount);
@@ -177,22 +148,23 @@ export default class Mental {
 			clearInterval(int);
 			let result = document.querySelector('.stars').innerHTML;
 			result++;
+			console.log(this.iterator);
 			if (+arrData.sumArr === +inputAnswer.value && inputAnswer.value !== '') {
+				this.iterator++;
 				e.target.remove();
 				inputAnswer.remove();
 				createStar(table, +result);
-				// console.log(`iter=${this.iterator} N=${this.N}`);
 				if (this.iterator === this.M) {
 					this.iterator = 0;
 					e.target.remove();
 					this.showModalWindow(result, 'СУПЕР!!!');
-					// return clearInterval(int);
 				}
 				else {
 					setTimeout(() => {
 						this.startMental();
 					}, time2);
 				}
+				
 			}
 			else {
 				if (this.iterator === this.M) {
@@ -207,7 +179,7 @@ export default class Mental {
 				inputAnswer.style.color = '#ffffff';
 				e.target.remove();
 				setTimeout(() => {
-					this.startMental();
+					this.createCartMental(arrData);
 				}, time2);
 			}
 		});
@@ -226,7 +198,6 @@ export default class Mental {
 			if (res < 0) {
 				res = 0;
 			}
-			
 			if (res === 1) {
 				return `звезду`;
 			}
