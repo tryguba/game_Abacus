@@ -20,7 +20,9 @@ export default class RunFlashCart extends FleshCart {
 		super();
 		this.bitNumber = bitNumber;
 		this.bool = bool;
+		this.firstAnswer = true;
 	}
+	
 	// ======================================================================
 	
 	startFlashCart() {
@@ -363,7 +365,9 @@ export default class RunFlashCart extends FleshCart {
 				}
 				e.currentTarget.remove();
 				res++;
-				createStar(table, res);
+				if (this.firstAnswer) {
+					createStar(table, res);
+				}
 				index++;
 				// виводитсься после окончания уровнений
 				if (index === dataObj.sumArr.length) {
@@ -384,11 +388,14 @@ export default class RunFlashCart extends FleshCart {
 					}
 					return;
 				}
+				
 				setTimeout(() => {
+					this.firstAnswer = true;
 					this.createColumn(bitNumber, dataObj, index);
 				}, 1000);
 			}
 			else {
+				this.firstAnswer = false;
 				// new Audio(sound.tune.Zv_2).play();
 				inp.style.background = '#d24a43';
 				inp.style.color = '#fff';

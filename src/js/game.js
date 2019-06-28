@@ -3,7 +3,7 @@ import anime        from "animejs";
 import {levelStep}  from "./levelStep";
 import RunFlashCart from "./flesh_cart/trenazher_fleshCart"
 import RunAbacus    from "./abacus/trenazher_abacus";
-import Mental    from "./mental/Mental"
+import Mental       from "./mental/Mental"
 
 export const createHtmlElement = (str) => {
 	const el = document.createElement('div');
@@ -171,15 +171,27 @@ function startGame(step) {
 		
 		// ====================== mental ==========================
 		case 'M_level_3':
-			newExempl = new Mental('level_3');
+			newExempl = new Mental('level_3', 5, 3);
 			newExempl.startMental();
 			break;
 		case 'M_level_4':
-			newExempl = new Mental('level_4');
+			newExempl = new Mental('level_4', 10, 5, true);
 			newExempl.startMental();
 			break;
 		case 'M_level_5':
-			newExempl = new Mental('level_5');
+			newExempl = new Mental('level_5',10, 6, true);
+			newExempl.startMental();
+			break;
+		case 'M_level_6':
+			newExempl = new Mental('level_6',10, 8, true);
+			newExempl.startMental();
+			break;
+		case 'M_level_7':
+			newExempl = new Mental('level_7',10, 8, true);
+			newExempl.startMental();
+			break;
+		case 'M_level_8':
+			newExempl = new Mental('level_8',10, 10, true);
 			newExempl.startMental();
 			break;
 		default:
