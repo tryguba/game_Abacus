@@ -1,7 +1,7 @@
-import Abacus              from "./Abacus";
-import {sound}             from "../other/sound";
-import {createHtmlElement} from "../game";
-import {image}             from "../other/image";
+import Abacus                          from "./Abacus";
+import {sound}                         from "../other/sound";
+import {createHtmlElement, createStar} from "../game";
+import {image}                         from "../other/image";
 
 const audio_Au_t_1 = new Audio(sound.trenazhor.Au_t_1);
 const audio_Au_t_2 = new Audio(sound.trenazhor.Au_t_2);
@@ -18,10 +18,12 @@ export default class RunAbacus extends Abacus {
 		this.rows = rows;
 		this.level = level;
 		this.step = step;
+		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 	}
 	
 	startAbacus() {
 		try {
+			this.firstAnswer = true;
 			const data = this.choose(this.level, this.step); // отримання левела і степа
 			this.createTableAbacus(data.countsArr); //отрисовка таблици
 			this.check(data.sumArr); //проверяем уравнение на правильность
@@ -102,7 +104,6 @@ export default class RunAbacus extends Abacus {
 	}
 	
 	createTableAbacus(tableData) {
-		
 		document.querySelector('.title').innerHTML = `Аbacus-арифметика`;
 		const table = document.querySelector('#app_simulator');
 		table.innerHTML = null;
@@ -175,25 +176,27 @@ export default class RunAbacus extends Abacus {
 				if (+sumArr[i] === +inp[i].value && inp[i].value !== '') {
 					arrTypedAnswers[i] = +inp[i].value;
 					const column = inp[i].parentNode.parentNode;
-					const star = createHtmlElement(`<img class="star_img" src="${image.honorStar.starPng}">`);
-					inp[i].style.backgroundColor = '#94ec5a';
 					
-					column.appendChild(star);
+					if (this.firstAnswer) {
+						// const star = createHtmlElement(`<img class="star_img" src="${image.honorStar.starPng}">`);
+						// column.appendChild(star);
+						const starCount = stars.innerHTML++;
+						createStar(column, starCount + 1);
+					}
+					
+					inp[i].style.backgroundColor = '#94ec5a';
 					setTimeout(() => {
-						// console.log(loser);
-						// loser++;
-						stars.innerHTML++;
 						column.remove();
 					}, 1000);
 				}
 				else {
+					this.firstAnswer = false;
 					inp[i].style.backgroundColor = '#eb6969';
 					inp[i].style.color = 'white';
 					inp[i].value = '';
 					loser++;
 				}
 			}
-			
 			// удаляем пустие елементи массива
 			let filtered = arrTypedAnswers.filter(function (el) {
 				return el != null;
@@ -209,7 +212,6 @@ export default class RunAbacus extends Abacus {
 				}, 1000);
 			}
 		});
-		
 		return false;
 	}
 	

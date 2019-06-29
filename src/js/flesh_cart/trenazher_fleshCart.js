@@ -20,7 +20,7 @@ export default class RunFlashCart extends FleshCart {
 		super();
 		this.bitNumber = bitNumber;
 		this.bool = bool;
-		this.firstAnswer = true;
+		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 	}
 	
 	// ======================================================================
