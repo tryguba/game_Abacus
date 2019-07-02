@@ -4,6 +4,7 @@ import {levelStep}  from "./levelStep";
 import RunFlashCart from "./flesh_cart/trenazher_fleshCart"
 import RunAbacus    from "./abacus/trenazher_abacus";
 import Mental       from "./mental/Mental"
+import Umnozheniye  from "./umnozheniye/Umnozheniye"
 
 export const createHtmlElement = (str) => {
 	const el = document.createElement('div');
@@ -179,20 +180,79 @@ function startGame(step) {
 			newExempl.startMental();
 			break;
 		case 'M_level_5':
-			newExempl = new Mental('level_5',10, 6, true);
+			newExempl = new Mental('level_5', 10, 6, true);
 			newExempl.startMental();
 			break;
 		case 'M_level_6':
-			newExempl = new Mental('level_6',10, 8, true);
+			newExempl = new Mental('level_6', 10, 8, true);
 			newExempl.startMental();
 			break;
 		case 'M_level_7':
-			newExempl = new Mental('level_7',10, 8, true);
+			newExempl = new Mental('level_7', 10, 8, true);
 			newExempl.startMental();
 			break;
 		case 'M_level_8':
-			newExempl = new Mental('level_8',10, 10, true);
+			newExempl = new Mental('level_8', 10, 10, true);
 			newExempl.startMental();
+			break;
+		case 'M_level_9':
+			newExempl = new Mental('level_9', 10, 6);
+			newExempl.startMental();
+			break;
+		case 'M_level_10':
+			newExempl = new Mental('level_10', 10, 10, true);
+			newExempl.startMental();
+			break;
+		// ====================== Abacus - умножение ==========================
+		case 'Umn_level_4':
+			newExempl = new Umnozheniye({
+				level: 'level_4',
+				M: 10,
+				r1: 2,
+				r2: 1
+			});
+			newExempl.startUmnozheniye();
+			break;
+		case 'Umn_level_5':
+			newExempl = new Umnozheniye({
+				level: 'level_5',
+				M: 10,
+				r1: 3,
+				r2: 1
+			});			newExempl.startUmnozheniye();
+			break;
+		case 'Umn_level_6':
+			newExempl = new Umnozheniye({
+				level: 'level_6',
+				M: 10,
+				r1: 4,
+				r2: 1
+			});			newExempl.startUmnozheniye();
+			break;
+		case 'Umn_level_7':
+			newExempl = new Umnozheniye({
+				level: 'level_4',
+				M: 10,
+				r1: 2,
+				r2: 2
+			});
+			newExempl.startUmnozheniye();
+			break;
+		case 'Umn_level_8':
+			newExempl = new Umnozheniye({
+				level: 'level_4',
+				M: 10,
+				r1: 3,
+				r2: 2
+			});			newExempl.startUmnozheniye();
+			break;
+		case 'Umn_level_9':
+			newExempl = new Umnozheniye('level_9', 10, 6);
+			newExempl.startUmnozheniye();
+			break;
+		case 'Umn_level_10':
+			newExempl = new Umnozheniye('level_10', 10, 10, true);
+			newExempl.startUmnozheniye();
 			break;
 		default:
 			console.log('Я таких значений не знаю');

@@ -6,6 +6,7 @@ export default class Mental {
 		this.iterator = 0;
 		this.M = M;
 		this.N = N;
+		this.time = 2000;
 		this.lastCountArr = 10;
 		this.firstCountArr = 1;
 		this.digit = digit;
@@ -23,7 +24,6 @@ export default class Mental {
 	}
 	
 	createCount() {
-		
 		let genSimple = (prevCount, operation, firstCount) => {
 			let result = 0;
 			let count = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
@@ -35,14 +35,17 @@ export default class Mental {
 					count = Math.floor((Math.random() * 9) + 1);
 				}
 			}
+			if (this.level === 'level_8' || this.level === 'level_7') {
+				count = Math.floor((Math.random() * 89) + 10);
+			}
 			if (prevCount >= count) {
 				result = count * (-1);
 			}
 			else {
 				result = count;
 			}
-			//проверка и присвоения первого числа в уравнении
-			if (firstCount === 0) {
+			//проверка и присвоения первого числа в уравнении кроме 7-го и 8-го левела
+			if (firstCount === 0 && this.level !== 'level_8' && this.level !== 'level_7') {
 				result = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
 			}
 			return result;
@@ -58,6 +61,47 @@ export default class Mental {
 			countsArr: result,
 			sumArr: sums
 		};
+	}
+	
+	createCountDouble() {
+		this.time = 2800;
+		const genSimple = (prev, j) => {
+			let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
+			// let secondCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
+			let result = 0;
+			if (prev <= count) {
+				result = count;
+			}
+			else {
+				result = count * -1;
+			}
+			//проверка и присвоения первого числа в уравнении
+			if (!j) {
+				result = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
+				// console.log(`================ firstCount ==================== ${result}`);
+			}
+			
+			result = parseFloat(result).toFixed(2);
+			return result.toString().replace(".", ",");
+		};
+		
+		const result = [];
+		const sumArr = [];
+		for (let i = 0; i < this.N; i++) {
+			result[i] = genSimple(result[i - 1], i);
+			result.forEach((item) => {
+				item = parseFloat(item.replace(",", "."));
+				sumArr.push(item);
+			});
+		}
+		const sums = sumArr.reduce(function (a, b) {
+			return a + b;
+		}).toFixed(2);
+		
+		return {
+			countsArr: result,
+			sumArr: sums
+		}
 	}
 	
 	choose(level) {
@@ -82,7 +126,10 @@ export default class Mental {
 				data = this.createCount();
 				break;
 			case 'level_9':
-				data = this.createCount();
+				data = this.createCountDouble();
+				break;
+			case 'level_10':
+				data = this.createCountDouble();
 				break;
 			default:
 				console.log('Я таких значений не знаю');
@@ -91,13 +138,14 @@ export default class Mental {
 	};
 	
 	createCartMental(arrData) {
+		console.log(this.time);
 		document.querySelector('.title').innerHTML = 'Mental-арифметика';
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
 			button = createHtmlElement(`<input id="button" type="button" value="ПРОВЕРИТЬ">`),
 			inputAnswer = createHtmlElement(`<input class="inputAnswer" type="number"/>`),
-			time1 = 200,
-			time2 = time1 * 1.5;
+			time2 = this.time * 1.1;
+		
 		table.innerHTML = null;
 		const cart = createHtmlElement(`<div class="mental"></div>`);
 		
@@ -105,13 +153,9 @@ export default class Mental {
 		
 		const myInterval = () => {
 			const cartCount = createHtmlElement(`<div class="mental__count">${arrData.countsArr[current]}</div>`);
-			
 			cart.appendChild(cartCount);
-			
-			setTimeout(() => { cartCount.remove() }, time1);
-			
+			setTimeout(() => { cartCount.remove() }, this.time);
 			current++;
-			
 			if (current > this.N) {
 				current = 0;
 				clearInterval(int);
@@ -122,8 +166,11 @@ export default class Mental {
 				}
 			}
 		};
-		
+		/////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////
 		let current = 0;
+		console.log(time2);
+		myInterval();
 		let int = setInterval(myInterval, time2);
 		
 		button.addEventListener('click', (e) => {
@@ -133,8 +180,10 @@ export default class Mental {
 			if (+arrData.sumArr === +inputAnswer.value && inputAnswer.value !== '') {
 				this.iterator++;
 				e.target.remove();
-				inputAnswer.remove();
-				if (this.firstAnswer){
+				inputAnswer.style.background = '#94ec5a';
+				
+				if (this.firstAnswer) {
+					inputAnswer.style.transform = 'scale(0.5)';
 					createStar(table, +result);
 				}
 				
@@ -143,6 +192,7 @@ export default class Mental {
 					e.target.remove();
 					this.showModalWindow(result, 'СУПЕР!!!');
 				}
+				
 				else {
 					this.firstAnswer = true;
 					setTimeout(() => {
