@@ -2,11 +2,16 @@
 .fab {
   margin-right: 20px;
 }
+
 .abacus-menu ul,
 .mental-menu ul,
 .mental-menu ol,
 .fleshCart-menu ul,
 .fleshCart-menu ol,
+.deleniye-menu ul,
+.deleniye-menu ol,
+.umnozheniye-menu ul,
+.umnozheniye-menu ol,
 .abacus-menu ol {
   list-style: none;
   z-index: 99;
@@ -14,18 +19,21 @@
 
 .abacus-menu > ul,
 .fleshCart-menu > ul,
-.mental-menu > ul
-{
+.deleniye-menu > ul,
+.umnozheniye-menu > ul,
+.mental-menu > ul {
   display: flex;
   justify-content: start;
 }
 
 .abacus-menu > ul li a,
 .fleshCart-menu > ul li a,
+.deleniye-menu > ul li a,
+.umnozheniye-menu-menu > ul li a,
 .mental-menu > ul li a {
   display: block;
   background-color: rgba(255, 255, 255, .5);
-  padding: 15px 30px 15px 40px;
+  padding: 10px;
   font-size: 14px;
   color: black;
   text-decoration: none;
@@ -34,24 +42,32 @@
 
 .abacus-menu > ul li,
 .fleshCart-menu > ul li,
+.deleniye-menu > ul li,
+.umnozheniye-menu > ul li,
 .mental-menu > ul li {
   position: relative;
 }
 
 .abacus-menu > ul li:first-child,
 .fleshCart-menu > ul li:first-child,
+.umnozheniye-menu > ul li:first-child,
+.deleniye-menu > ul li:first-child,
 .mental-menu > ul li:first-child {
   border-left: 1px solid #ac8341;
 }
 
 .abacus-menu > ul li:last-child,
 .fleshCart-menu > ul li:last-child,
+.deleniye-menu > ul li:last-child,
+.umnozheniye-menu > ul li:last-child,
 .mental-menu > ul li:last-child {
   border-right: 1px solid #ac8341;
 }
 
 .abacus-menu li a:hover,
 .fleshCart-menu li a:hover,
+.umnozheniye-menu li a:hover,
+.deleniye-menu li a:hover,
 .mental-menu li a:hover {
   background: rgba(1, 1, 1, .5);
   color: white;
@@ -61,10 +77,12 @@
 
 .abacus-menu > ul li a,
 .fleshCart-menu > ul li a,
+.deleniye-menu > ul li a,
+.umnozheniye-menu > ul li a,
 .mental-menu > ul li a {
   display: block;
   background-color: rgba(255, 255, 255, .5);
-  padding: 15px 30px 15px 40px;
+  padding: 10px 15px;
   font-size: 14px;
   color: black;
   text-decoration: none;
@@ -75,6 +93,8 @@
 /*sub menu*/
 .abacus-menu li ul,
 .fleshCart-menu li ul,
+.umnozheniye-menu li ul,
+.deleniye-menu li ul,
 .mental-menu li ul {
   position: absolute;
   min-width: 150px;
@@ -82,12 +102,16 @@
 
 .abacus-menu li > ul li,
 .fleshCart-menu li > ul li,
+.umnozheniye-menu li > ul li,
+.deleniye-menu li > ul li,
 .mental-menu li > ul li {
   border: 1px solid #ac8341;
 }
 
 .mental-menu li > ul li a,
 .fleshCart-menu li > ul li a,
+.umnozheniye-menu li > ul li a,
+.deleniye-menu li > ul li a,
 .abacus-menu li > ul li a {
   padding: 10px;
   text-transform: none;
@@ -96,6 +120,8 @@
 
 .abacus-menu li > ul li ul,
 .fleshCart-menu li > ul li ul,
+.umnozheniye-menu li > ul li ul,
+.deleniye-menu li > ul li ul,
 .mental-menu li > ul li ul {
   position: absolute;
   right: -150px;
@@ -105,6 +131,8 @@
 /*sub menu*/
 .abacus-menu li ul,
 .fleshCart-menu li ul,
+.deleniye-menu li ul,
+.umnozheniye-menu li ul,
 .mental-menu li ul {
   position: absolute;
   min-width: 150px;
@@ -113,6 +141,8 @@
 
 .abacus-menu li:hover > ul,
 .fleshCart-menu li:hover > ul,
+.umnozheniye-menu li:hover > ul,
+.deleniye-menu li:hover > ul,
 .mental-menu li:hover > ul {
   display: block;
 }

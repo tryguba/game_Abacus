@@ -1,6 +1,7 @@
-import Abacus                  from "./Abacus";
-import {sound}                 from "../other/sound";
-import {createStar, openModal} from "../game";
+import Abacus                          from "./Abacus";
+import {sound}                         from "../other/sound";
+import {createHtmlElement, createStar} from "../game";
+import {image}                         from "../other/image";
 
 const audio_Au_t_1 = new Audio(sound.trenazhor.Au_t_1);
 const audio_Au_t_2 = new Audio(sound.trenazhor.Au_t_2);
@@ -17,14 +18,18 @@ export default class RunAbacus extends Abacus {
 		this.rows = rows;
 		this.level = level;
 		this.step = step;
+		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 	}
 	
 	startAbacus() {
-		
-		const data = this.choose(this.level, this.step); // отримання левела і степа
-		this.createTableAbacus(data.countsArr); //отрисовка таблици
-		this.check(data.sumArr); //проверяем уравнение на правильность
-		
+		try {
+			this.firstAnswer = true;
+			const data = this.choose(this.level, this.step); // отримання левела і степа
+			this.createTableAbacus(data.countsArr); //отрисовка таблици
+			this.check(data.sumArr); //проверяем уравнение на правильность
+		} catch (e) {
+			console.log(e);
+		}
 	}
 	
 	choose(level, step) {
@@ -99,21 +104,19 @@ export default class RunAbacus extends Abacus {
 	}
 	
 	createTableAbacus(tableData) {
-		
 		document.querySelector('.title').innerHTML = `Аbacus-арифметика`;
 		const table = document.querySelector('#app_simulator');
+		table.innerHTML = null;
 		const main = document.querySelector('#main');
 		// audio_Au_t_1.play();
 		tableData.forEach((item) => {
-			const row = document.createElement('div'),
-				cell = document.createElement('div'),
-				input = document.createElement("input");
-			row.classList.add('column');
-			cell.classList.add('inp');
-			input.setAttribute("type", "number");
+			
+			const row = createHtmlElement(`<div class="column"></div>`);
+			const cell = createHtmlElement(`<div class="inp"></div>`);
+			const input = createHtmlElement(`<input class="inp" type="number"/>`);
+			
 			item.forEach((cellData) => {
-				const cell = document.createElement('div');
-				cell.classList.add('column__count');
+				const cell = createHtmlElement(`<div class="column__count"></div>`);
 				cell.appendChild(document.createTextNode(cellData));
 				row.appendChild(cell);
 			});
@@ -124,10 +127,8 @@ export default class RunAbacus extends Abacus {
 		
 		// создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
-			const button = document.createElement('input');
-			button.setAttribute('id', 'button');
-			button.setAttribute('type', 'button');
-			button.setAttribute('value', 'ПРОВЕРИТЬ');
+			const button = createHtmlElement(`
+				<input id="button" type="button" value="ПРОВЕРИТЬ">`);
 			main.appendChild(button);
 		}
 		
@@ -157,20 +158,15 @@ export default class RunAbacus extends Abacus {
 	}
 	
 	check(sumArr) {
-		
 		const table = document.querySelector('#app_simulator'),
 			inp = document.querySelectorAll('.column .inp input'),
 			checkAnswer = document.querySelector('#button'),
 			arrTypedAnswers = []; // массив ответов
-		
 		let stars = document.querySelector('.stars');
 		
-		let res = 0;
-		
 		checkAnswer.addEventListener('click', () => {
-			res = 0;
 			// audio_Au_t_2.play();
-			
+			let loser = 0;
 			// проверка на ответ
 			for (let i = 0; i < inp.length; i++) {
 				if (!inp[i].value) {
@@ -179,17 +175,26 @@ export default class RunAbacus extends Abacus {
 				
 				if (+sumArr[i] === +inp[i].value && inp[i].value !== '') {
 					arrTypedAnswers[i] = +inp[i].value;
+					const column = inp[i].parentNode.parentNode;
+					
+					if (this.firstAnswer) {
+						// const star = createHtmlElement(`<img class="star_img" src="${image.honorStar.starPng}">`);
+						// column.appendChild(star);
+						const starCount = stars.innerHTML++;
+						createStar(column, starCount + 1);
+					}
+					
 					inp[i].style.backgroundColor = '#94ec5a';
-					res++;
-					const xxx = inp[i].parentElement.parentElement;
-					createStar(xxx);
-					stars.innerHTML = res;
-					setTimeout(() => { xxx.remove(); }, 1000);
+					setTimeout(() => {
+						column.remove();
+					}, 1000);
 				}
 				else {
+					this.firstAnswer = false;
 					inp[i].style.backgroundColor = '#eb6969';
 					inp[i].style.color = 'white';
 					inp[i].value = '';
+					loser++;
 				}
 			}
 			// удаляем пустие елементи массива
@@ -199,13 +204,14 @@ export default class RunAbacus extends Abacus {
 			
 			//======== проверка степа ===================
 			if (filtered.length === inp.length) {
-				table.innerHTML = null;
-				console.log(`You are the best!!!`);
-				// show modal window
-				this.openModal(res);
+				setTimeout(() => {
+					table.innerHTML = null;
+					console.log(`You are the best!!!`);
+					// show modal window
+					this.openModal(stars.innerHTML);
+				}, 1000);
 			}
 		});
-		
 		return false;
 	}
 	
@@ -234,10 +240,10 @@ export default class RunAbacus extends Abacus {
 		countAll.innerHTML = res;
 		
 		if (!repeatBtn) {
-			const repeatBtn = document.createElement("input");
-			repeatBtn.classList.add('button', 'repeatButton');
-			repeatBtn.setAttribute('value', 'Повторить');
-			repeatBtn.setAttribute('type', 'submit');
+			
+			const repeatBtn = createHtmlElement(`<input class="button repeatButton"
+															value="Повторить"
+															type="submit"/>`);
 			modalBtn.appendChild(repeatBtn);
 			
 			repeatBtn.addEventListener('click', () => {
