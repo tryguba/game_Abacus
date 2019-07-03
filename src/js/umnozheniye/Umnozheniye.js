@@ -9,21 +9,23 @@ export default class Umnozheniye {
 		this.digit = options.digit;
 		this.iterator = 0;
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
+		this.stars = document.querySelector('.stars').innerHTML;
 	}
 	
 	startUmnozheniye() {
 		try {
-			const dataObj = this.choose(this.level);
-			console.log(dataObj);
+			const dataObj = this.createCounts();
 			this.showCount(dataObj);
 		} catch (error) {
 			throw error;
 		}
 	}
 	
-	rozryad1(r1) {
+	rozryad(r1, r2) {
 		let count1 = 0;
 		let count1Last = 0;
+		let count2Last = 0;
+		let count2 = 0;
 		switch (r1) {
 			case 1:
 				count1 = 9;
@@ -44,14 +46,6 @@ export default class Umnozheniye {
 			default:
 				console.log('r1 hz no no no');
 		}
-		return {
-			count1,
-			count1Last
-		};
-	}
-	rozryad2(r2) {
-		let count2Last = 0;
-		let count2 = 0;
 		switch (r2) {
 			case 1:
 				count2 = 9;
@@ -73,14 +67,17 @@ export default class Umnozheniye {
 				console.log('r2 hz no no no');
 		}
 		return {
+			count1,
+			count1Last,
 			count2Last,
 			count2
 		};
 	}
 	
 	createCounts() {
-		const count1 = Math.floor((Math.random() * this.rozryad1(this.r1).count1) + this.rozryad1(this.r1).count1Last);
-		const count2 = Math.floor((Math.random() * this.rozryad2(this.r2).count2) + this.rozryad2(this.r2).count2Last);
+		let counts = this.rozryad(this.r1, this.r2);
+		const count1 = Math.floor((Math.random() * counts.count1) + counts.count1Last);
+		const count2 = Math.floor((Math.random() * counts.count2) + counts.count2Last);
 		const result = count1 * count2;
 		console.log(result);
 		return {
@@ -90,44 +87,11 @@ export default class Umnozheniye {
 		};
 	}
 	
-	choose(level) {
-		let data;
-		switch (level) {
-			case 'level_3':
-				data = this.createCounts();
-				break;
-			case 'level_4':
-				data = this.createCounts();
-				break;
-			case 'level_5':
-				data = this.createCounts();
-				break;
-			case 'level_6':
-				data = this.createCounts();
-				break;
-			case 'level_7':
-				data = this.createCounts();
-				break;
-			case 'level_8':
-				data = this.createCounts();
-				break;
-			case 'level_9':
-				data = this.createCounts();
-				break;
-			case 'level_10':
-				data = this.createCounts();
-				break;
-			default:
-				console.log('Я таких значений не знаю');
-		}
-		return data;
-	};
-	
 	showCount(arrData) {
+		
 		document.querySelector('.title').innerHTML = 'Abacus - умножение';
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
-			button = createHtmlElement(`<input id="button" type="button" value="ПРОВЕРИТЬ">`),
 			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer" type="number"/>`);
 		
 		table.innerHTML = null;
@@ -142,36 +106,34 @@ export default class Umnozheniye {
 		cart.appendChild(cartCount);
 		cart.appendChild(inputAnswer);
 		
+		// создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
+			const button = createHtmlElement(`
+				<input id="button" type="button" value="ПРОВЕРИТЬ">`);
 			main.appendChild(button);
 		}
-		// current++;
-		// if (current > this.N) {
-		// 	current = 0;
-		// 	cart.remove();
-		// 	table.appendChild(inputAnswer);
-		//
-		// }
 		
-		// let current = 0;
 		
 		button.addEventListener('click', (e) => {
-			let result = document.querySelector('.stars').innerHTML;
-			result++;
+			
+			console.log(this.stars);
+			
 			if (+arrData.result === +inputAnswer.value && inputAnswer.value !== '') {
 				this.iterator++;
 				e.target.remove();
 				inputAnswer.style.background = '#94ec5a';
 				cart.style.opacity = '0';
+				
 				if (this.firstAnswer) {
-					createStar(table, +result);
+					this.stars++;
+					createStar(table, +this.stars);
 				}
 				
-				
 				if (this.iterator === this.M) {
+					this.firstAnswer = true;
 					this.iterator = 0;
 					e.target.remove();
-					this.showModalWindow(result, 'СУПЕР!!!');
+					this.showModalWindow(this.stars, 'СУПЕР!!!');
 				}
 				else {
 					this.firstAnswer = true;
@@ -181,15 +143,16 @@ export default class Umnozheniye {
 				}
 			}
 			else {
-				if (this.iterator === this.M) {
+				/*if (this.iterator === this.M) {
 					this.iterator = 0;
 					e.target.remove();
-					this.showModalWindow(result, 'СУПЕР!!!');
-				}
+					this.showModalWindow(this.stars, 'СУПЕР!!!');
+				}*/
 				this.firstAnswer = false;
 				console.log(` не верно `);
 				// new Audio(sound.tune.Zv_2).play();
 				inputAnswer.style.background = '#d24a43';
+				inputAnswer.value = '';
 				inputAnswer.style.color = '#ffffff';
 			}
 		});

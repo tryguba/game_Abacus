@@ -15,6 +15,7 @@ export default class Mental {
 	
 	startMental() {
 		try {
+			document.querySelector('#app_simulator').innerHTML = null;
 			const dataObj = this.choose(this.level);
 			console.log(dataObj);
 			this.createCartMental(dataObj);
@@ -138,11 +139,9 @@ export default class Mental {
 	};
 	
 	createCartMental(arrData) {
-		console.log(this.time);
 		document.querySelector('.title').innerHTML = 'Mental-арифметика';
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
-			button = createHtmlElement(`<input id="button" type="button" value="ПРОВЕРИТЬ">`),
 			inputAnswer = createHtmlElement(`<input class="inputAnswer" type="number"/>`),
 			time2 = this.time * 1.1;
 		
@@ -161,17 +160,18 @@ export default class Mental {
 				clearInterval(int);
 				cart.remove();
 				table.appendChild(inputAnswer);
-				if (!document.querySelector('#button')) {
-					main.appendChild(button);
-				}
 			}
 		};
-		/////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////
 		let current = 0;
-		console.log(time2);
 		myInterval();
 		let int = setInterval(myInterval, time2);
+		
+		// создаем кнопку "ПРОВЕРИТЬ"
+		if (!document.querySelector('#button')) {
+			const button = createHtmlElement(`
+						<input id="button" type="button" value="ПРОВЕРИТЬ">`);
+			main.appendChild(button);
+		}
 		
 		button.addEventListener('click', (e) => {
 			clearInterval(int);
@@ -183,7 +183,6 @@ export default class Mental {
 				inputAnswer.style.background = '#94ec5a';
 				
 				if (this.firstAnswer) {
-					inputAnswer.style.transform = 'scale(0.5)';
 					createStar(table, +result);
 				}
 				
