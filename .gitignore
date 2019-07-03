@@ -1,6 +1,6 @@
 /node_modules
 /public
-/src/video
 /src/sound
+/src/video
 package-lock.json
 .idea
