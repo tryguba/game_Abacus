@@ -234,7 +234,7 @@ function AbacusCanvas(parentDivId, type) {
         ctx.lineWidth = 5;
         for (let i = 0; i < abacusCtrl.beadLines; i++) {
             let x = -30 + abacusCtrl.beadLines * abacusCtrl.beadSpacing - i * abacusCtrl.beadSpacing;
-            let y = 20 + (abacusCtrl.beadPerLine + 2) * abacusCtrl.beadHeight
+            let y = 20 + (abacusCtrl.beadPerLine + 2) * abacusCtrl.beadHeight;
             ctx.beginPath();
             ctx.moveTo(x, 20);
             ctx.lineTo(x, y);

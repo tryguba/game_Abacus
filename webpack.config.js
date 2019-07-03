@@ -13,8 +13,8 @@ const isProd = !isDev;
 
 const config = {
 	entry: {
-		index: './src/js/index.js',
-		mental: './src/js/game.js',
+		index: ['babel-polyfill', './src/js/index.js'],
+		mental:['babel-polyfill', './src/js/game.js'],
 		// simulator: './src/js/other/simulator.js',
 	},
 	output: {
@@ -75,7 +75,7 @@ const config = {
 			},
 			{
 				test: /\.(mp3|wav|mp4)$/,
-				use:{
+				use: {
 					loader: 'file-loader',
 					options: {name: 'sound/[name][hash].[ext]'}
 				}
