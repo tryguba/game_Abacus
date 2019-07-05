@@ -1,4 +1,5 @@
 import {createHtmlElement, createStar} from "../game";
+import {sound}                         from "../other/sound";
 
 export default class Umnozheniye {
 	constructor(options) {
@@ -113,7 +114,6 @@ export default class Umnozheniye {
 			main.appendChild(button);
 		}
 		
-		
 		button.addEventListener('click', (e) => {
 			
 			console.log(this.stars);
@@ -126,6 +126,7 @@ export default class Umnozheniye {
 				
 				if (this.firstAnswer) {
 					this.stars++;
+					// new Audio(sound.tune.Zv_3).play();
 					createStar(table, +this.stars);
 				}
 				
@@ -143,11 +144,6 @@ export default class Umnozheniye {
 				}
 			}
 			else {
-				/*if (this.iterator === this.M) {
-					this.iterator = 0;
-					e.target.remove();
-					this.showModalWindow(this.stars, 'СУПЕР!!!');
-				}*/
 				this.firstAnswer = false;
 				console.log(` не верно `);
 				// new Audio(sound.tune.Zv_2).play();
