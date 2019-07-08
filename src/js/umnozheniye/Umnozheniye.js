@@ -4,6 +4,7 @@ import {sound}                         from "../other/sound";
 export default class Umnozheniye {
 	constructor(options) {
 		this.level = options.level;
+		this.change = options.change;
 		this.M = options.M;
 		this.r1 = options.r1;
 		this.r2 = options.r2;
@@ -23,6 +24,7 @@ export default class Umnozheniye {
 	}
 	
 	rozryad(r1, r2) {
+		
 		let count1 = 0;
 		let count1Last = 0;
 		let count2Last = 0;
@@ -43,6 +45,10 @@ export default class Umnozheniye {
 			case 4:
 				count1 = 8999;
 				count1Last = 1000;
+				break;
+			case 5:
+				count1 = 89999;
+				count1Last = 19000;
 				break;
 			default:
 				console.log('r1 hz no no no');
@@ -76,6 +82,20 @@ export default class Umnozheniye {
 	}
 	
 	createCounts() {
+		if (this.change) {
+			if (this.iterator === 0 || this.iterator === 3 || this.iterator === 6 || this.iterator === 9) {
+				this.r1 = 2;
+				this.r2 = 4;
+			}
+			if (this.iterator === 1 || this.iterator === 4 || this.iterator === 7) {
+				this.r1 = 3;
+				this.r2 = 3;
+			}
+			if (this.iterator === 2 || this.iterator === 5 || this.iterator === 8) {
+				this.r1 = 4;
+				this.r2 = 2;
+			}
+		}
 		let counts = this.rozryad(this.r1, this.r2);
 		const count1 = Math.floor((Math.random() * counts.count1) + counts.count1Last);
 		const count2 = Math.floor((Math.random() * counts.count2) + counts.count2Last);
@@ -89,16 +109,21 @@ export default class Umnozheniye {
 	}
 	
 	showCount(arrData) {
+		let fontSmall = null;
+		if (this.r1 >= 3 || this.r2 >= 3) {
+			fontSmall = 'umnozheniye__middleFont';
+		}
 		
 		document.querySelector('.title').innerHTML = 'Abacus - умножение';
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
-			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer" type="number"/>`);
+			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer ${fontSmall}" type="number"/>`);
 		
 		table.innerHTML = null;
+		
 		const cart = createHtmlElement(`<div class="umnozheniye"></div>`);
 		const cartCount = createHtmlElement(`
-						<div class="umnozheniye__count">
+						<div class="umnozheniye__count ${fontSmall}">
 							${arrData.count1} x ${arrData.count2} =
 						</div>
 				`);

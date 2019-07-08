@@ -148,6 +148,7 @@
 //}
 //
 //
+
 form {
   padding: 0 50px;
   display: flex;
@@ -158,9 +159,10 @@ form {
     height: 30px;
     background: #eb6969;
     border: 1px solid #ac8341;
-
+    border-radius: 20px;
     text-transform: uppercase;
     padding: 0 10px;
+    margin-left: 10px;
     option {
       padding: 10px;
     }
@@ -170,7 +172,7 @@ form {
     width: 150px;
     height: 30px;
     cursor: pointer;
-    border-radius: 26px;
+    border-radius: 20px;
     margin-left: 20px;
     background-color: #eb6969;
     color: #ffffff;

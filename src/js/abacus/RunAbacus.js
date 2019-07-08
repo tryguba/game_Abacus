@@ -22,7 +22,6 @@ export default class RunAbacus {
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 		this.level = op.level;
 		this.step = op.step;
-		this.fontClassName = op.fontClassName;
 		console.log(op);
 	}
 	

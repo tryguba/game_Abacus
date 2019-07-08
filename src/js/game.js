@@ -67,173 +67,139 @@ const form = document.querySelector('#form input');
 form.addEventListener('click', function (e) {
 	e.preventDefault();
 	
-	const step = document.querySelector('select[name=step]').value;
-	const level = document.querySelector('select[name=level]').value;
+	const step = +document.querySelector('select[name=step]').value;
+	const level = +document.querySelector('select[name=level]').value;
 	const trenazhor = document.querySelector('select[name=trenazhor]').value;
 	
-	
-	console.log(`trenazhor=${trenazhor}`);
-	console.log(`level=${level}`);
-	console.log(`step=${step}`);
-	
+	// console.log(`trenazhor=${trenazhor}`);
+	// console.log(`level=${level}`);
+	// console.log(`step=${step}`);
 	
 	startGame(trenazhor, level, step);
 })
 
 function startGame(trenazhor, level, step) {
-	let newExempl;
 	let data;
 	document.querySelector('#app_simulator').innerHTML = null;
 	// ====================== flashCart ==========================
 	if (trenazhor === 'fleshCart') {
-		newExempl = new RunFlashCart();
-		if (level === '1') {
+		let fleshCart = new RunFlashCart();
+		if (level === 1) {
 			switch (step) {
-				case '1':
-					newExempl.startFlashCart(1, false);
+				case 1:
+					fleshCart.startFlashCart(1, false);
 					break;
-				case '2':
-					newExempl.startFlashCart(1, false);
+				case 2:
+					fleshCart.startFlashCart(1, false);
 					break;
-				case '3':
-					newExempl.startFlashCart(1, false);
+				case 3:
+					fleshCart.startFlashCart(1, false);
 					break;
-				case '4':
-					newExempl.startFlashCart(2, false);
+				case 4:
+					fleshCart.startFlashCart(2, false);
 					break;
-				case '5':
-					newExempl.startFlashCart(2, true);
+				case 5:
+					fleshCart.startFlashCart(2, true);
 					break;
-				case '6':
-					newExempl.startFlashCart(2, true);
+				case 6:
+					fleshCart.startFlashCart(2, true);
 					break;
-				case '7':
-					newExempl.startFlashCart(3, false);
+				case 7:
+					fleshCart.startFlashCart(3, false);
 					break;
-				case '8':
-					newExempl.startFlashCart(3, true);
+				case 8:
+					fleshCart.startFlashCart(3, true);
 					break;
-				case '9':
-					newExempl.startFlashCart(3, true);
+				case 9:
+					fleshCart.startFlashCart(3, true);
 					break;
 				default:
 					'level_1 doesn`t work'
 			}
 		}
-		else if (level === '2') {
+		else if (level === 2) {
 			switch (step) {
-				case '1':
-					newExempl.startFlashCart(4, false);
+				case 1:
+					fleshCart.startFlashCart(4, false);
 					break;
-				case '2':
-					newExempl.startFlashCart(4, false);
+				case 2:
+					fleshCart.startFlashCart(4, false);
 					break;
-				case '3':
-					newExempl.startFlashCart(5, false);
+				case 3:
+					fleshCart.startFlashCart(5, false);
 					break;
-				case '4':
-					newExempl.startFlashCart(5, true);
+				case 4:
+					fleshCart.startFlashCart(5, true);
 					break;
-				case '5':
-					newExempl.startFlashCart(6, false);
+				case 5:
+					fleshCart.startFlashCart(6, false);
 					break;
-				case '6':
-					newExempl.startFlashCart(6, true);
+				case 6:
+					fleshCart.startFlashCart(6, true);
 					break;
-				case '7':
-					newExempl.startFlashCart(7, false);
+				case 7:
+					fleshCart.startFlashCart(7, false);
 					break;
-				case '8':
-					newExempl.startFlashCart(7, true);
+				case 8:
+					fleshCart.startFlashCart(7, true);
 					break;
-				case '9':
-					newExempl.startFlashCart(7, true);
+				case 9:
+					fleshCart.startFlashCart(7, true);
 					break;
 				default:
 					'level_2 doesn`t work'
 			}
 		}
+		console.log(fleshCart);
 	}
 	
 	// ====================== abacus ==========================
 	else if (trenazhor === 'abacus') {
-		if (level === '1') {
+		let abacus = new RunAbacus({
+			column: 10,
+			level: 1,
+			step: 1
+		});
+		if (level === 1) {
 			switch (step) {
-				case '1':
-					newExempl = new RunAbacus({
-						column: 10,
-						level: 1,
-						step: 1
-					});
-					newExempl.startAbacus();
+				case 1:
+					abacus.startAbacus();
 					break;
-				case '2':
-					newExempl = new RunAbacus({
-						column: 10,
-						level: 1,
-						step: 2
-					});
-					newExempl.startAbacus();
+				case 2:
+					abacus.step = step;
+					abacus.startAbacus();
 					break;
-				case '3':
-					newExempl = new RunAbacus({
-						column: 10,
-						level: 1,
-						step: 3
-					});
-					newExempl.startAbacus();
+				case 3:
+					abacus.step = step;
+					abacus.startAbacus();
 					break;
-				case '4':
-					newExempl = new RunAbacus({
-						column: 10,
-						level: 1,
-						step: 4
-					});
-					newExempl.startAbacus();
+				case 4:
+					abacus.step = step;
+					abacus.startAbacus();
 					break;
-				case '5':
-					newExempl = new RunAbacus({
-						column: 10,
-						level: 1,
-						step: 5
-					});
-					newExempl.startAbacus();
+				case 5:
+					abacus.step = step;
+					abacus.startAbacus();
 					break;
-				case '6':
-					newExempl = new RunAbacus({
-						column: 10,
-						level: 1,
-						step: 6
-					});
-					newExempl.startAbacus();
+				case 6:
+					abacus.step = step;
+					abacus.startAbacus();
 					break;
-				case '7':
-					newExempl = new RunAbacus({
-						column: 10,
-						level: 1,
-						step: 7
-					});
-					newExempl.startAbacus();
+				case 7:
+					abacus.step = step;
+					abacus.startAbacus();
 					break;
-				case '8':
-					newExempl = new RunAbacus({
-						column: 10,
-						level: 1,
-						step: 8
-					});
-					newExempl.startAbacus();
+				case 8:
+					abacus.step = step;
+					abacus.startAbacus();
 					break;
-				case '9':
-					newExempl = new RunAbacus({
-						column: 10,
-						row: 3,
-						firstCount: 1,
-						lastCount: 9,
-						level: 1,
-						step: 9,
-						digit: false
-					});
-					newExempl.startAbacus();
+				case 9:
+					abacus.step = step;
+					abacus.row = 3;
+					abacus.firstCount = 1;
+					abacus.lastCount = 9;
+					abacus.digit = false;
+					abacus.startAbacus();
 					break;
 				default:
 					console.log('Я таких значений не знаю в 1 левеле abacus');
@@ -241,211 +207,224 @@ function startGame(trenazhor, level, step) {
 		}
 		else {
 			switch (level) {
-				case '2':
-					newExempl = new RunAbacus({
-						column: 3,
-						row: 3,
-						firstCount: 1,
-						lastCount: 9,
-						level: 2,
-						digit: false,
-					});
-					newExempl.startAbacus();
+				case 2:
+					abacus.level = level;
+					abacus.row = 3;
+					abacus.firstCount = 1;
+					abacus.lastCount = 9;
+					abacus.digit = false;
+					abacus.startAbacus();
 					break;
-				case '3':
-					newExempl = new RunAbacus({
-						column: 10,
-						row: 7,
-						firstCount: 1,
-						lastCount: 9,
-						level: 3,
-						digit: false,
-					});
-					newExempl.startAbacus();
+				case 3:
+					abacus.level = level;
+					abacus.row = 7;
+					abacus.firstCount = 1;
+					abacus.lastCount = 9;
+					abacus.digit = false;
+					abacus.startAbacus();
 					break;
-				case '4':
-					newExempl = new RunAbacus({
-						column: 10,
-						row: 8,
-						firstCount: 1,
-						lastCount: 9,
-						level: 4,
-						digit: true,
-					});
-					newExempl.startAbacus();
+				case 4:
+					abacus.level = level;
+					abacus.row = 8;
+					abacus.firstCount = 1;
+					abacus.lastCount = 9;
+					abacus.digit = true;
+					abacus.startAbacus();
 					break;
-				case '5':
-					newExempl = new RunAbacus({
-						column: 10,
-						row: 10,
-						firstCount: 10,
-						lastCount: 89,
-						level: 5,
-						digit: form,
-					});
-					newExempl.startAbacus();
+				case 5:
+					abacus.level = level;
+					abacus.row = 10;
+					abacus.firstCount = 10;
+					abacus.lastCount = 89;
+					abacus.digit = false;
+					abacus.startAbacus();
 					break;
-				case '6':
-					newExempl = new RunAbacus({
-						column: 10,
-						row: 10,
-						firstCount: 10,
-						lastCount: 89,
-						level: 6,
-						digit: false,
-					});
-					newExempl.startAbacus();
+				case 6:
+					abacus.level = level;
+					abacus.row = 10;
+					abacus.firstCount = 10;
+					abacus.lastCount = 89;
+					abacus.digit = false;
+					abacus.startAbacus();
 					break;
-				case '7':
-					newExempl = new RunAbacus({
-						column: 10,
-						row: 10,
-						firstCount: 0.01,
-						lastCount: 9,
-						level: 7,
-						
-					});
-					newExempl.startAbacus();
+				case 7:
+					abacus.level = level;
+					abacus.row = 10;
+					abacus.firstCount = 0.01;
+					abacus.lastCount = 9;
+					abacus.digit = false;
+					abacus.startAbacus();
 					break;
-				case '8':
-					newExempl = new RunAbacus({
-						column: 10,
-						row: 10,
-						firstCount: 0.01,
-						lastCount: 9,
-						level: 8,
-						digit: 99
-					});
-					newExempl.startAbacus();
+				case 8:
+					abacus.level = level;
+					abacus.row = 10;
+					abacus.firstCount = 0.01;
+					abacus.lastCount = 9;
+					abacus.digit = 99;
+					abacus.startAbacus();
 					break;
-				case '9':
-					newExempl = new RunAbacus({
-						column: 10,
-						row: 10,
-						firstCount: 10,
-						lastCount: 99.99,
-						level: 9,
-						
-					});
-					newExempl.startAbacus();
+				case 9:
+					abacus.level = level;
+					abacus.row = 10;
+					abacus.firstCount = 10;
+					abacus.lastCount = 99.99;
+					abacus.digit = false;
+					abacus.startAbacus();
 					break;
-				case '10':
-					newExempl = new RunAbacus({
-						column: 10,
-						row: 10,
-						firstCount: 10,
-						lastCount: 999,
-						level: 10,
-						digit: 99
-					});
-					newExempl.startAbacus();
+				case 10:
+					abacus.level = level;
+					abacus.row = 10;
+					abacus.firstCount = 10;
+					abacus.lastCount = 999;
+					abacus.digit = 99;
+					abacus.startAbacus();
 					break;
 			}
 		}
+		console.log(abacus);
 	}
 	
 	// ====================== mental ==========================
 	else if (trenazhor === 'mental') {
+		let mental = new Mental({
+			column: 10,
+			level: 1,
+			step: 1,
+			row: 1
+		});
 		switch (level) {
-			case '3':
-				newExempl = new Mental({
-					column: 5,
-					row: 3,
-					level: 3,
-					digit: false,
-				});
-				newExempl.startMental();
+			case 3:
+				mental.level = level;
+				mental.row = 3;
+				mental.digit = false;
+				mental.startMental();
 				break;
-			case '4':
-				newExempl = new Mental({
-					column: 10,
-					row: 5,
-					level: 4,
-					digit: true,
-				});
-				newExempl.startMental();
+			case 4:
+				mental.level = level;
+				mental.row = 5;
+				mental.digit = true;
+				mental.startMental();
 				break;
-			case '5':
-				newExempl = new Mental({
-					column: 10,
-					row: 6,
-					level: 5,
-					digit: true,
-				});
-				newExempl.startMental();
+			case 5:
+				mental.level = level;
+				mental.row = 6;
+				mental.digit = true;
+				mental.startMental();
 				break;
-			case '6':
-				newExempl = new Mental({
-					column: 10,
-					row: 8,
-					level: 6,
-					digit: true,
-				});
-				newExempl.startMental();
+			case 6:
+				mental.level = level;
+				mental.row = 8;
+				mental.digit = true;
+				mental.startMental();
 				break;
-			case '7':
-				newExempl = new Mental({
-					column: 10,
-					row: 8,
-					level: 7,
-					digit: true,
-				});
-				newExempl.startMental();
+			case 7:
+				mental.level = level;
+				mental.row = 8;
+				mental.digit = true;
+				mental.startMental();
 				break;
-			case '8':
-				newExempl = new Mental({
-					column: 10,
-					row: 10,
-					level: 8,
-					digit: true,
-				});
-				newExempl.startMental();
+			case 8:
+				mental.level = level;
+				mental.row = 10;
+				mental.digit = true;
+				mental.startMental();
 				break;
-			case '9':
-				newExempl = new Mental({
-					column: 10,
-					row: 6,
-					level: 9,
-					digit: false,
-				});
-				newExempl.startMental();
+			case 9:
+				mental.level = level;
+				mental.row = 6;
+				mental.digit = false;
+				mental.startMental();
 				break;
-			case '10':
-				newExempl = new Mental({
-					column: 10,
-					row: 10,
-					level: 10,
-					digit: true,
-				});
-				newExempl.startMental();
+			case 10:
+				mental.level = level;
+				mental.row = 10;
+				mental.digit = true;
+				mental.startMental();
 				break;
 		}
+		console.log(mental);
 	}
 	
 	// ==================== умножение ========================
 	else if (trenazhor === 'umnozhenye') {
-		switch (level) {
-			case '3':
-				newExempl = new Mental({
-					column: 5,
-					row: 3,
-					level: 3,
-					digit: false,
-				});
-				newExempl.startMental();
-				break;
-			case '3':
-				newExempl = new Mental({
-					column: 5,
-					row: 3,
-					level: 3,
-					digit: false,
-				});
-				newExempl.startMental();
-				break;
+		let umn = new Umnozheniye({
+			M: 10,
+			r1: 2,
+			r2: 1
+		});
+		
+		if (level === 4 && step > 2) {
+			umn.level = level;
+			umn.r1 = 2;
+			umn.startUmnozheniye();
 		}
+		if (level === 5) {
+			umn.level = level;
+			umn.r1 = 3;
+			umn.startUmnozheniye();
+		}
+		if (level === 6) {
+			umn.level = level;
+			umn.r1 = 4;
+			umn.startUmnozheniye();
+		}
+		if (level === 7) {
+			umn.level = level;
+			if (step > 3) {
+				umn.r1 = 2;
+				umn.r2 = 2;
+			}
+			else {
+				umn.r1 = 4;
+			}
+			umn.startUmnozheniye();
+		}
+		if (level === 8) {
+			umn.level = level;
+			if (step % 2) {
+				umn.r1 = 3;
+				umn.r2 = 2;
+			}
+			else {
+				umn.r1 = 2;
+				umn.r2 = 3;
+				
+			}
+			umn.startUmnozheniye();
+		}
+		if (level === 9) {
+			umn.level = level;
+			if (step === 1) {
+				umn.r1 = 2;
+				umn.r2 = 4;
+			}
+			else if (step === 2) {
+				umn.r1 = 3;
+				umn.r2 = 3;
+			}
+			else if (step === 3) {
+				umn.r1 = 4;
+				umn.r2 = 2;
+			}
+			else {
+				umn.change = true;
+			}
+			umn.startUmnozheniye();
+		}
+		if (level === 10) {
+			umn.level = level;
+			if (step % 2) {
+				umn.r1 = 4;
+				umn.r2 = 3;
+			}
+			else {
+				umn.r1 = 5;
+				umn.r2 = 2;
+			}
+			umn.startUmnozheniye();
+		}
+		console.log(umn);
 	}
-	
 	
 	else if (trenazhor === 'mental') {
 		newExempl = new Mental();
@@ -453,50 +432,6 @@ function startGame(trenazhor, level, step) {
 		if (level === '444') {
 			switch (step) {
 				// ====================== Abacus - умножение ==========================
-				case
-				'Umn_level_4'
-				:
-					newExempl = new Umnozheniye({
-						level: 'level_4',
-						M: 10,
-						r1: 2,
-						r2: 1
-					});
-					newExempl.startUmnozheniye();
-					break;
-				case
-				'Umn_level_5'
-				:
-					newExempl = new Umnozheniye({
-						level: 'level_5',
-						M: 10,
-						r1: 3,
-						r2: 1
-					});
-					newExempl.startUmnozheniye();
-					break;
-				case
-				'Umn_level_6'
-				:
-					newExempl = new Umnozheniye({
-						level: 'level_6',
-						M: 10,
-						r1: 4,
-						r2: 1
-					});
-					newExempl.startUmnozheniye();
-					break;
-				case
-				'Umn_level_7'
-				:
-					newExempl = new Umnozheniye({
-						level: 'level_4',
-						M: 10,
-						r1: 2,
-						r2: 2
-					});
-					newExempl.startUmnozheniye();
-					break;
 				case
 				'Umn_level_8'
 				:
