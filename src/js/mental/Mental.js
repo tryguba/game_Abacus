@@ -65,10 +65,9 @@ export default class Mental {
 	}
 	
 	createCountDouble() {
-		this.time = 2800;
+		this.time = 3000;
 		const genSimple = (prev, j) => {
-			let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
-			// let secondCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
+			let count = (Math.random() * (10 - 1) + 1).toFixed(2);
 			let result = 0;
 			if (prev <= count) {
 				result = count;
@@ -78,10 +77,8 @@ export default class Mental {
 			}
 			//проверка и присвоения первого числа в уравнении
 			if (!j) {
-				result = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
-				// console.log(`================ firstCount ==================== ${result}`);
+				result = (Math.random() * (10 - 1) + 1).toFixed(2);
 			}
-			
 			result = parseFloat(result).toFixed(2);
 			return result.toString().replace(".", ",");
 		};
@@ -90,15 +87,14 @@ export default class Mental {
 		const sumArr = [];
 		for (let i = 0; i < this.row; i++) {
 			result[i] = genSimple(result[i - 1], i);
-			result.forEach((item) => {
-				item = parseFloat(item.replace(",", "."));
-				sumArr.push(item);
-			});
 		}
+		result.forEach((item) => {
+			item = parseFloat(item.replace(",", "."));
+			sumArr.push(item);
+		});
 		const sums = sumArr.reduce(function (a, b) {
 			return a + b;
 		}).toFixed(2);
-		
 		return {
 			countsArr: result,
 			sumArr: sums

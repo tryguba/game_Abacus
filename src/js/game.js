@@ -343,8 +343,8 @@ function startGame(trenazhor, level, step) {
 			}
 		}
 	}
-	// ====================== mental ==========================
 	
+	// ====================== mental ==========================
 	else if (trenazhor === 'mental') {
 		switch (level) {
 			case '3':
@@ -414,7 +414,7 @@ function startGame(trenazhor, level, step) {
 				newExempl = new Mental({
 					column: 10,
 					row: 10,
-					level: 8,
+					level: 10,
 					digit: true,
 				});
 				newExempl.startMental();
@@ -422,14 +422,36 @@ function startGame(trenazhor, level, step) {
 		}
 	}
 	
+	// ==================== умножение ========================
+	else if (trenazhor === 'umnozhenye') {
+		switch (level) {
+			case '3':
+				newExempl = new Mental({
+					column: 5,
+					row: 3,
+					level: 3,
+					digit: false,
+				});
+				newExempl.startMental();
+				break;
+			case '3':
+				newExempl = new Mental({
+					column: 5,
+					row: 3,
+					level: 3,
+					digit: false,
+				});
+				newExempl.startMental();
+				break;
+		}
+	}
+	
+	
 	else if (trenazhor === 'mental') {
 		newExempl = new Mental();
 		
 		if (level === '444') {
 			switch (step) {
-				// ====================== mental ==========================
-				
-					
 				// ====================== Abacus - умножение ==========================
 				case
 				'Umn_level_4'
