@@ -49,6 +49,63 @@ export function createStar(teg, starCount) {
 	}, 1000);
 }
 
+export function rozryad(r1, r2) {
+	
+	let count1 = 0;
+	let count1Last = 0;
+	let count2Last = 0;
+	let count2 = 0;
+	switch (r1) {
+		case 1:
+			count1 = 9;
+			count1Last = 1;
+			break;
+		case 2:
+			count1 = 89;
+			count1Last = 10;
+			break;
+		case 3:
+			count1 = 899;
+			count1Last = 100;
+			break;
+		case 4:
+			count1 = 8999;
+			count1Last = 1000;
+			break;
+		case 5:
+			count1 = 89999;
+			count1Last = 19000;
+			break;
+		default:
+			console.log('r1 hz no no no');
+	}
+	switch (r2) {
+		case 1:
+			count2 = 9;
+			count2Last = 1;
+			break;
+		case 2:
+			count2 = 89;
+			count2Last = 10;
+			break;
+		case 3:
+			count2 = 899;
+			count2Last = 100;
+			break;
+		case 4:
+			count2 = 8999;
+			count2Last = 1000;
+			break;
+		default:
+			console.log('r2 hz no no no');
+	}
+	return {
+		count1,
+		count1Last,
+		count2Last,
+		count2
+	};
+}
 
 // const menu = document.querySelector('#header');
 // menu.addEventListener('click', function (e) {
@@ -370,25 +427,28 @@ function startGame(trenazhor, level, step) {
 		}
 		if (level === 7) {
 			umn.level = level;
-			if (step > 3) {
-				umn.r1 = 2;
-				umn.r2 = 2;
+			if (step < 3) {
+				umn.r1 = 4;
+				umn.r2 = 1;
 			}
 			else {
-				umn.r1 = 4;
+				umn.r1 = 2;
+				umn.r2 = 2;
 			}
 			umn.startUmnozheniye();
 		}
 		if (level === 8) {
 			umn.level = level;
-			if (step % 2) {
+			if (step === 1) {
 				umn.r1 = 3;
 				umn.r2 = 2;
 			}
-			else {
+			else if(step === 2){
 				umn.r1 = 2;
 				umn.r2 = 3;
-				
+			}
+			else {
+				umn.change = true;
 			}
 			umn.startUmnozheniye();
 		}
@@ -413,13 +473,16 @@ function startGame(trenazhor, level, step) {
 		}
 		if (level === 10) {
 			umn.level = level;
-			if (step % 2) {
+			if (step === 1) {
 				umn.r1 = 4;
 				umn.r2 = 3;
 			}
-			else {
+			else if(step === 2){
 				umn.r1 = 5;
 				umn.r2 = 2;
+			}
+			else {
+				umn.change = true;
 			}
 			umn.startUmnozheniye();
 		}

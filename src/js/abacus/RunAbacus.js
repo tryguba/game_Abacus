@@ -106,7 +106,7 @@ export default class RunAbacus {
 					data = Abacus.prototype.getAbacusSimpleStep_3(this.column);
 					break;
 				case 4:
-					data = Abacus.prototype.getAbacusSimpleStep_3(this.column);
+					data = Abacus.prototype.getAbacusSimpleStep_4(this.column);
 					break;
 				case 5:
 					data = Abacus.prototype.getAbacusSimpleStep_5_6(this.column);
@@ -150,7 +150,6 @@ export default class RunAbacus {
 		}
 		return data;
 	}
-	
 	
 	check(sumArr) {
 		const table = document.querySelector('#app_simulator'),

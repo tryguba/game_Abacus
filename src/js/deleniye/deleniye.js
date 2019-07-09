@@ -1,7 +1,7 @@
 import {createHtmlElement, createStar, rozryad} from "../game";
 import {sound}                                  from "../other/sound";
 
-export default class Umnozheniye {
+export default class Deleniye {
 	constructor(options) {
 		this.level = options.level;
 		this.change = options.change;
@@ -14,7 +14,7 @@ export default class Umnozheniye {
 		this.stars = document.querySelector('.stars').innerHTML;
 	}
 	
-	startUmnozheniye() {
+	startDeleniye() {
 		try {
 			const dataObj = this.createCounts();
 			this.showCount(dataObj);
@@ -23,51 +23,22 @@ export default class Umnozheniye {
 		}
 	}
 	
+	
 	createCounts() {
-		if (this.level === 8 && this.change) {
-			if (this.iterator % 2) {
-				this.r1 = 3;
-				this.r2 = 2;
-			}
-			else {
+		if (this.change) {
+			if (this.iterator === 0 || this.iterator === 3 || this.iterator === 6 || this.iterator === 9) {
 				this.r1 = 2;
+				this.r2 = 4;
+			}
+			if (this.iterator === 1 || this.iterator === 4 || this.iterator === 7) {
+				this.r1 = 3;
 				this.r2 = 3;
 			}
-		}
-		else if (this.level === 9 && this.change) {
-			switch (this.iterator) {
-				case 0:
-				case 3:
-				case 6:
-				case 9:
-					this.r1 = 2;
-					this.r2 = 4;
-					break;
-				case 1:
-				case 4:
-				case 7:
-					this.r1 = 3;
-					this.r2 = 3;
-					break;
-				case 2:
-				case 5:
-				case 8:
-					this.r1 = 4;
-					this.r2 = 2;
-					break;
-			}
-		}
-		else if (this.level === 10 && this.change) {
-			if (this.iterator % 2) {
-				this.r1 = 5;
+			if (this.iterator === 2 || this.iterator === 5 || this.iterator === 8) {
+				this.r1 = 4;
 				this.r2 = 2;
 			}
-			else {
-				this.r1 = 4;
-				this.r2 = 3;
-			}
 		}
-		
 		let counts = rozryad(this.r1, this.r2);
 		const count1 = Math.floor((Math.random() * counts.count1) + counts.count1Last);
 		const count2 = Math.floor((Math.random() * counts.count2) + counts.count2Last);
@@ -81,7 +52,7 @@ export default class Umnozheniye {
 	}
 	
 	showCount(arrData) {
-		let fontSmall = '';
+		let fontSmall = null;
 		if (this.r1 >= 3 || this.r2 >= 3) {
 			fontSmall = 'umnozheniye__middleFont';
 		}
@@ -185,7 +156,7 @@ export default class Umnozheniye {
 			repeatBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
 				repeatBtn.remove();
-				this.startUmnozheniye();
+				this.startDeleniye();
 			});
 		}
 		else {
@@ -193,7 +164,7 @@ export default class Umnozheniye {
 				modal.style.display = 'none';
 				repeatBtn.remove();
 				this.iterator = 0;
-				this.startUmnozheniye();
+				this.startDeleniye();
 			});
 		}
 	};
