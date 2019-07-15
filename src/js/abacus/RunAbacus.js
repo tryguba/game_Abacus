@@ -82,7 +82,6 @@ export default class RunAbacus {
 				break;
 		}
 		
-		
 		// создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
 			const button = createHtmlElement(`

@@ -2,13 +2,19 @@ import {createHtmlElement, createStar, rozryad} from "../game";
 import {sound}                                  from "../other/sound";
 
 export default class Deleniye {
-	constructor(options) {
-		this.level = options.level;
-		this.change = options.change;
-		this.M = options.M;
-		this.r1 = options.r1;
-		this.r2 = options.r2;
-		this.digit = options.digit;
+	constructor(op) {
+		this.level = op.level;
+		this.step = op.step;
+		this.change = op.change;
+		this.M = op.M;
+		this.r1 = op.r1;
+		this.r2 = op.r2;
+		this.a1 = op.a1;
+		this.a2 = op.a2;
+		this.b1 = op.b1;
+		this.b2 = op.b2;
+		this.R = op.R;
+		this.digit = op.digit;
 		this.iterator = 0;
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 		this.stars = document.querySelector('.stars').innerHTML;
@@ -23,26 +29,82 @@ export default class Deleniye {
 		}
 	}
 	
-	
 	createCounts() {
-		if (this.change) {
-			if (this.iterator === 0 || this.iterator === 3 || this.iterator === 6 || this.iterator === 9) {
-				this.r1 = 2;
-				this.r2 = 4;
+		
+		
+		this.r2 = this.R - this.r1;
+		if (this.r2 === 0) {
+			this.r2 = 1;
+		}
+		
+		if (this.digit) {
+			if (this.iterator % 2) {
+				this.r1 = this.a1;
+				this.r2 = this.a2;
 			}
-			if (this.iterator === 1 || this.iterator === 4 || this.iterator === 7) {
-				this.r1 = 3;
-				this.r2 = 3;
-			}
-			if (this.iterator === 2 || this.iterator === 5 || this.iterator === 8) {
-				this.r1 = 4;
-				this.r2 = 2;
+			else {
+				this.r1 = this.b1;
+				this.r2 = this.b2;
 			}
 		}
-		let counts = rozryad(this.r1, this.r2);
-		const count1 = Math.floor((Math.random() * counts.count1) + counts.count1Last);
-		const count2 = Math.floor((Math.random() * counts.count2) + counts.count2Last);
-		const result = count1 * count2;
+		
+		let Kverh = Math.pow(10, this.R) - 1;
+		let Kniz = Math.pow(10, this.R - 1);
+		let k1verh = Math.pow(10, this.r1) - 1;
+		let k1niz = Math.pow(10, this.r1 - 1);
+		let k2verh = Math.pow(10, this.r2) - 1;
+		let k2niz = Math.pow(10, this.r2 - 1);
+		
+		let chastnoe = k2niz;
+		
+		let delitel = Math.floor(Math.random() * Math.floor(k1verh - k1niz + 1) + k1niz);
+		let chastnoeFin = Math.floor(Math.random() * Math.floor(k2verh - chastnoe + 1) + chastnoe);
+		
+		let delimoe = delitel * chastnoeFin;
+		
+		// console.log(delitel);
+		// console.log(chastnoeFin);
+		// console.log(delimoe);
+		let n = 1;
+		const findDel = (t) => {
+			t = (t - t % 10) / 10;
+			while (t > 0) {
+				t = (t - t % 10) / 10;
+				n++;
+			}
+			return n;
+		};
+		
+		findDel(delimoe);
+		
+		if (n !== this.R) {
+			
+			console.log(`chastnoe = ${chastnoe}`);
+			console.log(`k2verh = ${k2verh}`);
+			
+			if (chastnoe === k2verh) {
+				console.log('hello');
+				let k2verh = Math.pow(10, this.r2);
+				let k2niz = Math.pow(10, this.r2 + 1) - 1;
+				chastnoe = k2verh;
+				chastnoeFin = Math.floor(Math.random() * Math.floor(chastnoe - k2niz + 1) + k2niz);
+				let delimoe = delitel * chastnoeFin;
+				findDel(delimoe);
+			}
+		}
+		if (this.iterator % 2) {
+			this.r1 = this.a1;
+			this.r2 = this.a2;
+		}
+		else {
+			this.r1 = this.b1;
+			this.r2 = this.b2;
+		}
+		
+		
+		const count1 = delimoe;
+		const count2 = delitel;
+		const result = delimoe / delitel;
 		console.log(result);
 		return {
 			count1,
@@ -52,22 +114,25 @@ export default class Deleniye {
 	}
 	
 	showCount(arrData) {
-		let fontSmall = null;
+		let fontSmall = '';
 		if (this.r1 >= 3 || this.r2 >= 3) {
-			fontSmall = 'umnozheniye__middleFont';
+			fontSmall = 'deleniye__middleFont';
 		}
 		
-		document.querySelector('.title').innerHTML = 'Abacus - умножение';
+		document.querySelector('.title').innerHTML = 'Abacus - деление';
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
-			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer ${fontSmall}" type="number"/>`);
+			inputAnswer = createHtmlElement(`<input class="deleniye__inputAnswer ${fontSmall}" type="number"/>`);
 		
 		table.innerHTML = null;
 		
-		const cart = createHtmlElement(`<div class="umnozheniye"></div>`);
+		const cart = createHtmlElement(`<div class="deleniye"></div>`);
 		const cartCount = createHtmlElement(`
-						<div class="umnozheniye__count ${fontSmall}">
-							${arrData.count1} x ${arrData.count2} =
+						<div class="deleniye__count ${fontSmall}">
+							${arrData.count1}
+							<span>:</span>
+							${arrData.count2}
+							<span>=</span>
 						</div>
 				`);
 		
@@ -107,7 +172,7 @@ export default class Deleniye {
 				else {
 					this.firstAnswer = true;
 					setTimeout(() => {
-						this.startUmnozheniye();
+						this.startDeleniye();
 					}, 1000);
 				}
 			}

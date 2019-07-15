@@ -6,6 +6,7 @@ import RunAbacus    from "./abacus/RunAbacus";
 import Mental       from "./mental/Mental"
 import Umnozheniye  from "./umnozheniye/Umnozheniye"
 import Abacus       from "./abacus/Abacus"
+import Deleniye     from "./deleniye/Deleniye";
 
 
 export const createHtmlElement = (str) => {
@@ -13,7 +14,6 @@ export const createHtmlElement = (str) => {
 	el.innerHTML = str;
 	return el.firstElementChild;
 };
-
 
 export function createStar(teg, starCount) {
 	//create star
@@ -107,18 +107,6 @@ export function rozryad(r1, r2) {
 	};
 }
 
-// const menu = document.querySelector('#header');
-// menu.addEventListener('click', function (e) {
-// 	const name = e.target;
-// 	let step = name.getAttribute('name');
-// 	startGame(step);
-// })
-
-// let step = document.querySelector('select[name=step]').value;
-// let level = document.querySelector('select[name=level]').value;
-// let trenazhor = document.querySelector('select[name=trenazhor]').value;
-
-
 const form = document.querySelector('#form input');
 
 form.addEventListener('click', function (e) {
@@ -128,16 +116,13 @@ form.addEventListener('click', function (e) {
 	const level = +document.querySelector('select[name=level]').value;
 	const trenazhor = document.querySelector('select[name=trenazhor]').value;
 	
-	// console.log(`trenazhor=${trenazhor}`);
-	// console.log(`level=${level}`);
-	// console.log(`step=${step}`);
-	
 	startGame(trenazhor, level, step);
 })
 
 function startGame(trenazhor, level, step) {
 	let data;
-	document.querySelector('#app_simulator').innerHTML = null;
+	let main = document.querySelector('#app_simulator');
+	main.innerHTML = null;
 	// ====================== flashCart ==========================
 	if (trenazhor === 'fleshCart') {
 		let fleshCart = new RunFlashCart();
@@ -210,196 +195,109 @@ function startGame(trenazhor, level, step) {
 		console.log(fleshCart);
 	}
 	
-	// ====================== abacus ==========================
-	else if (trenazhor === 'abacus') {
-		let abacus = new RunAbacus({
-			column: 10,
-			level: 1,
-			step: 1
-		});
-		if (level === 1) {
-			switch (step) {
-				case 1:
-					abacus.startAbacus();
-					break;
-				case 2:
-					abacus.step = step;
-					abacus.startAbacus();
-					break;
-				case 3:
-					abacus.step = step;
-					abacus.startAbacus();
-					break;
-				case 4:
-					abacus.step = step;
-					abacus.startAbacus();
-					break;
-				case 5:
-					abacus.step = step;
-					abacus.startAbacus();
-					break;
-				case 6:
-					abacus.step = step;
-					abacus.startAbacus();
-					break;
-				case 7:
-					abacus.step = step;
-					abacus.startAbacus();
-					break;
-				case 8:
-					abacus.step = step;
-					abacus.startAbacus();
-					break;
-				case 9:
-					abacus.step = step;
-					abacus.row = 3;
-					abacus.firstCount = 1;
-					abacus.lastCount = 9;
-					abacus.digit = false;
-					abacus.startAbacus();
-					break;
-				default:
-					console.log('Я таких значений не знаю в 1 левеле abacus');
-			}
-		}
-		else {
-			switch (level) {
-				case 2:
-					abacus.level = level;
-					abacus.row = 3;
-					abacus.firstCount = 1;
-					abacus.lastCount = 9;
-					abacus.digit = false;
-					abacus.startAbacus();
-					break;
-				case 3:
-					abacus.level = level;
-					abacus.row = 7;
-					abacus.firstCount = 1;
-					abacus.lastCount = 9;
-					abacus.digit = false;
-					abacus.startAbacus();
-					break;
-				case 4:
-					abacus.level = level;
-					abacus.row = 8;
-					abacus.firstCount = 1;
-					abacus.lastCount = 9;
-					abacus.digit = true;
-					abacus.startAbacus();
-					break;
-				case 5:
-					abacus.level = level;
-					abacus.row = 10;
-					abacus.firstCount = 10;
-					abacus.lastCount = 89;
-					abacus.digit = false;
-					abacus.startAbacus();
-					break;
-				case 6:
-					abacus.level = level;
-					abacus.row = 10;
-					abacus.firstCount = 10;
-					abacus.lastCount = 89;
-					abacus.digit = false;
-					abacus.startAbacus();
-					break;
-				case 7:
-					abacus.level = level;
-					abacus.row = 10;
-					abacus.firstCount = 0.01;
-					abacus.lastCount = 9;
-					abacus.digit = false;
-					abacus.startAbacus();
-					break;
-				case 8:
-					abacus.level = level;
-					abacus.row = 10;
-					abacus.firstCount = 0.01;
-					abacus.lastCount = 9;
-					abacus.digit = 99;
-					abacus.startAbacus();
-					break;
-				case 9:
-					abacus.level = level;
-					abacus.row = 10;
-					abacus.firstCount = 10;
-					abacus.lastCount = 99.99;
-					abacus.digit = false;
-					abacus.startAbacus();
-					break;
-				case 10:
-					abacus.level = level;
-					abacus.row = 10;
-					abacus.firstCount = 10;
-					abacus.lastCount = 999;
-					abacus.digit = 99;
-					abacus.startAbacus();
-					break;
-			}
-		}
-		console.log(abacus);
-	}
-	
 	// ====================== mental ==========================
 	else if (trenazhor === 'mental') {
 		let mental = new Mental({
 			column: 10,
-			level: 1,
 			step: 1,
-			row: 1
+			row: 1,
+			digit: true
 		});
 		switch (level) {
 			case 3:
-				mental.level = level;
 				mental.row = 3;
 				mental.digit = false;
-				mental.startMental();
 				break;
 			case 4:
-				mental.level = level;
 				mental.row = 5;
-				mental.digit = true;
-				mental.startMental();
 				break;
 			case 5:
-				mental.level = level;
 				mental.row = 6;
-				mental.digit = true;
-				mental.startMental();
 				break;
 			case 6:
-				mental.level = level;
 				mental.row = 8;
-				mental.digit = true;
-				mental.startMental();
 				break;
 			case 7:
-				mental.level = level;
 				mental.row = 8;
-				mental.digit = true;
-				mental.startMental();
 				break;
 			case 8:
-				mental.level = level;
 				mental.row = 10;
-				mental.digit = true;
-				mental.startMental();
 				break;
 			case 9:
-				mental.level = level;
 				mental.row = 6;
 				mental.digit = false;
-				mental.startMental();
 				break;
 			case 10:
-				mental.level = level;
 				mental.row = 10;
-				mental.digit = true;
-				mental.startMental();
 				break;
 		}
+		mental.level = level;
+		mental.step = step;
+		mental.startMental();
 		console.log(mental);
+	}
+	
+	// ====================== abacus ==========================
+	else if (trenazhor === 'abacus') {
+		let abacus = new RunAbacus({
+			column: 10,
+			firstCount: 1,
+			lastCount: 9,
+			digit: false
+		});
+		if (level === 1) {
+			abacus.row = 3;
+		}
+		else {
+			switch (level) {
+				case 2:
+					abacus.row = 3;
+					break;
+				case 3:
+					abacus.row = 7;
+					break;
+				case 4:
+					abacus.row = 8;
+					abacus.digit = true;
+					break;
+				case 5:
+					abacus.row = 10;
+					abacus.firstCount = 10;
+					abacus.lastCount = 89;
+					break;
+				case 6:
+					abacus.row = 10;
+					abacus.firstCount = 10;
+					abacus.lastCount = 89;
+					break;
+				case 7:
+					abacus.row = 10;
+					abacus.firstCount = 0.01;
+					abacus.lastCount = 9;
+					break;
+				case 8:
+					abacus.row = 10;
+					abacus.firstCount = 0.01;
+					abacus.lastCount = 9;
+					abacus.digit = 99;
+					break;
+				case 9:
+					abacus.row = 10;
+					abacus.firstCount = 10;
+					abacus.lastCount = 99.99;
+					break;
+				case 10:
+					abacus.row = 10;
+					abacus.firstCount = 10;
+					abacus.lastCount = 999;
+					abacus.digit = 99;
+					break;
+			}
+		}
+		abacus.level = level;
+		abacus.step = step;
+		abacus.startAbacus();
+		console.log(abacus);
 	}
 	
 	// ==================== умножение ========================
@@ -409,24 +307,16 @@ function startGame(trenazhor, level, step) {
 			r1: 2,
 			r2: 1
 		});
-		
 		if (level === 4 && step > 2) {
-			umn.level = level;
 			umn.r1 = 2;
-			umn.startUmnozheniye();
 		}
 		if (level === 5) {
-			umn.level = level;
 			umn.r1 = 3;
-			umn.startUmnozheniye();
 		}
 		if (level === 6) {
-			umn.level = level;
 			umn.r1 = 4;
-			umn.startUmnozheniye();
 		}
 		if (level === 7) {
-			umn.level = level;
 			if (step < 3) {
 				umn.r1 = 4;
 				umn.r2 = 1;
@@ -435,25 +325,21 @@ function startGame(trenazhor, level, step) {
 				umn.r1 = 2;
 				umn.r2 = 2;
 			}
-			umn.startUmnozheniye();
 		}
 		if (level === 8) {
-			umn.level = level;
 			if (step === 1) {
 				umn.r1 = 3;
 				umn.r2 = 2;
 			}
-			else if(step === 2){
+			else if (step === 2) {
 				umn.r1 = 2;
 				umn.r2 = 3;
 			}
 			else {
 				umn.change = true;
 			}
-			umn.startUmnozheniye();
 		}
 		if (level === 9) {
-			umn.level = level;
 			if (step === 1) {
 				umn.r1 = 2;
 				umn.r2 = 4;
@@ -469,60 +355,147 @@ function startGame(trenazhor, level, step) {
 			else {
 				umn.change = true;
 			}
-			umn.startUmnozheniye();
 		}
 		if (level === 10) {
-			umn.level = level;
 			if (step === 1) {
 				umn.r1 = 4;
 				umn.r2 = 3;
 			}
-			else if(step === 2){
+			else if (step === 2) {
 				umn.r1 = 5;
 				umn.r2 = 2;
 			}
 			else {
 				umn.change = true;
 			}
-			umn.startUmnozheniye();
 		}
+		umn.level = level;
+		umn.startUmnozheniye();
 		console.log(umn);
 	}
 	
-	else if (trenazhor === 'mental') {
-		newExempl = new Mental();
-		
-		if (level === '444') {
-			switch (step) {
-				// ====================== Abacus - умножение ==========================
-				case
-				'Umn_level_8'
-				:
-					newExempl = new Umnozheniye({
-						level: 'level_4',
-						M: 10,
-						r1: 3,
-						r2: 2
-					});
-					newExempl.startUmnozheniye();
-					break;
-				case
-				'Umn_level_9'
-				:
-					newExempl = new Umnozheniye('level_9', 10, 6);
-					newExempl.startUmnozheniye();
-					break;
-				case
-				'Umn_level_10'
-				:
-					newExempl = new Umnozheniye('level_10', 10, 10, true);
-					newExempl.startUmnozheniye();
-					break;
-				default:
-					console.log('Я таких значений не знаю');
-			}
-			
+	// ==================== деление ========================
+	else if (trenazhor === 'deleniye') {
+		let del = new Deleniye({
+			M: 10,
+			level: level,
+			step: step,
+			digit: false
+		});
+		if (level === 4 && step > 5) {
+			del.R = 2;
+			del.r1 = 1;
 		}
+		else if (level === 5) {
+			if (step > 2) {
+				del.R = 3;
+				del.r1 = 1;
+			}
+			else {
+				del.R = 2;
+				del.r1 = 1;
+			}
+		}
+		else if (level === 6) {
+			if (step > 3) {
+				del.R = 4;
+				del.r1 = 1;
+			}
+			else {
+				del.R = 3;
+				del.r1 = 1;
+			}
+		}
+		else if (level === 7) {
+			if (step > 5) {
+				del.R = 2;
+				del.r1 = 2;
+			}
+			else {
+				del.R = 4;
+				del.r1 = 1;
+			}
+		}
+		else if (level === 8) {
+			if (step < 4) {
+				del.R = 2;
+				del.r1 = 2;
+			}
+			else if (step === 4) {
+				del.R = 3;
+				del.r1 = 2;
+			}
+			else if (step === 5) {
+				del.R = 4;
+				del.r1 = 2;
+			}
+			else {
+				del.digit = true;
+				del.a1 = 3;
+				del.a2 = 2;
+				del.b1 = 4;
+				del.b2 = 2;
+			}
+		}
+		else if (level === 9) {
+			if (step < 4) {
+				del.digit = true;
+				del.a1 = 3;
+				del.a2 = 2;
+				del.b1 = 4;
+				del.b2 = 2;
+			}
+			else if (step === 4) {
+				del.R = 5;
+				del.r1 = 2;
+			}
+			else if (step === 5) {
+				del.R = 5;
+				del.r1 = 3;
+			}
+			else {
+				del.digit = true;
+				del.a1 = 5;
+				del.a2 = 3;
+				del.b1 = 5;
+				del.b2 = 2;
+			}
+		}
+		else if (level === 10) {
+			if (step < 4) {
+				del.digit = true;
+				del.a1 = 5;
+				del.a2 = 3;
+				del.b1 = 5;
+				del.b2 = 2;
+			}
+			else if (step === 4) {
+				del.R = 6;
+				del.r1 = 2;
+			}
+			else if (step === 5) {
+				del.R = 6;
+				del.r1 = 3;
+			}
+			else {
+				del.digit = true;
+				del.a1 = 6;
+				del.a2 = 2;
+				del.b1 = 6;
+				del.b2 = 3;
+			}
+		}
+		else {
+			let tab = createHtmlElement(`
+						<div class="deleniye__count">
+							choose level or step
+						</div>
+				`);
+			main.appendChild(tab);
+			return true;
+		}
+		del.startDeleniye();
+		console.log(del);
 	}
 }
 

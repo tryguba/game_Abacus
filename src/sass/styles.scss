@@ -474,6 +474,7 @@ body {
   justify-content: center;
   align-items: center;
   transition: all 1s ease;
+
   &__inputAnswer {
     width: 318px;
     height: 108px;
@@ -503,13 +504,64 @@ body {
     font-size: 106px;
     font-weight: 700;
   }
-  &__middleFont{
+
+  &__middleFont {
     font-size: 5rem;
   }
 }
 
 //============ end umnozheniye ==================
 
+//============= deleniye ==================
+.deleniye {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s ease;
+
+  &__inputAnswer {
+    padding: 10px;
+    width: 318px;
+    height: 108px;
+    border: none;
+    transition: all 1s ease;
+    color: #941b1b;
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    box-shadow: inset 0 0 35px 1px rgba(0, 7, 5, 0.31);
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    &:focus {
+      outline: none;
+      filter: drop-shadow(0 0 7px rgb(255, 203, 43));
+    }
+  }
+
+  &__count {
+    color: #941b1b;
+    font-size: 6rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      font-size: 4rem;
+      padding: 0 20px;
+    }
+  }
+
+  &__middleFont {
+    font-size: 5rem;
+  }
+}
+
+//============ end deleniye ==================
 .modal {
   min-width: 500px;
   min-height: 250px;
