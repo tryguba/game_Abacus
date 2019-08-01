@@ -74,7 +74,11 @@ export function rozryad(r1, r2) {
 			break;
 		case 5:
 			count1 = 89999;
-			count1Last = 19000;
+			count1Last = 10000;
+			break;
+		case 6:
+			count1 = 899999;
+			count1Last = 100000;
 			break;
 		default:
 			console.log('r1 hz no no no');
@@ -310,13 +314,13 @@ function startGame(trenazhor, level, step) {
 		if (level === 4 && step > 2) {
 			umn.r1 = 2;
 		}
-		if (level === 5) {
+		else if (level === 5) {
 			umn.r1 = 3;
 		}
-		if (level === 6) {
+		else if (level === 6) {
 			umn.r1 = 4;
 		}
-		if (level === 7) {
+		else if (level === 7) {
 			if (step < 3) {
 				umn.r1 = 4;
 				umn.r2 = 1;
@@ -326,7 +330,7 @@ function startGame(trenazhor, level, step) {
 				umn.r2 = 2;
 			}
 		}
-		if (level === 8) {
+		else if (level === 8) {
 			if (step === 1) {
 				umn.r1 = 3;
 				umn.r2 = 2;
@@ -339,7 +343,7 @@ function startGame(trenazhor, level, step) {
 				umn.change = true;
 			}
 		}
-		if (level === 9) {
+		else if (level === 9) {
 			if (step === 1) {
 				umn.r1 = 2;
 				umn.r2 = 4;
@@ -356,7 +360,7 @@ function startGame(trenazhor, level, step) {
 				umn.change = true;
 			}
 		}
-		if (level === 10) {
+		else if (level === 10) {
 			if (step === 1) {
 				umn.r1 = 4;
 				umn.r2 = 3;
@@ -368,6 +372,15 @@ function startGame(trenazhor, level, step) {
 			else {
 				umn.change = true;
 			}
+		}
+		else {
+			let tab = createHtmlElement(`
+						<div class="deleniye__count">
+							choose level or step
+						</div>
+				`);
+			main.appendChild(tab);
+			return true;
 		}
 		umn.level = level;
 		umn.startUmnozheniye();
