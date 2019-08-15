@@ -1,17 +1,19 @@
-import {createHtmlElement, createStar, rozryad} from "../game";
-import {sound}                                  from "../other/sound";
+import {createHtmlElement, createStar, rozryad, showAllTrenazer, choseTrenazer} from "../game";
+import {sound}                                                                  from "../other/sound";
 
 export default class Umnozheniye {
-	constructor(options) {
-		this.level = options.level;
-		this.change = options.change;
-		this.M = options.M;
-		this.r1 = options.r1;
-		this.r2 = options.r2;
-		this.digit = options.digit;
+	constructor(op) {
+		this.level = op.level;
+		this.change = op.change;
+		this.M = op.M;
+		this.r1 = op.r1;
+		this.r2 = op.r2;
+		this.digit = op.digit;
+		this.mainCount = op.mainCount; // рандомное число для общего тренажора
 		this.iterator = 0;
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 		this.stars = document.querySelector('.stars').innerHTML;
+		
 	}
 	
 	startUmnozheniye() {
@@ -69,7 +71,15 @@ export default class Umnozheniye {
 		}
 		
 		let counts = rozryad(this.r1, this.r2);
-		const count1 = Math.floor((Math.random() * counts.count1) + counts.count1Last);
+		let count1;
+		
+		if (this.mainCount !== undefined && this.mainCount !== 'random') {
+			count1 = this.mainCount;
+		}
+		else {
+			count1 = Math.floor((Math.random() * counts.count1) + counts.count1Last);
+		}
+		
 		const count2 = Math.floor((Math.random() * counts.count2) + counts.count2Last);
 		const result = count1 * count2;
 		console.log(result);
@@ -86,7 +96,7 @@ export default class Umnozheniye {
 			fontSmall = 'umnozheniye__middleFont';
 		}
 		
-		document.querySelector('.title').innerHTML = 'Abacus - умножение';
+		document.querySelector('.title').textContent = 'Abacus - умножение';
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
 			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer ${fontSmall}" type="number"/>`);
@@ -157,6 +167,7 @@ export default class Umnozheniye {
 			countAll = document.querySelector(".stars"),
 			modal = document.querySelector('.modal'),
 			modalBtn = document.querySelector('.modal__buttons'),
+			nextBtn = document.querySelector('.nextButton'),
 			repeatBtn = document.querySelector('.repeatButton');
 		modal.style.display = 'flex';
 		
@@ -176,24 +187,45 @@ export default class Umnozheniye {
 		modalText.innerText = `${text} Ты набрал ${res} ${resData(res)}!`;
 		countAll.innerHTML = res;
 		
-		if (!repeatBtn) {
+		if (!repeatBtn || !nextBtn) {
 			const repeatBtn = createHtmlElement(`
 				<input type="submit" value="Повторить" class="button repeatButton">`);
-			
+			const nextBtn = createHtmlElement(`
+				<input type="submit" value="Продолжить" class="button nextButton">`);
 			modalBtn.appendChild(repeatBtn);
+			modalBtn.appendChild(nextBtn);
 			
 			repeatBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
 				repeatBtn.remove();
+				nextBtn.remove();
 				this.startUmnozheniye();
 			});
+			
+			nextBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				nextBtn.remove();
+				showAllTrenazer();
+				choseTrenazer();
+			});
+			
 		}
 		else {
 			repeatBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
 				repeatBtn.remove();
+				nextBtn.remove();
 				this.iterator = 0;
 				this.startUmnozheniye();
+			});
+			nextBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				nextBtn.remove();
+				this.iterator = 0;
+				showAllTrenazer();
+				choseTrenazer();
 			});
 		}
 	};

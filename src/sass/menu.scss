@@ -163,6 +163,7 @@ form {
     text-transform: uppercase;
     padding: 0 10px;
     margin-left: 10px;
+
     option {
       padding: 10px;
     }
@@ -189,5 +190,27 @@ form {
     &:active {
       background-color: #ac8341;
     }
+  }
+}
+
+#common-button {
+  height: 30px;
+  cursor: pointer;
+  border-radius: 20px;
+  margin-left: 20px;
+  background-color: #eb6969;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1;
+  border: none;
+  box-shadow: 3px 5px 10px #941b1b;
+  outline: none;
+  padding: 0 10px;
+  &:hover {
+    box-shadow: none;
+  }
+
+  &:active {
+    background-color: #ac8341;
   }
 }

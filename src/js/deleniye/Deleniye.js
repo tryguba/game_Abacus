@@ -40,172 +40,33 @@ export default class Deleniye {
 				this.r1 = this.b2;
 			}
 		}
-		
 		function isInteger(num) {
 			return (num ^ 0) === num;
 		}
-
-// ============================================================================================
-// 		if (this.level === 8 && this.change) {
-// 				if (this.iterator % 2) {
-// 					this.r1 = 3;
-// 					this.r2 = 2;
-// 				}
-// 				else {
-// 					this.r1 = 2;
-// 					this.r2 = 3;
-// 				}
-// 			}
-// 			else if (this.level === 9 && this.change) {
-// 				switch (this.iterator) {
-// 					case 0:
-// 					case 3:
-// 					case 6:
-// 					case 9:
-// 						this.r1 = 2;
-// 						this.r2 = 4;
-// 						break;
-// 					case 1:
-// 					case 4:
-// 					case 7:
-// 						this.r1 = 3;
-// 						this.r2 = 3;
-// 						break;
-// 					case 2:
-// 					case 5:
-// 					case 8:
-// 						this.r1 = 4;
-// 						this.r2 = 2;
-// 						break;
-// 				}
-// 			}
-// 			else if (this.level === 10 && this.change) {
-// 				if (this.iterator % 2) {
-// 					this.r1 = 5;
-// 					this.r2 = 2;
-// 				}
-// 				else {
-// 					this.r1 = 4;
-// 					this.r2 = 3;
-// 				}
-// 			}
-		
 		let counts = rozryad(this.R, this.r1);
 		let delimoe = Math.floor((Math.random() * counts.count1) + counts.count1Last);
 		let delitel = Math.floor((Math.random() * counts.count2) + counts.count2Last);
 		let result = delimoe / delitel;
-// ============================================================================================
-		
-		
-		// допустим, делитель=1, частное ищем в промежутке от 1-го до 9-и.
-		// При этом нам необходимо получить двухзначное делимое.
-		// По алгоритму, в какой-то момент, в качестве частного останется для выбора одна 9-ка,
-		// если при выборе 9-ки, все же не удалось получить n==R (а в случае примера не удастся),
-		// то идет сравнение значения частного и верхней границы частного,
-		// то есть 9==9, если "да", то повышаем разрядность частного.
-		// частное начинаем искать в промежутке от 10 до 99
-		// let k1verh = Math.pow(10, this.r1) - 1;
-		// let k1niz = Math.pow(10, this.r1 - 1);
-		// let k2verh = Math.pow(10, this.r2) - 1;
-		// let k2niz = Math.pow(10, this.r2 - 1);
-		//
-		// console.log(`k1verh=${k1verh} k1niz=${k1niz} k2verh=${k2verh} k2niz=${k2niz}`);
-		// let delitel = Math.floor(Math.random() * Math.floor(k1verh - k1niz + 1) + k1niz); // делитель=1
-		// let chastnoe = Math.floor(Math.random() * Math.floor(k2verh - k2niz + 1) + k2niz);
-		// let delimoe;
-		// let n;
-		// let _this = this;
-		// function createMainCount() {
-		// 	chastnoe = Math.floor(Math.random() * Math.floor(k2verh - k2niz + 1) + k2niz);
-		// 	delimoe = delitel * chastnoe;
-		// 	let n = 1, t = delimoe;
-		// 	t = (t - t % 10) / 10;
-		// 	while (t > 0) {
-		// 		t = (t - t % 10) / 10;
-		// 		n++;
-		// 	}
-		// 	return {
-		// 		chastnoe,
-		// 		delimoe,
-		// 		n
-		// 	}
-		// }
-		
-		
+
 		while (!isInteger(result)) {
 			console.log(`=======================`);
 			counts = rozryad(this.R, this.r1);
 			delimoe = Math.floor((Math.random() * counts.count1) + counts.count1Last);
 			// delitel = Math.floor((Math.random() * counts.count2) + counts.count2Last);
 			result = delimoe / delitel;
+			if (result === 1){
+				delimoe = Math.floor((Math.random() * counts.count1) + counts.count1Last);
+				delitel = Math.floor((Math.random() * counts.count2) + counts.count2Last);
+				result = delimoe / delitel;
+			}
 		}
-		
 		console.log(result);
-		
-		// function funcCreateAll() {
-		//
-		// 	chastnoe = Math.floor(Math.random() * Math.floor(89) + 10);
-		// 	delitel = Math.floor(Math.random() * Math.floor(8) + 1);
-		// 	delimoe = delitel * chastnoe;
-		//
-		//
-		//
-		// 	/*let xxx = createMainCount();
-		//
-		// 	chastnoe = xxx.chastnoe;
-		// 	delimoe = xxx.delimoe;
-		// 	n = xxx.n;
-		//
-		//
-		// 	console.log(`chastnoe1=${chastnoe}`);
-		//
-		// 	if (n > _this.R && chastnoe !== k2verh) {
-		// 		console.log('================== 1 ====================');
-		// 		while (delimoe.toString().length < _this.R) {
-		// 			funcCreateAll();
-		// 		}
-		// 	}
-		// 	else if (n <= _this.R && chastnoe !== k2verh) {
-		// 		console.log('================== 2 ====================');
-		// 		if (delimoe.toString().length < _this.R) {
-		// 			funcCreateAll();
-		// 		}
-		// 	}
-		// 	else if (n !== _this.R && chastnoe === k2verh) {
-		// 		k2niz = Math.pow(10, _this.r2);
-		// 		k2verh = Math.pow(10, _this.r2 + 1) - 1;
-		// 		chastnoe = Math.floor(Math.random() * Math.floor(k2verh - k2niz + 1) + k2niz);
-		// 		delimoe = delitel * chastnoe;
-		//
-		// 		console.log('================== 3 ====================');
-		// 		console.log(`delitel=${delitel} chastnoe2=${chastnoe}`);
-		//
-		//
-		// 	}
-		// 	else {
-		// 		console.log('================== 4 ====================');
-		// 	}*/
-		// 	return {
-		// 		delimoe,
-		// 		delitel,
-		// 		chastnoe
-		// 	}
-		// }
-		//
-		// funcCreateAll();
-		
-		// delimoe = delitel * chastnoe;
-		// const result = delimoe / delitel;
-		//
-		// console.log(result);
-		
 		return {
 			delimoe,
 			delitel,
 			result
 		};
 	}
-	
 	
 	showCount(arrData) {
 		let fontSmall = '';
@@ -327,5 +188,4 @@ export default class Deleniye {
 			});
 		}
 	}
-	;
 }

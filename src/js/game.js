@@ -1,12 +1,14 @@
-import {image}      from "./other/image";
-import anime        from "animejs";
-import {levelStep}  from "./levelStep";
-import RunFlashCart from "./flesh_cart/RunFlashCart"
-import RunAbacus    from "./abacus/RunAbacus";
-import Mental       from "./mental/Mental"
-import Umnozheniye  from "./umnozheniye/Umnozheniye"
-import Abacus       from "./abacus/Abacus"
-import Deleniye     from "./deleniye/Deleniye";
+import {image}             from "./other/image";
+import anime               from "animejs";
+import {levelStep}         from "./levelStep";
+import RunFlashCart        from "./flesh_cart/RunFlashCart"
+import RunAbacus           from "./abacus/RunAbacus";
+import Mental              from "./mental/Mental"
+import Umnozheniye         from "./umnozheniye/Umnozheniye"
+import Abacus              from "./abacus/Abacus"
+import Deleniye            from "./deleniye/Deleniye";
+import Common              from "./common/Common";
+import multiplicationTable from "./common/multiplicationTable";
 
 
 export const createHtmlElement = (str) => {
@@ -112,6 +114,7 @@ export function rozryad(r1, r2) {
 }
 
 const form = document.querySelector('#form input');
+const common = document.querySelector('#common-button');
 
 form.addEventListener('click', function (e) {
 	e.preventDefault();
@@ -420,7 +423,7 @@ function startGame(trenazhor, level, step) {
 			}
 		}
 		else if (level === 7) {
-			if (step > 5) {
+			if (step >= 5) {
 				del.R = 2;
 				del.r1 = 2;
 			}
@@ -512,4 +515,157 @@ function startGame(trenazhor, level, step) {
 	}
 }
 
+ export function showAllTrenazer() {
+	document.querySelector('.title').innerHTML = 'Общий тренажер';
+	const main = document.querySelector('#main'),
+		table = document.querySelector('#app_simulator');
+	table.innerHTML = null;
+	
+	const carts = createHtmlElement(`<ul class="common">
+				<li class="multiplicationTable" data-title="Таблица умножения"></li>
+				<li class="flashCart" data-title="Флеш карты"></li>
+				<li class="mentalArithmetic " data-title="Ментальная арифметика"></li>
+				<li class="additionSubtraction" data-title="Сложение и вычитание"></li>
+				<li class="multiplications" data-title="Умножение"></li>
+				<li class="division" data-title="Деление"></li>
+				<li class="fractions" data-title="Дроби"></li>
+	</ul>`);
+	table.appendChild(carts);
+}
+
+
+function multiplicationTableFunc() {
+	document.querySelector('.title').innerHTML = '2 x 2';
+	const main = document.querySelector('#main'),
+		table = document.querySelector('#app_simulator');
+	
+	table.innerHTML = null;
+	
+	const cart = createHtmlElement(`
+			<div class="multiplicationTableChoose">
+			<div class="counts">
+				<div class="text">Выбирете цифры:</div>
+			  <select class="select">
+			    <option value="2" selected>1-2</option>
+			    <option value="3">3</option>
+			    <option value="4">4</option>
+			    <option value="5">5</option>
+			    <option value="6">6</option>
+			    <option value="7">7</option>
+			    <option value="8">8</option>
+			    <option value="9">9-10</option>
+			    <option value="random">смешанные</option>
+			  </select>
+			</div>
+			<div class="equationCounts">
+			<div class="text">Выбирете количество уравнений:</div>
+				<div class="radios-boxes">
+				  <div class="radios">
+				    <input type="radio" name="radio" id="radio1" class="radio" value="5" checked>
+				    <input type="radio" name="radio" id="radio2" class="radio" value="10">
+				    <input type="radio" name="radio" id="radio3" class="radio" value="15">
+				    <input type="radio" name="radio" id="radio4" class="radio" value="20">
+				    <div class="ball"></div>
+				  </div>
+				  <div class="labels">
+				    <label for="radio1" class="label">5</label>
+				    <label for="radio2" class="label">10</label>
+				    <label for="radio3" class="label">15</label>
+				    <label for="radio4" class="label">20</label>
+				  </div>
+				</div>
+			</div>
+		</div>
+		`);
+	
+	table.appendChild(cart);
+	
+	let radios = document.querySelectorAll('.radio');
+	let labels = document.querySelectorAll('.label');
+	let ball = document.querySelector('.ball');
+	let prevRadio, prevLabel;
+	radios.forEach((radio, index) => {
+		radio.addEventListener('click', function (e) {
+			if (prevRadio) prevRadio.classList.toggle('active');
+			if (prevLabel) prevLabel.classList.toggle('active');
+			radio.classList.toggle('active');
+			prevRadio = radio;
+			labels[index].classList.toggle('active');
+			prevLabel = labels[index];
+			ball.className = `ball pos${index}`;
+		});
+	});
+	
+	// // создаем кнопку "поехали"
+	const buttonGO = createHtmlElement(`<input id="buttonGO" type="button" value="поехали!">`);
+	main.appendChild(buttonGO);
+	buttonGO.addEventListener('click', (e) => {
+		const countValue = document.querySelector('.select').value,
+			equationCounts = +document.querySelector('input[name="radio"]:checked').value;
+		let umn = new Umnozheniye({
+			M: equationCounts,
+			r1: 1,
+			r2: 1,
+			mainCount: countValue
+		});
+		umn.startUmnozheniye();
+		buttonGO.remove();
+	});
+	
+	return false;
+}
+
+ export function choseTrenazer() {
+	let cartsElement = document.querySelectorAll('.common li');
+	
+	cartsElement.forEach(function (e) {
+		e.addEventListener('click', function () {
+			switch (e.className) {
+				case 'multiplicationTable':
+					console.log('multiplicationTable');
+					multiplicationTableFunc();
+					
+					break;
+				case 'flashCart':
+					startGame('fleshCart', 1, 1);
+					console.log('flashCart');
+					break;
+				case 'additionSubtraction':
+					startGame('abacus', 1, 1);
+					console.log('abacus');
+					break;
+				case 'multiplications':
+					startGame('umnozhenye', 5, 1);
+					console.log('umnozhenye');
+					break;
+				case 'division':
+					startGame('deleniye', 7, 1);
+					console.log('deleniye');
+					break;
+				case 'fractions':
+					startGame('abacus', 7, 1);
+					console.log('2222222');
+					break;
+				default:
+					console.log('i dont no');
+			}
+		})
+		console.log(e.className);
+	})
+}
+
+common.addEventListener('click', function (e) {
+	e.preventDefault();
+	showAllTrenazer();
+	choseTrenazer();
+	//удаляем кнопку "проверить"
+	if (document.querySelector('#button') ){
+		document.querySelector('#button').remove();
+	}
+	//удаляем кнопку "поехали!"
+	if (document.querySelector('#buttonGO')){
+		document.querySelector('#buttonGO').remove();
+	}
+	
+})
 
