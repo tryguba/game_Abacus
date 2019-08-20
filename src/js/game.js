@@ -515,7 +515,7 @@ function startGame(trenazhor, level, step) {
 	}
 }
 
- export function showAllTrenazer() {
+export function showAllTrenazer() {
 	document.querySelector('.title').innerHTML = 'Общий тренажер';
 	const main = document.querySelector('#main'),
 		table = document.querySelector('#app_simulator');
@@ -524,8 +524,7 @@ function startGame(trenazhor, level, step) {
 	const carts = createHtmlElement(`<ul class="common">
 				<li class="multiplicationTable" data-title="Таблица умножения"></li>
 				<li class="flashCart" data-title="Флеш карты"></li>
-				<li class="mentalArithmetic " data-title="Ментальная арифметика"></li>
-				<li class="additionSubtraction" data-title="Сложение и вычитание"></li>
+				<li class="mentalArithmetic" data-title="Сложение и вычитание"></li>
 				<li class="multiplications" data-title="Умножение"></li>
 				<li class="division" data-title="Деление"></li>
 				<li class="fractions" data-title="Дроби"></li>
@@ -533,9 +532,8 @@ function startGame(trenazhor, level, step) {
 	table.appendChild(carts);
 }
 
-
 function multiplicationTableFunc() {
-	document.querySelector('.title').innerHTML = '2 x 2';
+	document.querySelector('.title').innerHTML = `<div class="title__multiplicationTable"></div>`;
 	const main = document.querySelector('#main'),
 		table = document.querySelector('#app_simulator');
 	
@@ -544,64 +542,67 @@ function multiplicationTableFunc() {
 	const cart = createHtmlElement(`
 			<div class="multiplicationTableChoose">
 			<div class="counts">
-				<div class="text">Выбирете цифры:</div>
-			  <select class="select">
-			    <option value="2" selected>1-2</option>
-			    <option value="3">3</option>
-			    <option value="4">4</option>
-			    <option value="5">5</option>
-			    <option value="6">6</option>
-			    <option value="7">7</option>
-			    <option value="8">8</option>
-			    <option value="9">9-10</option>
-			    <option value="random">смешанные</option>
-			  </select>
-			</div>
-			<div class="equationCounts">
-			<div class="text">Выбирете количество уравнений:</div>
-				<div class="radios-boxes">
-				  <div class="radios">
-				    <input type="radio" name="radio" id="radio1" class="radio" value="5" checked>
-				    <input type="radio" name="radio" id="radio2" class="radio" value="10">
-				    <input type="radio" name="radio" id="radio3" class="radio" value="15">
-				    <input type="radio" name="radio" id="radio4" class="radio" value="20">
-				    <div class="ball"></div>
-				  </div>
-				  <div class="labels">
-				    <label for="radio1" class="label">5</label>
-				    <label for="radio2" class="label">10</label>
-				    <label for="radio3" class="label">15</label>
-				    <label for="radio4" class="label">20</label>
-				  </div>
-				</div>
+				<h4 class="text">Выбирете розряд числа: </h4>
+				 <div class="radios">
+				   <input type="radio" class="radio" name="radio_1" value="1">
+				   <input type="radio" class="radio active" name="radio_2" value="2" checked>
+				   <input type="radio" class="radio" name="radio_3" value="3">
+				   <input type="radio" class="radio" name="radio_4" value="4">
+				   <input type="radio" class="radio" name="radio_5" value="5">
+				   <input type="radio" class="radio" name="radio_6" value="6">
+				   <input type="radio" class="radio" name="radio_7" value="7">
+				   <input type="radio" class="radio" name="radio_Rand" value="Случайные">
+				   <div class="ball"></div>
+				 </div>
 			</div>
 		</div>
 		`);
 	
 	table.appendChild(cart);
+	selectNumberOfEquations(cart);
 	
-	let radios = document.querySelectorAll('.radio');
-	let labels = document.querySelectorAll('.label');
-	let ball = document.querySelector('.ball');
-	let prevRadio, prevLabel;
-	radios.forEach((radio, index) => {
+	const countRadios = document.querySelectorAll('.counts .radio');
+	const equationCountsRadios = document.querySelectorAll('.equationCounts .radio');
+	
+	const ballcount = document.querySelector('.counts .ball');
+	const ballEquationCounts = document.querySelector('.equationCounts .ball');
+	
+	let digitNumber = document.querySelector('.counts .radio.active');
+	let numberOfEquations = document.querySelector('.equationCounts .radio.active');
+	
+	
+	console.log(digitNumber.getAttribute('value'));
+	
+// =====================================================================
+	countRadios.forEach((radio, index) => {
 		radio.addEventListener('click', function (e) {
-			if (prevRadio) prevRadio.classList.toggle('active');
-			if (prevLabel) prevLabel.classList.toggle('active');
+			if (digitNumber) digitNumber.classList.toggle('active');
 			radio.classList.toggle('active');
-			prevRadio = radio;
-			labels[index].classList.toggle('active');
-			prevLabel = labels[index];
-			ball.className = `ball pos${index}`;
+			digitNumber = radio;
+			ballcount.className = `ball pos${index}`;
 		});
 	});
+// =====================================================================
+
+// =====================================================================
+	equationCountsRadios.forEach((radio, index) => {
+		radio.addEventListener('click', function (e) {
+			if (numberOfEquations) numberOfEquations.classList.toggle('active');
+			radio.classList.toggle('active');
+			numberOfEquations = radio;
+			ballEquationCounts.className = `ball pos${index}`;
+		});
+	});
+// =====================================================================
 	
 	// // создаем кнопку "поехали"
 	const buttonGO = createHtmlElement(`<input id="buttonGO" type="button" value="поехали!">`);
 	main.appendChild(buttonGO);
 	buttonGO.addEventListener('click', (e) => {
-		const countValue = document.querySelector('.select').value,
-			equationCounts = +document.querySelector('input[name="radio"]:checked').value;
+		
+		
+		const countValue = +digitNumber.getAttribute('value'),
+			equationCounts = +numberOfEquations.getAttribute('value');
 		let umn = new Umnozheniye({
 			M: equationCounts,
 			r1: 1,
@@ -611,11 +612,101 @@ function multiplicationTableFunc() {
 		umn.startUmnozheniye();
 		buttonGO.remove();
 	});
-	
-	return false;
 }
 
- export function choseTrenazer() {
+function flashCartFunc() {
+	document.querySelector('.title').innerHTML = `<div class="title__flashCart"></div>`;
+	const main = document.querySelector('#main'),
+		table = document.querySelector('#app_simulator');
+	
+	table.innerHTML = null;
+	
+	const cart = createHtmlElement(`
+		<div class="flashCartChoose">
+			<div class="counts">
+				<h4 class="text">Выбирете розряд числа: </h4>
+			  	<div class="radios-boxes">
+				  <div class="radios">
+				    <input type="radio" class="radio" name="radio_1" value="1">
+				    <input type="radio" class="radio active" name="radio_2" value="2" checked>
+				    <input type="radio" class="radio" name="radio_3" value="3">
+				    <input type="radio" class="radio" name="radio_4" value="4">
+				    <input type="radio" class="radio" name="radio_5" value="5">
+				    <input type="radio" class="radio" name="radio_6" value="6">
+				    <input type="radio" class="radio" name="radio_7" value="7">
+				    <input type="radio" class="radio" name="radio_Rand" value="Случайные">
+				    <div class="ball"></div>
+				  </div>
+				</div>
+				<div class="flashCartImg"></div>
+			</div>
+		</div>
+		`);
+	table.appendChild(cart);
+	selectNumberOfEquations(cart);
+	
+	const radios = document.querySelectorAll('.radio');
+	const ball = document.querySelector('.ball');
+	let prevRadio = document.querySelector('.radio.active');
+	radios.forEach((radio, index) => {
+		radio.addEventListener('click', function (e) {
+			if (prevRadio) prevRadio.classList.toggle('active');
+			radio.classList.toggle('active');
+			prevRadio = radio;
+			ball.className = `ball pos${index}`;
+		});
+	});
+	
+	let choseImg = document.querySelector('.flashCartImg');
+	const equationCounts = +document.querySelector('input[type="radio"]:checked').value;
+	const rad = document.querySelectorAll('.counts .radios .radio');
+	choseImg.innerHTML = `<div class="chooseRozr chooseRozr_radio_2"></div>`;
+	//изменяем картинку в зависимости от сложности левела
+	rad.forEach((xxx) => {
+		xxx.addEventListener('click', (e) => {
+			const z = e.target.getAttribute('name')
+			choseImg.innerHTML = `<div class="chooseRozr chooseRozr_${z}"></div>`;
+		})
+	})
+	
+	// // создаем кнопку "поехали"
+	const buttonGO = createHtmlElement(`<input id="buttonGO" type="button" value="поехали!">`);
+	main.appendChild(buttonGO);
+	buttonGO.addEventListener('click', (e) => {
+		const equationCounts = +document.querySelector('.equationCounts .radio.active').value;
+		let mental = new RunFlashCart({
+				// M: equationCounts,
+				// mainCount: equationCounts,
+				// level: 3,
+				// column: 10,
+				// step: 1,
+				// row: equationCounts, // equationCounts
+				// digit: true
+			})
+		;
+		mental.startFlashCart(1, false);
+		buttonGO.remove();
+	});
+}
+
+function selectNumberOfEquations(table) {
+	const line = createHtmlElement(`
+		<div class="equationCounts">
+			<h4 class="text">Выбирете количество уравнений:</h4>
+			 <div class="radios">
+			    <input type="radio" name="radio" class="radio" value="5">
+			    <input type="radio" name="radio" class="radio active" value="10">
+			    <input type="radio" name="radio" class="radio" value="15">
+			    <input type="radio" name="radio" class="radio" value="20">
+			    <div class="ball"></div>
+			 </div>
+		</div>
+	`);
+	table.appendChild(line);
+}
+
+
+export function choseTrenazer() {
 	let cartsElement = document.querySelectorAll('.common li');
 	
 	cartsElement.forEach(function (e) {
@@ -627,11 +718,12 @@ function multiplicationTableFunc() {
 					
 					break;
 				case 'flashCart':
-					startGame('fleshCart', 1, 1);
+					// startGame('fleshCart', 1, 1);
+					flashCartFunc();
 					console.log('flashCart');
 					break;
-				case 'additionSubtraction':
-					startGame('abacus', 1, 1);
+				case 'mentalArithmetic':
+					document.querySelector('.title').innerHTML = `<div class="title__mentalArithmetic"></div>`;
 					console.log('abacus');
 					break;
 				case 'multiplications':
@@ -650,7 +742,7 @@ function multiplicationTableFunc() {
 					console.log('i dont no');
 			}
 		})
-		console.log(e.className);
+		// console.log(e.className);
 	})
 }
 
@@ -659,11 +751,11 @@ common.addEventListener('click', function (e) {
 	showAllTrenazer();
 	choseTrenazer();
 	//удаляем кнопку "проверить"
-	if (document.querySelector('#button') ){
+	if (document.querySelector('#button')) {
 		document.querySelector('#button').remove();
 	}
 	//удаляем кнопку "поехали!"
-	if (document.querySelector('#buttonGO')){
+	if (document.querySelector('#buttonGO')) {
 		document.querySelector('#buttonGO').remove();
 	}
 	

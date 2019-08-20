@@ -66,6 +66,13 @@ body {
   top: 50%;
   transform: translate(-50%, calc(-50% + 20px));
 
+  @mixin backgroundTitle($xxx) {
+    background: url($xxx);
+    background-size: contain;
+    width: 2em;
+    height: 2em;
+  }
+
   .title {
     color: $main-color;
     font-size: 46px;
@@ -81,6 +88,30 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &__multiplicationTable {
+      @include backgroundTitle("../img/icon-multiplicationTable.png");
+    }
+
+    &__flashCart {
+      @include backgroundTitle("../img/icon-flashCart.png");
+    }
+
+    &__multiplications {
+      @include backgroundTitle("../img/icon-multiplications.png");
+    }
+
+    &__division {
+      @include backgroundTitle("../img/icon-division.png");
+    }
+
+    &__fractions {
+      @include backgroundTitle("../img/icon-fractions.png");
+    }
+
+    &__mentalArithmetic {
+      @include backgroundTitle("../img/icon-mental.png");
+    }
   }
 }
 
@@ -621,6 +652,7 @@ body {
   animation-name: moveStar;
 }
 
+//========================= common ======================
 .common {
   width: 100%;
   display: flex;
@@ -633,6 +665,7 @@ body {
     height: 200px;
     cursor: pointer;
     margin: 0 15px;
+
     &:hover {
       transform: scale(1.3);
     }
@@ -649,11 +682,13 @@ body {
     background: rgba(255, 255, 255, .3);
     border-radius: 5px;
     padding: 5px;
+    margin-top: -15px;
   }
 
   .multiplicationTable {
     background: url("../img/icon-multiplicationTable.png") no-repeat center;
     background-size: contain;
+
     &:hover::after {
       @include popup-title;
     }
@@ -663,14 +698,6 @@ body {
     background: url("../img/icon-flashCart.png") no-repeat center;
     background-size: contain;
 
-    &:hover::after {
-      @include popup-title;
-    }
-  }
-
-  .additionSubtraction {
-    background: url("../img/icon-additionSubtraction.png") no-repeat center;
-    background-size: contain;
     &:hover::after {
       @include popup-title;
     }
@@ -713,134 +740,99 @@ body {
   }
 }
 
-.multiplicationTableChoose {
+
+.multiplicationTableChoose,
+.flashCartChoose {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-direction: column;
   //============================================
   .radio {
-    box-sizing: border-box;
-    border: 1px solid #8b5e3c;;
-    border-radius: 20px;
-    height: 20px;
-    background: #ffbe7d;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-radius: 50%;
     position: relative;
-    width: 400px;
-
-    input {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background-color: #603913;
-    }
-  }
-
-  .radios-boxes {
-    display: flex;
-    flex-direction: column;
-    //margin-top: 50px;
-  }
-
-  .radios {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    //overflow: hidden;
-    position: relative;
-    background-color: #ffbe7d;
-    border-radius: 50px;
-  }
-
-  .radio {
-    -moz-appearance: none;
-    -ms-appearance: none;
-    -webkit-appearance: none;
     appearance: none;
-    //border-radius: 50%;
-    //border: 5px solid #fff;
     cursor: pointer;
-    height: 40px;
-    width: 40px;
-    margin: 5px 10px;
-    outline: 0;
-    -webkit-tap-highlight-color: transparent;
-    transition: border-color 800ms;
+    height: 25px;
+    width: 25px;
+    outline: none;
+    transition: all 800ms;
     background-color: #8a5d13;
   }
 
-  .radio.active {
-    background-color: #fff;
-    border: 5px solid #8a5d13;
+  .radios {
+    border: 1px solid #8b5e3c;
+    position: relative;
+    background-color: #ffbe7d;
+    border-radius: 50px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 446px;
+  }
+
+  .equationCounts .radios {
+    width: 207px;
   }
 
   .ball {
     background: url("../img/polz.png") no-repeat center;
     background-size: 90%;
-    height: 32px;
-    width: 32px;
+    height: 25px;
+    width: 25px;
     pointer-events: none;
     position: absolute;
     top: -20px;
-    left: 13px;
+    left: 60px;
     transition: transform 800ms;
   }
 
   .ball.pos0 {
-    transform: translateX(0px);
+    transform: translateX(-60px);
   }
 
   .ball.pos1 {
-    transform: translateX(60px);
+    transform: translateX(0px);
   }
 
   .ball.pos2 {
-    transform: translateX(120px);
+    transform: translateX(60px);
   }
 
   .ball.pos3 {
+    transform: translateX(120px);
+  }
+
+  .ball.pos4 {
     transform: translateX(180px);
   }
 
-  .labels {
-    margin-left: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  .ball.pos5 {
+    transform: translateX(240px);
   }
 
-  .label {
-    color: #8a5d13;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 28px;
-    padding: 15px 0;
-    -webkit-tap-highlight-color: transparent;
-    transition: color 800ms;
+  .ball.pos6 {
+    transform: translateX(300px);
   }
 
-  .label.active {
-    color: #603913;
-    font-weight: 900;
+  .ball.pos7 {
+    transform: translateX(360px);
+  }
+
+  .ball.radioRand {
+    transform: translateX(420px);
   }
 
   .equationCounts, .counts {
-    width: 100%;
     margin-top: 50px;
     display: flex;
-    justify-content: space-between;
-    align-items: end;
+    flex-direction: column;
   }
 
   .text {
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 1.2em;
+    color: #603913;
   }
 
   .select {
@@ -858,6 +850,109 @@ body {
   }
 }
 
+.radios .radio::before {
+  content: attr(value);
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: -15px;
+  font-size: 2em;
+  color: #603913;
+}
+
+.radios .radio:nth-child(8)::before {
+  margin-left: 55px;
+}
+
+.radios .active::before {
+  font-weight: 900;
+  color: #000;
+}
+
+.radios .active {
+  background: darken(#8a5d13, 20%);
+}
+
+.radioRand:before {
+  margin-left: 30px;
+}
+
+
+.flashCartImg {
+  width: 410px;
+  height: 270px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+@mixin bgChooseRozr($url) {
+  background: url($url) no-repeat center /*rgba(255, 255, 255, 0.3)*/
+;
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.chooseRozr {
+  &_radio_1 {
+    @include bgChooseRozr("../img/first.png");
+    //background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  &_radio_2 {
+    @include bgChooseRozr("../img/second.png");
+  }
+
+  &_radio_3 {
+    @include bgChooseRozr("../img/third.png");
+  }
+
+  &_radio_4 {
+    @include bgChooseRozr("../img/four.png");
+  }
+
+  &_radio_5 {
+    @include bgChooseRozr("../img/five.png");
+  }
+
+  &_radio_6 {
+    @include bgChooseRozr("../img/six.png");
+  }
+
+  &_radio_7 {
+    @include bgChooseRozr("../img/seven.png");
+    //background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  &_radio_Rand {
+    @include bgChooseRozr("../img/2-layers.png");
+    animation: obertZirka 3s ease-in-out infinite;
+
+  }
+
+}
+
+//========================= end common ======================
+
+
+@keyframes obertZirka {
+  0% {
+    transform: /*rotate(0deg) */
+            scale(1.0);
+
+  }
+
+  50% {
+    transform: /*rotate(360deg)*/
+            scale(1.5);
+  }
+  100% {
+    transform: /*rotate(360deg)*/
+            scale(1.0);
+  }
+}
 
 @keyframes moveStar {
   0% {

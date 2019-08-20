@@ -95,8 +95,12 @@ export default class Umnozheniye {
 		if (this.r1 >= 3 || this.r2 >= 3) {
 			fontSmall = 'umnozheniye__middleFont';
 		}
+		if (this.mainCount){
+			document.querySelector('.title').innerHTML = `<div class="title__multiplicationTable"></div>`;
+		} else {
+			document.querySelector('.title').textContent = 'Abacus - умножение';
+		}
 		
-		document.querySelector('.title').textContent = 'Abacus - умножение';
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
 			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer ${fontSmall}" type="number"/>`);
