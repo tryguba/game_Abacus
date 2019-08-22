@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Abacus_game тренажор</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./src/img/favicon.png">
+
+<link rel="shortcut icon" href="favicon.png"><link href="index.css" rel="stylesheet"></head>
+<body>
+<header id="header">
+    <!--<nav class="abacus-menu">
+        <ul>
+            <li><a href="#">АBACUS-АРИФМЕТИКА</a>
+                <ul>
+                    <li><a href="#" class="step">level_1</a>
+                        <ul>
+                            <li><a href="#" class="step" name="step_1_2">step_1_2</a></li>
+                            <li><a href="#" class="step" name="step_3">step_3</a></li>
+                            <li><a href="#" class="step" name="step_4">step_4</a></li>
+                            <li><a href="#" class="step" name="step_5_6">step_5_6</a></li>
+                            <li><a href="#" class="step" name="step_7_8">step_7_8</a></li>
+                            <li><a href="#" class="step" name="step_9">step_9</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="step" name="level_2">level_2</a></li>
+                    <li><a href="#" class="step" name="level_3">level_3</a></li>
+                    <li><a href="#" class="step" name="level_4">level_4</a></li>
+                    <li><a href="#" class="step" name="level_5">level_5</a></li>
+                    <li><a href="#" class="step" name="level_6">level_6</a></li>
+                    <li><a href="#" class="step" name="level_7">level_7</a></li>
+                    <li><a href="#" class="step" name="level_8">level_8</a></li>
+                    <li><a href="#" class="step" name="level_9">level_9</a></li>
+                    <li><a href="#" class="step" name="level_10">level_10</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <nav class="fleshCart-menu">
+        <ul>
+            <li><a href="#">флеш - карты</a>
+                <ul>
+                    <li><a href="#" class="step">level_1</a>
+                        <ul>
+                            <li><a href="#" class="step" name="F_l1_step_1_2_3">step_1_2_3</a></li>
+                            <li><a href="#" class="step" name="F_l1_step_4">step_4</a></li>
+                            <li><a href="#" class="step" name="F_l1_step_5_6">step_5_6</a></li>
+                            <li><a href="#" class="step" name="F_l1_step_7">step_7</a></li>
+                            <li><a href="#" class="step" name="F_l1_step_8_9">step_8_9</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="step">level_2</a>
+                        <ul>
+                            <li><a href="#" class="step" name="F_l2_step_1_2">step_1_2</a></li>
+                            <li><a href="#" class="step" name="F_l2_step_3">step_3</a></li>
+                            <li><a href="#" class="step" name="F_l2_step_4">step_4</a></li>
+                            <li><a href="#" class="step" name="F_l2_step_5">step_5</a></li>
+                            <li><a href="#" class="step" name="F_l2_step_6">step_6</a></li>
+                            <li><a href="#" class="step" name="F_l2_step_7">step_7</a></li>
+                            <li><a href="#" class="step" name="F_l2_step_8_9">step_8_9</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <nav class="mental-menu">
+        <ul>
+            <li><a href="#">MENTAL-АРИФМЕТИКА</a>
+                <ul>
+                    <li><a href="#" class="step" name="M_level_3">level_3</a></li>
+                    <li><a href="#" class="step" name="M_level_4">level_4</a></li>
+                    <li><a href="#" class="step" name="M_level_5">level_5</a></li>
+                    <li><a href="#" class="step" name="M_level_6">level_6</a></li>
+                    <li><a href="#" class="step" name="M_level_7">level_7</a></li>
+                    <li><a href="#" class="step" name="M_level_8">level_8</a></li>
+                    <li><a href="#" class="step" name="M_level_9">level_9</a></li>
+                    <li><a href="#" class="step" name="M_level_10">level_10</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <nav class="umnozheniye-menu">
+        <ul>
+            <li><a href="#">Abacus - умножение</a>
+                <ul>
+                    <li><a href="#" class="step" name="Umn_level_4">level_4</a></li>
+                    <li><a href="#" class="step" name="Umn_level_5">level_5</a></li>
+                    <li><a href="#" class="step" name="Umn_level_6">level_6</a></li>
+                    <li><a href="#" class="step" name="Umn_level_7">level_7</a></li>
+                    <li><a href="#" class="step" name="Umn_level_8">level_8</a></li>
+                    <li><a href="#" class="step" name="Umn_level_9">level_9</a></li>
+                    <li><a href="#" class="step" name="Umn_level_10">level_10</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <nav class="deleniye-menu">
+        <ul>
+            <li><a href="#">Abacus-деление</a>
+                <ul>
+                    <li><a href="#" class="step" name="Del_level_4">level_4</a></li>
+                    <li><a href="#" class="step" name="Del_level_5">level_5</a></li>
+                    <li><a href="#" class="step" name="Del_level_6">level_6</a></li>
+                    <li><a href="#" class="step" name="Del_level_7">level_7</a></li>
+                    <li><a href="#" class="step" name="Del_level_8">level_8</a></li>
+                    <li><a href="#" class="step" name="Del_level_9">level_9</a></li>
+                    <li><a href="#" class="step" name="Del_level_10">level_10</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>-->
+    <form action="" id="form">
+        <select name="level" id="level">
+            <option value="1">level-1</option>
+            <option value="2">level-2</option>
+            <option value="3">level-3</option>
+            <option value="4">level-4</option>
+            <option value="5">level-5</option>
+            <option value="6">level-6</option>
+            <option value="7">level-7</option>
+            <option value="8">level-8</option>
+            <option value="9">level-9</option>
+            <option value="10">level-10</option>
+        </select>
+        <select name="step" id="step">
+            <option value="1">step-1</option>
+            <option value="2">step-2</option>
+            <option value="3">step-3</option>
+            <option value="4">step-4</option>
+            <option value="5">step-5</option>
+            <option value="6">step-6</option>
+            <option value="7">step-7</option>
+            <option value="8">step-8</option>
+            <option value="9">step-9</option>
+        </select>
+        <select name="trenazhor" id="trenazhor">
+            <option value="abacus">Abacus - АРИФМЕТИКА</option>
+            <option value="umnozhenye">Abacus - умножение</option>
+            <option value="deleniye">Abacus - деление</option>
+            <option value="fleshCart">флеш - карты</option>
+            <option value="mental">MENTAL - АРИФМЕТИКА</option>
+
+        </select>
+        <input type="submit" name="show" id="submit" value="START">
+    </form>
+    <div id="tablo">Табло Звезд: <img src="images/stared2cbf33e15a04a74c139382cf58f1b8.png" alt="star"><span class="stars">0</span></div>
+</header>
+<main id="main">
+    <h1 class="title"></h1>
+    <div id="app_simulator"></div>
+</main>
+
+<div class="modal">
+    <p class="modal__text"></p>
+    <div class="modal__buttons">
+        <input type="submit" value="Продолжить" class="button nextButton">
+        <input type="submit" value="Повторить" class="button repeatButton">
+    </div>
+</div>
+<script type="text/javascript" src="index.bundle.js"></script></body>
+</html>
