@@ -1,9 +1,6 @@
 export default class Abacus {
 	
-	constructor(firstCountArr = 1, lastCountArr = 9, digit) {
-		this.firstCountArr = firstCountArr;
-		this.lastCountArr = lastCountArr;
-		this.digit = digit;
+	constructor() {
 	}
 	
 	duplicate(arr) {
@@ -394,12 +391,12 @@ export default class Abacus {
 		}
 	}
 	
-	getAbacusSimpleStep_9(columns, rows) {
+	getAbacusSimpleStep_9(columns, rows, firstCount, lastCount, digit) {
 		
 		let genSimple = (prevCount, operation, j) => {
 			let result = 0;
-			let count = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
-			if (this.digit) {
+			let count = Math.floor((Math.random() * (lastCount - firstCount)) + firstCount);
+			if (digit) {
 				if (count % 2 === 0) {
 					count = Math.floor((Math.random() * 89) + 10);
 				}
@@ -417,7 +414,8 @@ export default class Abacus {
 			}
 			//проверка и присвоения первого числа в уравнении
 			if (j === 0) {
-				result = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
+				// result = Math.floor((Math.random() * (8)) + 1);
+				result = Math.floor((Math.random() * (lastCount - firstCount)) + firstCount);
 			}
 			return result;
 		};
@@ -430,9 +428,7 @@ export default class Abacus {
 			for (let j = 0; j < rows; j++) {
 				result[i][j] = genSimple(result[i][j - 1], operation, j);
 			}
-			
 			// console.log(result[i]);
-			
 			sums[i] = result[i].reduce(function (a, b) {
 				return a + b;
 			});
@@ -453,10 +449,10 @@ export default class Abacus {
 		
 	}
 	
-	getAbacusSimpleDoubleOne(columns, rows) {
+	getAbacusSimpleDoubleOne(columns, rows, firstCount, lastCount) {
 		
 		const genSimple = (prev, j) => {
-			let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
+			let count = (Math.random() * (lastCount - firstCount) + firstCount).toFixed(2);
 			// let secondCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
 			let result = 0;
 			
@@ -468,7 +464,7 @@ export default class Abacus {
 			}
 			//проверка и присвоения первого числа в уравнении
 			if (!j) {
-				result = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2);
+				result = (Math.random() * (lastCount - firstCount) + firstCount).toFixed(2);
 				// console.log(`================ firstCount ==================== ${result}`);
 			}
 			
@@ -504,12 +500,12 @@ export default class Abacus {
 		}
 	}
 	
-	getAbacusSimpleDouble(columns, rows) {
+	getAbacusSimpleDouble(columns, rows, firstCount, lastCount, digit) {
 		
 		const genSimple = (prev, j, sumRes) => {
 			const change = j % 2;
-			let count = (Math.random() * (this.lastCountArr - this.firstCountArr) + this.firstCountArr).toFixed(2),
-				smallCount = (Math.random() * (this.digit - this.firstCountArr) + this.firstCountArr).toFixed(2);
+			let count = (Math.random() * (lastCount - firstCount) + firstCount).toFixed(2),
+				smallCount = (Math.random() * (digit - firstCount) + firstCount).toFixed(2);
 			
 			let result = count;
 			

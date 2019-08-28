@@ -1,15 +1,19 @@
-import {createHtmlElement, createStar} from "../game";
+import {createHtmlElement, createStar, rozryad, showAllTrenazer, choseTrenazer} from "../game";
+import {sound}                                                                  from "../other/sound";
 
 export default class Umnozheniye {
-	constructor(options) {
-		this.level = options.level;
-		this.M = options.M;
-		this.r1 = options.r1;
-		this.r2 = options.r2;
-		this.digit = options.digit;
+	constructor(op) {
+		this.level = op.level;
+		this.change = op.change;
+		this.M = op.M;
+		this.r1 = op.r1;
+		this.r2 = op.r2;
+		this.digit = op.digit;
+		this.mainCount = op.mainCount; // рандомное число для общего тренажора
 		this.iterator = 0;
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 		this.stars = document.querySelector('.stars').innerHTML;
+		
 	}
 	
 	startUmnozheniye() {
@@ -21,62 +25,61 @@ export default class Umnozheniye {
 		}
 	}
 	
-	rozryad(r1, r2) {
-		let count1 = 0;
-		let count1Last = 0;
-		let count2Last = 0;
-		let count2 = 0;
-		switch (r1) {
-			case 1:
-				count1 = 9;
-				count1Last = 1;
-				break;
-			case 2:
-				count1 = 89;
-				count1Last = 10;
-				break;
-			case 3:
-				count1 = 899;
-				count1Last = 100;
-				break;
-			case 4:
-				count1 = 8999;
-				count1Last = 1000;
-				break;
-			default:
-				console.log('r1 hz no no no');
-		}
-		switch (r2) {
-			case 1:
-				count2 = 9;
-				count2Last = 1;
-				break;
-			case 2:
-				count2 = 89;
-				count2Last = 10;
-				break;
-			case 3:
-				count2 = 899;
-				count2Last = 100;
-				break;
-			case 4:
-				count2 = 8999;
-				count2Last = 1000;
-				break;
-			default:
-				console.log('r2 hz no no no');
-		}
-		return {
-			count1,
-			count1Last,
-			count2Last,
-			count2
-		};
-	}
-	
 	createCounts() {
-		let counts = this.rozryad(this.r1, this.r2);
-		const count1 = Math.floor((Math.random() * counts.count1) + counts.count1Last);
+		if (this.level === 8 && this.change) {
+			if (this.iterator % 2) {
+				this.r1 = 3;
+				this.r2 = 2;
+			}
+			else {
+				this.r1 = 2;
+				this.r2 = 3;
+			}
+		}
+		else if (this.level === 9 && this.change) {
+			switch (this.iterator) {
+				case 0:
+				case 3:
+				case 6:
+				case 9:
+					this.r1 = 2;
+					this.r2 = 4;
+					break;
+				case 1:
+				case 4:
+				case 7:
+					this.r1 = 3;
+					this.r2 = 3;
+					break;
+				case 2:
+				case 5:
+				case 8:
+					this.r1 = 4;
+					this.r2 = 2;
+					break;
+			}
+		}
+		else if (this.level === 10 && this.change) {
+			if (this.iterator % 2) {
+				this.r1 = 5;
+				this.r2 = 2;
+			}
+			else {
+				this.r1 = 4;
+				this.r2 = 3;
+			}
+		}
+		
+		let counts = rozryad(this.r1, this.r2);
+		let count1;
+		
+		if (this.mainCount !== undefined && this.mainCount !== 'random') {
+			count1 = +this.mainCount;
+		}
+		else {
+			count1 = Math.floor((Math.random() * counts.count1) + counts.count1Last);
+		}
+		
 		const count2 = Math.floor((Math.random() * counts.count2) + counts.count2Last);
 		const result = count1 * count2;
 		console.log(result);
@@ -88,16 +91,26 @@ export default class Umnozheniye {
 	}
 	
 	showCount(arrData) {
+		let fontSmall = '';
+		if (this.r1 >= 3 || this.r2 >= 3) {
+			fontSmall = 'umnozheniye__middleFont';
+		}
+		if (this.mainCount) {
+			document.querySelector('.title').innerHTML = `<div class="title__multiplicationTable"></div>`;
+		}
+		else {
+			document.querySelector('.title').textContent = 'Abacus - умножение';
+		}
 		
-		document.querySelector('.title').innerHTML = 'Abacus - умножение';
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
-			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer" type="number"/>`);
+			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer ${fontSmall}" type="number"/>`);
 		
 		table.innerHTML = null;
+		
 		const cart = createHtmlElement(`<div class="umnozheniye"></div>`);
 		const cartCount = createHtmlElement(`
-						<div class="umnozheniye__count">
+						<div class="umnozheniye__count ${fontSmall}">
 							${arrData.count1} x ${arrData.count2} =
 						</div>
 				`);
@@ -113,7 +126,6 @@ export default class Umnozheniye {
 			main.appendChild(button);
 		}
 		
-		
 		button.addEventListener('click', (e) => {
 			
 			console.log(this.stars);
@@ -126,6 +138,7 @@ export default class Umnozheniye {
 				
 				if (this.firstAnswer) {
 					this.stars++;
+					// new Audio(sound.tune.Zv_3).play();
 					createStar(table, +this.stars);
 				}
 				
@@ -143,11 +156,6 @@ export default class Umnozheniye {
 				}
 			}
 			else {
-				/*if (this.iterator === this.M) {
-					this.iterator = 0;
-					e.target.remove();
-					this.showModalWindow(this.stars, 'СУПЕР!!!');
-				}*/
 				this.firstAnswer = false;
 				console.log(` не верно `);
 				// new Audio(sound.tune.Zv_2).play();
@@ -164,6 +172,7 @@ export default class Umnozheniye {
 			countAll = document.querySelector(".stars"),
 			modal = document.querySelector('.modal'),
 			modalBtn = document.querySelector('.modal__buttons'),
+			nextBtn = document.querySelector('.nextButton'),
 			repeatBtn = document.querySelector('.repeatButton');
 		modal.style.display = 'flex';
 		
@@ -183,24 +192,45 @@ export default class Umnozheniye {
 		modalText.innerText = `${text} Ты набрал ${res} ${resData(res)}!`;
 		countAll.innerHTML = res;
 		
-		if (!repeatBtn) {
+		if (!repeatBtn || !nextBtn) {
 			const repeatBtn = createHtmlElement(`
 				<input type="submit" value="Повторить" class="button repeatButton">`);
-			
+			const nextBtn = createHtmlElement(`
+				<input type="submit" value="Продолжить" class="button nextButton">`);
 			modalBtn.appendChild(repeatBtn);
+			modalBtn.appendChild(nextBtn);
 			
 			repeatBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
 				repeatBtn.remove();
+				nextBtn.remove();
 				this.startUmnozheniye();
 			});
+			
+			nextBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				nextBtn.remove();
+				showAllTrenazer();
+				choseTrenazer();
+			});
+			
 		}
 		else {
 			repeatBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
 				repeatBtn.remove();
+				nextBtn.remove();
 				this.iterator = 0;
 				this.startUmnozheniye();
+			});
+			nextBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				nextBtn.remove();
+				this.iterator = 0;
+				showAllTrenazer();
+				choseTrenazer();
 			});
 		}
 	};

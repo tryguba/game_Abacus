@@ -1,8 +1,8 @@
 import './abacus/Abacus'
-import './abacus/trenazher_abacus'
+import './abacus/RunAbacus'
 
 import './flesh_cart/FleshCart'
-import './flesh_cart/trenazher_fleshCart'
+import './flesh_cart/RunFlashCart'
 
 import './mental/Mental'
 
