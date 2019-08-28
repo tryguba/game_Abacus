@@ -29,7 +29,7 @@ export function createStar(teg, starCount) {
 			top: box.top + pageYOffset,
 			left: box.left + pageXOffset
 		};
-	}
+	};
 	
 	// move star
 	const tablo = document.querySelector("#tablo img");
