@@ -2,6 +2,6 @@
 /src/sound/
 /src/video/
 .idea/
-.gitignore
-package-lock.json
+.gitignore/
+package-lock.json/
 /node_modules/
