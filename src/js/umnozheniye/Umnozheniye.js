@@ -74,7 +74,7 @@ export default class Umnozheniye {
 		let count1;
 		
 		if (this.mainCount !== undefined && this.mainCount !== 'random') {
-			count1 = this.mainCount;
+			count1 = +this.mainCount;
 		}
 		else {
 			count1 = Math.floor((Math.random() * counts.count1) + counts.count1Last);
@@ -95,9 +95,10 @@ export default class Umnozheniye {
 		if (this.r1 >= 3 || this.r2 >= 3) {
 			fontSmall = 'umnozheniye__middleFont';
 		}
-		if (this.mainCount){
+		if (this.mainCount) {
 			document.querySelector('.title').innerHTML = `<div class="title__multiplicationTable"></div>`;
-		} else {
+		}
+		else {
 			document.querySelector('.title').textContent = 'Abacus - умножение';
 		}
 		

@@ -15,20 +15,21 @@ const audio_Au_t_9 = new Audio(sound.trenazhor.Au_t_9);
 // ======================================================================
 export default class RunFlashCart extends FleshCart {
 	
-	constructor() {
+	constructor(op) {
 		// bitNumber --- розрядность числа от 1 до 3
 		super();
-		// this.bitNumber = bitNumber;
+		this.arrLength = op.arrLength;
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 	}
 	
 	// ======================================================================
 	
+	
 	startFlashCart(bitNumber, bool) {
 		
 		const index = 0;
-		const dataObj = this.getFleshCart(); // get level and step
-		this.createColumn(bitNumber, dataObj, index, bool);
+		// const dataObj = this.getFleshCart(); // get level and step
+		this.createColumn(bitNumber, this.getFleshCart(), index, bool);
 	}
 	
 	createColumn(bitNumber, dataObj, index, bool) {
@@ -265,6 +266,7 @@ export default class RunFlashCart extends FleshCart {
 		
 		// проверка и присвоение елементов массива нужного результата
 		let mainArr = dataObj.sumArr;
+		
 		if (bitNumber === 2) {
 			twoColumn();
 			mainArr = dataObj.sumAllArr;
@@ -342,10 +344,10 @@ export default class RunFlashCart extends FleshCart {
 			}
 		}
 		else oneColumn();
+		
 		console.log(mainArr);
 // ======================================================================
 
-// ======================================================================
 // создаем кнопку "ПРОВЕРИТЬ"
 		if (!document.querySelector('#button')) {
 			const button = createHtmlElement(`

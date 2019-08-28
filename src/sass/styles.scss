@@ -207,7 +207,7 @@ body {
 }
 
 
-#button, #buttonGO {
+#button, #buttonGO, #buttonMiss {
   position: absolute;
   bottom: 20px;
   left: 50%;
@@ -768,11 +768,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 446px;
+    width: 430px;
   }
 
   .equationCounts .radios {
-    width: 207px;
+    width: 177px;
   }
 
   .ball {
@@ -783,12 +783,12 @@ body {
     pointer-events: none;
     position: absolute;
     top: -20px;
-    left: 60px;
+    left: 50px;
     transition: transform 800ms;
   }
 
   .ball.pos0 {
-    transform: translateX(-60px);
+    transform: translateX(-50px);
   }
 
   .ball.pos1 {
@@ -796,31 +796,31 @@ body {
   }
 
   .ball.pos2 {
-    transform: translateX(60px);
+    transform: translateX(50px);
   }
 
   .ball.pos3 {
-    transform: translateX(120px);
+    transform: translateX(100px);
   }
 
   .ball.pos4 {
-    transform: translateX(180px);
+    transform: translateX(150px);
   }
 
   .ball.pos5 {
-    transform: translateX(240px);
+    transform: translateX(200px);
   }
 
   .ball.pos6 {
-    transform: translateX(300px);
+    transform: translateX(252px);
   }
 
   .ball.pos7 {
-    transform: translateX(360px);
+    transform: translateX(302px);
   }
 
-  .ball.radioRand {
-    transform: translateX(420px);
+  .ball.pos8 {
+    transform: translateX(354px);
   }
 
   .equationCounts, .counts {
@@ -850,6 +850,58 @@ body {
   }
 }
 
+.flashCartChoose {
+  .counts .radios {
+    width: 380px;
+  }
+
+  .chooseRozr {
+    @mixin bgChooseRozr($url) {
+      background: url($url) no-repeat center /*rgba(255, 255, 255, 0.3)*/
+    ;
+      background-size: contain;
+      width: 100%;
+      height: 100%;
+    }
+
+    &_1 {
+      @include bgChooseRozr("../img/first.png");
+      //background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    &_2 {
+      @include bgChooseRozr("../img/second.png");
+    }
+
+    &_3 {
+      @include bgChooseRozr("../img/third.png");
+    }
+
+    &_4 {
+      @include bgChooseRozr("../img/four.png");
+    }
+
+    &_5 {
+      @include bgChooseRozr("../img/five.png");
+    }
+
+    &_6 {
+      @include bgChooseRozr("../img/six.png");
+    }
+
+    &_7 {
+      @include bgChooseRozr("../img/seven.png");
+      //background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    &_random {
+      @include bgChooseRozr("../img/2-layers.png");
+      animation: obertZirka 3s ease-in-out infinite;
+    }
+
+  }
+}
+
 .radios .radio::before {
   content: attr(value);
   position: absolute;
@@ -857,12 +909,15 @@ body {
   left: 50%;
   transform: translateX(-50%);
   margin-top: -15px;
-  font-size: 2em;
+  font-size: 1.8em;
   color: #603913;
+  width: 50px;
+  text-align: center;
 }
 
-.radios .radio:nth-child(8)::before {
-  margin-left: 55px;
+.radios .radio:nth-child(9)::before {
+  margin-left: 50px;
+  width: auto;
 }
 
 .radios .active::before {
@@ -871,13 +926,13 @@ body {
 }
 
 .radios .active {
-  background: darken(#8a5d13, 20%);
+  background-color: #5D3E12;
 }
 
 .radioRand:before {
+
   margin-left: 30px;
 }
-
 
 .flashCartImg {
   width: 410px;
@@ -887,54 +942,29 @@ body {
   bottom: 0;
 }
 
-@mixin bgChooseRozr($url) {
-  background: url($url) no-repeat center /*rgba(255, 255, 255, 0.3)*/
-;
-  background-size: contain;
+.video {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
   width: 100%;
   height: 100%;
+
+  video {
+    width: 70%;
+    height: 70%;
+    border-radius: 25px;
+    outline: none;
+  }
+
+  #buttonMiss {
+    bottom: -50px;
+  }
 }
 
-.chooseRozr {
-  &_radio_1 {
-    @include bgChooseRozr("../img/first.png");
-    //background-color: rgba(255, 255, 255, 0.3);
-  }
 
-  &_radio_2 {
-    @include bgChooseRozr("../img/second.png");
-  }
-
-  &_radio_3 {
-    @include bgChooseRozr("../img/third.png");
-  }
-
-  &_radio_4 {
-    @include bgChooseRozr("../img/four.png");
-  }
-
-  &_radio_5 {
-    @include bgChooseRozr("../img/five.png");
-  }
-
-  &_radio_6 {
-    @include bgChooseRozr("../img/six.png");
-  }
-
-  &_radio_7 {
-    @include bgChooseRozr("../img/seven.png");
-    //background-color: rgba(255, 255, 255, 0.3);
-  }
-
-  &_radio_Rand {
-    @include bgChooseRozr("../img/2-layers.png");
-    animation: obertZirka 3s ease-in-out infinite;
-
-  }
-
-}
-
-//========================= end common ======================
+//========================= end common ==================
 
 @keyframes obertZirka {
   0% {

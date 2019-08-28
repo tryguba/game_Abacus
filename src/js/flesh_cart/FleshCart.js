@@ -3,6 +3,7 @@ import {image} from "../other/image";
 export default class FleshCart {
 	
 	constructor() {
+		this.arrLength = 10
 	}
 	
 	getFleshCart() {
@@ -11,19 +12,28 @@ export default class FleshCart {
 		const arrFlashName = [
 			x.star, x.ball, x.circle,
 			x.apple, x.fish, x.heart,
+			x.cat, x.dog, x.flower, x.bear,
+			x.star, x.ball, x.circle,
+			x.apple, x.fish, x.heart,
 			x.cat, x.dog, x.flower, x.bear
 		];
 		
-		const newArr = (array) => { return array.map((x) => x.slice())};
+		const newArr = a => a.map((x) => x.slice());
 		
-		const flash = [[''], [''], [''], [''], [''], [''], [''], [''], [''], ['']];
+		const flash = [];
+		const sumArr = [];
+		
+		for (let i = 0; i < this.arrLength; i++) {
+			flash[i] = [''];
+			sumArr[i] = [];
+		}
+		
 		const flash2 = newArr(flash);
 		const flash3 = newArr(flash);
 		const flash4 = newArr(flash);
 		const flash5 = newArr(flash);
 		const flash6 = newArr(flash);
 		const flash7 = newArr(flash);
-		const sumArr = [[], [], [], [], [], [], [], [], [], []];
 		const sumArr2 = newArr(sumArr);
 		const sumArr3 = newArr(sumArr);
 		const sumArr4 = newArr(sumArr);
@@ -56,7 +66,7 @@ export default class FleshCart {
 		};
 		
 		const addElemToArr = (flash2) => {
-			for (let i = 0; i < arrFlashName.length; i++) {
+			for (let i = 0; i < this.arrLength; i++) {
 				const rand = Math.floor(Math.random() * 5); // рандом от 0 до 4
 				for (let j = 0; j < rand; j++) {
 					flash2[i].push(arrFlashName[i]);
@@ -66,7 +76,8 @@ export default class FleshCart {
 		
 		const calculateSum = (flash, sumArr, finSumArr) => {
 			for (let i = 0; i < flash.length; i++) {
-				if (!flash[i][0].length) {
+				// if (!flash[i][0].length) {
+				if (!flash[i][0]) {
 					sumArr[i].push(flash[i].length - 1);
 				}
 				else {
@@ -83,7 +94,7 @@ export default class FleshCart {
 		};
 		
 		//добавляем елементи в массив (кроме первого)
-		for (let i = 0; i < arrFlashName.length; i++) {
+		for (let i = 0; i < this.arrLength; i++) {
 			const rand = Math.floor((Math.random() * (5 - 1)) + 1); // рандом от 1 до 4
 			for (let j = 0; j < rand; j++) {
 				flash[i].push(arrFlashName[i]);

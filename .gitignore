@@ -1,3 +1,7 @@
-
-.gitignore
+/node_modules/
+/public
+/src/sound
+/src/video
 .idea/
+.gitignore
+package-lock.json
