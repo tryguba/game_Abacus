@@ -5,7 +5,6 @@ import RunFlashCart        from "./flesh_cart/RunFlashCart"
 import RunAbacus           from "./abacus/RunAbacus";
 import Mental              from "./mental/Mental"
 import Umnozheniye         from "./umnozheniye/Umnozheniye"
-import Abacus              from "./abacus/Abacus"
 import Deleniye            from "./deleniye/Deleniye";
 import Common              from "./common/Common";
 import multiplicationTable from "./common/multiplicationTable";
@@ -132,35 +131,32 @@ function startGame(trenazhor, level, step) {
 	main.innerHTML = null;
 	// ====================== flashCart ==========================
 	if (trenazhor === 'fleshCart') {
-		let fleshCart = new RunFlashCart({arrLength: 10});
+		let fleshCart = new RunFlashCart({
+			arrLength: 10,
+			bool: false
+		});
 		if (level === 1) {
 			switch (step) {
 				case 1:
-					fleshCart.startFlashCart(1, false);
-					break;
 				case 2:
-					fleshCart.startFlashCart(1, false);
-					break;
 				case 3:
-					fleshCart.startFlashCart(1, false);
+					fleshCart.bitNumber = 1;
 					break;
 				case 4:
-					fleshCart.startFlashCart(2, false);
+					fleshCart.bitNumber = 2;
 					break;
 				case 5:
-					fleshCart.startFlashCart(2, true);
-					break;
 				case 6:
-					fleshCart.startFlashCart(2, true);
+					fleshCart.bitNumber = 2;
+					fleshCart.bool = true;
 					break;
 				case 7:
-					fleshCart.startFlashCart(3, false);
+					fleshCart.bitNumber = 2;
 					break;
 				case 8:
-					fleshCart.startFlashCart(3, true);
-					break;
 				case 9:
-					fleshCart.startFlashCart(3, true);
+					fleshCart.bitNumber = 3;
+					fleshCart.bool = true;
 					break;
 				default:
 					'level_1 doesn`t work'
@@ -169,36 +165,36 @@ function startGame(trenazhor, level, step) {
 		else if (level === 2) {
 			switch (step) {
 				case 1:
-					fleshCart.startFlashCart(4, false);
-					break;
 				case 2:
-					fleshCart.startFlashCart(4, false);
+					fleshCart.bitNumber = 4;
 					break;
 				case 3:
-					fleshCart.startFlashCart(5, false);
+					fleshCart.bitNumber = 5;
 					break;
 				case 4:
-					fleshCart.startFlashCart(5, true);
+					fleshCart.bitNumber = 5;
+					fleshCart.bool = true;
 					break;
 				case 5:
-					fleshCart.startFlashCart(6, false);
+					fleshCart.bitNumber = 6;
 					break;
 				case 6:
-					fleshCart.startFlashCart(6, true);
+					fleshCart.bitNumber = 6;
+					fleshCart.bool = true;
 					break;
 				case 7:
-					fleshCart.startFlashCart(7, false);
+					fleshCart.bitNumber = 7;
 					break;
 				case 8:
-					fleshCart.startFlashCart(7, true);
-					break;
 				case 9:
-					fleshCart.startFlashCart(7, true);
+					fleshCart.bitNumber = 7;
+					fleshCart.bool = true;
 					break;
 				default:
 					'level_2 doesn`t work'
 			}
 		}
+		fleshCart.startFlashCart();
 		console.log(fleshCart);
 	}
 	
@@ -515,7 +511,7 @@ function startGame(trenazhor, level, step) {
 	}
 }
 
-function showAllTrenazer() {
+export function showAllTrenazer() {
 	document.querySelector('.title').innerHTML = 'Общий тренажер';
 	const main = document.querySelector('#main'),
 		table = document.querySelector('#app_simulator');
@@ -563,13 +559,9 @@ function multiplicationTableFunc() {
 	selectNumberOfEquations(cart);
 	
 	const countRadios = document.querySelectorAll('.counts .radio');
-	// const equationCountsRadios = document.querySelectorAll('.equationCounts .radio');
-	
-	const ballcount = document.querySelector('.counts .ball');
-	// const ballEquationCounts = document.querySelector('.equationCounts .ball');
-	
+	const ballCount = document.querySelector('.counts .ball');
 	let digitNumber = document.querySelector('.counts .radio.active');
-	let numberOfEquations = document.querySelector('.equationCounts .radio.active');
+	
 
 // =====================================================================
 	countRadios.forEach((radio, index) => {
@@ -577,7 +569,7 @@ function multiplicationTableFunc() {
 			if (digitNumber) digitNumber.classList.toggle('active');
 			radio.classList.toggle('active');
 			digitNumber = radio;
-			ballcount.className = `ball pos${index}`;
+			ballCount.className = `ball pos${index}`;
 		});
 	});
 // =====================================================================
@@ -586,7 +578,7 @@ function multiplicationTableFunc() {
 	const buttonGO = createHtmlElement(`<input id="buttonGO" type="button" value="поехали!">`);
 	main.appendChild(buttonGO);
 	buttonGO.addEventListener('click', (e) => {
-		
+		const numberOfEquations = document.querySelector('.equationCounts .radio.active');
 		let umn = new Umnozheniye({
 			M: +numberOfEquations.value,
 			r1: 1,
@@ -609,6 +601,7 @@ function multiplicationTableFunc() {
 				umn.startUmnozheniye();
 			});
 		}
+		console.log(umn);
 		buttonGO.remove();
 	});
 	
@@ -667,18 +660,19 @@ function flashCartFunc() {
 	buttonGO.addEventListener('click', (e) => {
 		
 		const equationCounts = +document.querySelector('.equationCounts .radio.active').value;
-		
 		let bitNumber = +digitNumber.getAttribute('data-name');
 		
 		let flashCart = new RunFlashCart({
-			arrLength: equationCounts
+			arrLength: equationCounts,
+			bitNumber: bitNumber,
+			allTrenazer: true
 		});
 		
-		if (isNaN(bitNumber)) {
-			bitNumber = Math.floor(Math.random() * 7) + 1;
+		if (isNaN(flashCart.bitNumber)) {
+			flashCart.bitNumber = Math.floor(Math.random() * 7) + 1;
 		}
 		
-		flashCart.startFlashCart(bitNumber, false);
+		flashCart.startFlashCart(flashCart.bitNumber, false);
 		console.log(flashCart);
 		buttonGO.remove();
 	});
@@ -765,6 +759,5 @@ common.addEventListener('click', function (e) {
 	if (document.querySelector('#buttonGO')) {
 		document.querySelector('#buttonGO').remove();
 	}
-	
 });
 

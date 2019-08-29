@@ -3,12 +3,12 @@ import {sound}                                                                  
 
 export default class Umnozheniye {
 	constructor(op) {
-		this.level = op.level;
-		this.change = op.change;
+		this.level = op.level || null;
+		this.change = op.change || null;
 		this.M = op.M;
 		this.r1 = op.r1;
 		this.r2 = op.r2;
-		this.digit = op.digit;
+		this.digit = op.digit || null;
 		this.mainCount = op.mainCount; // рандомное число для общего тренажора
 		this.iterator = 0;
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
@@ -235,3 +235,4 @@ export default class Umnozheniye {
 		}
 	};
 }
+   

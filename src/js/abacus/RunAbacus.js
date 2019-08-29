@@ -13,7 +13,6 @@ const au_AA = new Audio(sound.theory.au_AA);
 export default class RunAbacus {
 	
 	constructor(op) {
-		
 		this.column = op.column;
 		this.row = op.row;
 		this.digit = op.digit;
