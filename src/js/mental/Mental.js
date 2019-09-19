@@ -1,4 +1,4 @@
-import {createHtmlElement, createStar} from "../game";
+import {choseTrenazer, createHtmlElement, createStar, showAllTrenazer} from "../game";
 
 export default class Mental {
 	constructor(op) {
@@ -7,15 +7,55 @@ export default class Mental {
 		this.column = op.column;
 		this.row = op.row;
 		this.iterator = 0;
-		this.time = 2000;
-		this.lastCountArr = 10;
-		this.firstCountArr = 1;
-		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
+		this.digitCapacity = op.digitCapacity || null; //розрядность числа
+		this.titleName = op.titleName || null; //название тренажора в заголовке
+		this.time = op.time || null;
+		this.lastCountArr = op.lastCountArr || 9;
+		this.firstCountArr = op.firstCountArr || 1;
+		this.firstAnswer = true; // получение звезди за правельн ответ с первого раза
 	}
 	
 	startMental() {
 		try {
 			document.querySelector('#app_simulator').innerHTML = null;
+			if (this.digitCapacity) {
+				switch (this.digitCapacity) {
+					case '1':
+						this.level = 3;
+						this.digit = false;
+						break;
+					case '2':
+						this.level = 7;
+						this.digit = false;
+						break;
+					case 'mixed':
+						this.level = 5;
+						this.digit = true;
+						break;
+					case 'dr_1':
+						this.level = 10;
+						this.digit = false;
+						break;
+					case 'dr_1_2':
+						this.level = 10;
+						this.digit = true;
+						break;
+					case 'dr_2':
+						this.level = 10;
+						this.digit = false;
+						this.lastCountArr = 89;
+						this.firstCountArr = 10;
+						break;
+					case 'dr_2_3':
+						this.level = 10;
+						this.digit = true;
+						this.lastCountArr = 899;
+						this.firstCountArr = 100;
+						break;
+					default:
+						console.log('i dont no !!!!');
+				}
+			}
 			const dataObj = this.choose(this.level);
 			console.log(dataObj);
 			this.createCartMental(dataObj);
@@ -25,19 +65,27 @@ export default class Mental {
 	}
 	
 	createCount() {
-		let genSimple = (prevCount, operation, firstCount) => {
+		if (!this.time) {
+			this.time = 2000;
+		}
+		let genSimple = (prevCount) => {
 			let result = 0;
 			let count = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
 			if (this.digit) {
 				if (count % 2 === 0) {
-					count = Math.floor((Math.random() * 89) + 10);
+					this.lastCountArr = 89;
+					this.firstCountArr = 10;
 				}
 				else {
-					count = Math.floor((Math.random() * 9) + 1);
+					this.lastCountArr = 9;
+					this.firstCountArr = 1;
 				}
+				count = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
 			}
 			if (this.level === 8 || this.level === 7) {
-				count = Math.floor((Math.random() * 89) + 10);
+				this.lastCountArr = 89;
+				this.firstCountArr = 10;
+				count = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
 			}
 			if (prevCount >= count) {
 				result = count * (-1);
@@ -45,17 +93,12 @@ export default class Mental {
 			else {
 				result = count;
 			}
-			//проверка и присвоения первого числа в уравнении кроме 7-го и 8-го левела
-			if (firstCount === 0 && this.level !== 8 && this.level !== 7) {
-				result = Math.floor((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr);
-			}
 			return result;
 		};
 		
 		const result = [];
-		const operation = Math.random() >= 0.5;
 		for (let i = 0; i < this.row; i++) {
-			result[i] = genSimple(result[i - 1], operation, i);
+			result[i] = genSimple(result[i - 1]);
 		}
 		const sums = result.reduce((a, b) => { return a + b });
 		return {
@@ -65,39 +108,51 @@ export default class Mental {
 	}
 	
 	createCountDouble() {
-		this.time = 3000;
-		const genSimple = (prev, j) => {
-			let count = (Math.random() * (10 - 1) + 1).toFixed(2);
+		if (!this.time) {
+			this.time = 3000;
+		}
+		let genSimple = (lastSum) => {
+			const rand = Math.random() >= 0.5;
 			let result = 0;
-			if (prev <= count) {
-				result = count;
+			let count = ((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr).toFixed(2);
+			if (this.digit) {
+				if (rand % 2 === 1) {
+					this.lastCountArr = 89;
+					this.firstCountArr = 10;
+				}
+				else if(this.digitCapacity === 'dr_2_3'){
+					this.lastCountArr = 899;
+					this.firstCountArr = 100;
+				}
+				else {
+					this.lastCountArr = 9;
+					this.firstCountArr = 1;
+				}
+				count = ((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr).toFixed(2);
+			}
+			if (lastSum >= count) {
+				result = count * (-1);
 			}
 			else {
-				result = count * -1;
-			}
-			//проверка и присвоения первого числа в уравнении
-			if (!j) {
-				result = (Math.random() * (10 - 1) + 1).toFixed(2);
+				result = count;
 			}
 			result = parseFloat(result).toFixed(2);
-			return result.toString().replace(".", ",");
+			return +result;
 		};
 		
-		const result = [];
-		const sumArr = [];
-		for (let i = 0; i < this.row; i++) {
-			result[i] = genSimple(result[i - 1], i);
+		let sumArr = [];
+		let result = [];
+		result[0] = +((Math.random() * (this.lastCountArr - this.firstCountArr)) + this.firstCountArr).toFixed(2);
+		for (let i = 0; i < this.row - 1; i++) {
+			const lastSum = result.reduce((a, b) => a + b);
+			result.push(genSimple(lastSum));
 		}
 		result.forEach((item) => {
-			item = parseFloat(item.replace(",", "."));
-			sumArr.push(item);
+			sumArr.push(item.toString().replace(".", ","));
 		});
-		const sums = sumArr.reduce(function (a, b) {
-			return a + b;
-		}).toFixed(2);
 		return {
-			countsArr: result,
-			sumArr: sums
+			countsArr: sumArr,
+			sumArr: result.reduce((a, b) => a + b).toFixed(2)
 		}
 	}
 	
@@ -123,7 +178,12 @@ export default class Mental {
 	};
 	
 	createCartMental(arrData) {
-		document.querySelector('.title').innerHTML = 'Mental-арифметика';
+		if (this.titleName) {
+			document.querySelector('.title').innerHTML = (this.titleName);
+		}
+		else {
+			document.querySelector('.title').innerHTML = 'Mental-арифметика';
+		}
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
 			inputAnswer = createHtmlElement(`<input class="inputAnswer" type="number"/>`),
@@ -131,9 +191,12 @@ export default class Mental {
 		
 		table.innerHTML = null;
 		const cart = createHtmlElement(`<div class="mental"></div>`);
-		
 		table.appendChild(cart);
 		
+		
+		if(this.digitCapacity === 'dr_2_3'){
+			cart.style.fontSize = '5rem';
+		}
 		const myInterval = () => {
 			const cartCount = createHtmlElement(`<div class="mental__count">${arrData.countsArr[current]}</div>`);
 			cart.appendChild(cartCount);
@@ -144,63 +207,63 @@ export default class Mental {
 				clearInterval(int);
 				cart.remove();
 				table.appendChild(inputAnswer);
+				// создаем кнопку "ПРОВЕРИТЬ"
+				if (!document.querySelector('#button')) {
+					const button = createHtmlElement(`
+						<input id="button" type="button" value="ПРОВЕРИТЬ">`);
+					main.appendChild(button);
+				}
+				button.addEventListener('click', (e) => {
+					clearInterval(int);
+					let result = document.querySelector('.stars').innerHTML;
+					result++;
+					if (+arrData.sumArr === +inputAnswer.value && inputAnswer.value !== '') {
+						this.iterator++;
+						e.target.remove();
+						inputAnswer.style.background = '#94ec5a';
+						
+						if (this.firstAnswer) {
+							createStar(table, +result);
+						}
+						
+						if (this.iterator === this.column) {
+							this.iterator = 0;
+							e.target.remove();
+							this.showModalWindow(result, 'СУПЕР!!!');
+						}
+						
+						else {
+							this.firstAnswer = true;
+							setTimeout(() => {
+								this.startMental();
+							}, time2);
+						}
+					}
+					else {
+						if (this.iterator === this.column) {
+							this.iterator = 0;
+							e.target.remove();
+							this.showModalWindow(result, 'СУПЕР!!!');
+						}
+						console.log(` не верно `);
+						// new Audio(sound.tune.Zv_2).play();
+						inputAnswer.style.background = '#d24a43';
+						inputAnswer.style.color = '#ffffff';
+						e.target.remove();
+						setTimeout(() => {
+							this.firstAnswer = false;
+							this.createCartMental(arrData);
+						}, time2);
+					}
+				});
 			}
 		};
 		let current = 0;
 		myInterval();
 		let int = setInterval(myInterval, time2);
-		
-		// создаем кнопку "ПРОВЕРИТЬ"
-		if (!document.querySelector('#button')) {
-			const button = createHtmlElement(`
-						<input id="button" type="button" value="ПРОВЕРИТЬ">`);
-			main.appendChild(button);
-		}
-		
-		button.addEventListener('click', (e) => {
-			clearInterval(int);
-			let result = document.querySelector('.stars').innerHTML;
-			result++;
-			if (+arrData.sumArr === +inputAnswer.value && inputAnswer.value !== '') {
-				this.iterator++;
-				e.target.remove();
-				inputAnswer.style.background = '#94ec5a';
-				
-				if (this.firstAnswer) {
-					createStar(table, +result);
-				}
-				
-				if (this.iterator === this.column) {
-					this.iterator = 0;
-					e.target.remove();
-					this.showModalWindow(result, 'СУПЕР!!!');
-				}
-				
-				else {
-					this.firstAnswer = true;
-					setTimeout(() => {
-						this.startMental();
-					}, time2);
-				}
-			}
-			else {
-				if (this.iterator === this.column) {
-					this.iterator = 0;
-					e.target.remove();
-					this.showModalWindow(result, 'СУПЕР!!!');
-					// return false;
-				}
-				console.log(` не верно `);
-				// new Audio(sound.tune.Zv_2).play();
-				inputAnswer.style.background = '#d24a43';
-				inputAnswer.style.color = '#ffffff';
-				e.target.remove();
-				setTimeout(() => {
-					this.firstAnswer = false;
-					this.createCartMental(arrData);
-				}, time2);
-			}
-		});
+		//проверка на вискакивание поля ответа в в других тренажорах
+		document.querySelector('#form input[type=submit]').addEventListener('click', () => clearInterval(int));
+		document.querySelector('#common-button').addEventListener('click', () => clearInterval(int));
 		return false;
 	}
 	
@@ -209,6 +272,7 @@ export default class Mental {
 			countAll = document.querySelector(".stars"),
 			modal = document.querySelector('.modal'),
 			modalBtn = document.querySelector('.modal__buttons'),
+			nextBtn = document.querySelector('.nextButton'),
 			repeatBtn = document.querySelector('.repeatButton');
 		modal.style.display = 'flex';
 		
@@ -228,24 +292,43 @@ export default class Mental {
 		modalText.innerText = `${text} Ты набрал ${res} ${resData(res)}!`;
 		countAll.innerHTML = res;
 		
-		if (!repeatBtn) {
+		if (!repeatBtn || !nextBtn) {
 			const repeatBtn = createHtmlElement(`
 				<input type="submit" value="Повторить" class="button repeatButton">`);
-			
+			const nextBtn = createHtmlElement(`
+				<input type="submit" value="Продолжить" class="button nextButton">`);
 			modalBtn.appendChild(repeatBtn);
+			modalBtn.appendChild(nextBtn);
 			
 			repeatBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
 				repeatBtn.remove();
+				nextBtn.remove();
 				this.startMental();
+			});
+			
+			nextBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				nextBtn.remove();
+				//if digitCapacity == null
+				showAllTrenazer();
+				choseTrenazer();
 			});
 		}
 		else {
 			repeatBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
 				repeatBtn.remove();
-				this.iterator = 0;
+				nextBtn.remove();
 				this.startMental();
+			});
+			nextBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				nextBtn.remove();
+				showAllTrenazer();
+				choseTrenazer();
 			});
 		}
 	};

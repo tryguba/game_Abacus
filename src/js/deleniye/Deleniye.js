@@ -1,5 +1,5 @@
-import {createHtmlElement, createStar, rozryad} from "../game";
-import {sound}                                  from "../other/sound";
+import {choseTrenazer, createHtmlElement, createStar, rozryad, showAllTrenazer} from "../game";
+import {sound}                                                                  from "../other/sound";
 
 export default class Deleniye {
 	constructor(op) {
@@ -14,6 +14,7 @@ export default class Deleniye {
 		this.b1 = op.b1;
 		this.b2 = op.b2;
 		this.R = op.R;
+		this.titleName = op.titleName;
 		this.digit = op.digit;
 		this.iterator = 0;
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
@@ -40,21 +41,23 @@ export default class Deleniye {
 				this.r1 = this.b2;
 			}
 		}
+		
 		function isInteger(num) {
 			return (num ^ 0) === num;
 		}
+		
 		let counts = rozryad(this.R, this.r1);
 		let delimoe = Math.floor((Math.random() * counts.count1) + counts.count1Last);
 		let delitel = Math.floor((Math.random() * counts.count2) + counts.count2Last);
 		let result = delimoe / delitel;
-
+		
 		while (!isInteger(result)) {
 			console.log(`=======================`);
 			counts = rozryad(this.R, this.r1);
 			delimoe = Math.floor((Math.random() * counts.count1) + counts.count1Last);
 			// delitel = Math.floor((Math.random() * counts.count2) + counts.count2Last);
 			result = delimoe / delitel;
-			if (result === 1){
+			if (result === 1) {
 				delimoe = Math.floor((Math.random() * counts.count1) + counts.count1Last);
 				delitel = Math.floor((Math.random() * counts.count2) + counts.count2Last);
 				result = delimoe / delitel;
@@ -73,8 +76,14 @@ export default class Deleniye {
 		if (this.r1 >= 3 || this.r2 >= 3) {
 			fontSmall = 'deleniye__middleFont';
 		}
+		if (this.titleName) {
+			document.querySelector('.title').textContent = 'деление';
+		}
+		else {
+			document.querySelector('.title').textContent = 'Abacus - деление';
+		}
 		
-		document.querySelector('.title').innerHTML = 'Abacus - деление';
+		
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
 			inputAnswer = createHtmlElement(`<input class="deleniye__inputAnswer ${fontSmall}" type="number"/>`);
@@ -148,6 +157,7 @@ export default class Deleniye {
 			countAll = document.querySelector(".stars"),
 			modal = document.querySelector('.modal'),
 			modalBtn = document.querySelector('.modal__buttons'),
+			nextBtn = document.querySelector('.nextButton'),
 			repeatBtn = document.querySelector('.repeatButton');
 		modal.style.display = 'flex';
 		
@@ -167,24 +177,45 @@ export default class Deleniye {
 		modalText.innerText = `${text} Ты набрал ${res} ${resData(res)}!`;
 		countAll.innerHTML = res;
 		
-		if (!repeatBtn) {
+		if (!repeatBtn || !nextBtn) {
 			const repeatBtn = createHtmlElement(`
 				<input type="submit" value="Повторить" class="button repeatButton">`);
-			
+			const nextBtn = createHtmlElement(`
+				<input type="submit" value="Продолжить" class="button nextButton">`);
 			modalBtn.appendChild(repeatBtn);
+			modalBtn.appendChild(nextBtn);
 			
 			repeatBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
 				repeatBtn.remove();
+				nextBtn.remove();
 				this.startDeleniye();
 			});
+			
+			nextBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				nextBtn.remove();
+				showAllTrenazer();
+				choseTrenazer();
+			});
+			
 		}
 		else {
 			repeatBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
 				repeatBtn.remove();
+				nextBtn.remove();
 				this.iterator = 0;
 				this.startDeleniye();
+			});
+			nextBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+				repeatBtn.remove();
+				nextBtn.remove();
+				this.iterator = 0;
+				showAllTrenazer();
+				choseTrenazer();
 			});
 		}
 	}

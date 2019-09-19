@@ -20,14 +20,12 @@ export default class RunFlashCart extends FleshCart {
 		super();
 		this.bitNumber = op.bitNumber;
 		this.bool = op.bool || false;
-		this.allTrenazer = op.allTrenazer || false;
 		this.arrLength = op.arrLength;
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 		this.dataObj = this.getFleshCart();
 	}
 	
 	// ======================================================================
-	
 	
 	startFlashCart() {
 		const index = 0;
@@ -36,12 +34,7 @@ export default class RunFlashCart extends FleshCart {
 	
 	createColumn(index) {
 // ======================================================================
-		if (this.allTrenazer) {
-			document.querySelector('.title').innerHTML = `<div class="title__flashCart"></div>`;
-		}
-		else {
 			document.querySelector('.title').textContent = 'Флеш - карты';
-		}
 		
 		
 		const row = createHtmlElement(`<div class="column-flash flashLine1"></div>`);

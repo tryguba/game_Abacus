@@ -1,7 +1,7 @@
 /public/
 /src/sound/
-/src/video/
+/video/
 .idea/
 .gitignore/
-package-lock.json/
+/package-lock.json/
 /node_modules/

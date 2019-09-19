@@ -1,14 +1,42 @@
 import {image}             from "./other/image";
 import anime               from "animejs";
-import {levelStep}         from "./levelStep";
 import RunFlashCart        from "./flesh_cart/RunFlashCart"
 import RunAbacus           from "./abacus/RunAbacus";
 import Mental              from "./mental/Mental"
 import Umnozheniye         from "./umnozheniye/Umnozheniye"
 import Deleniye            from "./deleniye/Deleniye";
-import Common              from "./common/Common";
-import multiplicationTable from "./common/multiplicationTable";
+import {
+	divisionFunc,
+	flashCartFunc, fractionsFunc,
+	mentalArithmeticFunc,
+	multiplicationsFunc,
+	multiplicationTableFunc
+} from "./common/Common";
 
+// export function showModalWindow(res, text) {
+// 	const modalText = document.querySelector('.modal__text'),
+// 		countAll = document.querySelector(".stars"),
+// 		modal = document.querySelector('.modal');
+//
+// 	modal.style.display = 'flex';
+//
+// 	function resData(res) {
+// 		if (res < 0) {
+// 			res = 0;
+// 		}
+// 		if (res === 1) {
+// 			return `звезду`;
+// 		}
+// 		else if (res <= 4 && res >= 2) {
+// 			return `звезды`;
+// 		}
+// 		return 'звезд';
+// 	}
+//
+// 	modalText.innerText = `${text} Ты набрал ${res} ${resData(res)}!`;
+// 	countAll.innerHTML = res;
+//
+// }
 
 export const createHtmlElement = (str) => {
 	const el = document.createElement('div');
@@ -19,7 +47,7 @@ export const createHtmlElement = (str) => {
 export function createStar(teg, starCount) {
 	//create star
 	const stars = document.querySelector('.stars');
-	const star = createHtmlElement(`<img class="star_imgFlash" src="${image.honorStar.starPng}"></img>`);
+	const star = createHtmlElement(`<img class="star_imgFlash" src="${image.honorStar.starPng}">`);
 	teg.appendChild(star);
 	
 	const getCoords = (elem) => {
@@ -29,7 +57,6 @@ export function createStar(teg, starCount) {
 			left: box.left + pageXOffset
 		};
 	};
-	
 	// move star
 	const tablo = document.querySelector("#tablo img");
 	const x = getCoords(tablo).left - getCoords(star).left - 40;
@@ -51,7 +78,6 @@ export function createStar(teg, starCount) {
 }
 
 export function rozryad(r1, r2) {
-	
 	let count1 = 0;
 	let count1Last = 0;
 	let count2Last = 0;
@@ -112,16 +138,29 @@ export function rozryad(r1, r2) {
 	};
 }
 
-const form = document.querySelector('#form input');
+const start = document.querySelector('#form input[type=submit]');
 const common = document.querySelector('#common-button');
 
-form.addEventListener('click', function (e) {
+// откривает игру на весь екран
+const openFullscreen = () => {
+	const main = document.querySelector('html');
+	if (main.requestFullscreen) {
+		main.requestFullscreen();
+	} else if (main.mozRequestFullScreen) { /* Firefox */
+		main.mozRequestFullScreen();
+	} else if (main.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+		main.webkitRequestFullscreen();
+	} else if (main.msRequestFullscreen) { /* IE/Edge */
+		main.msRequestFullscreen();
+	}
+};
+
+start.addEventListener('click', function (e) {
 	e.preventDefault();
-	
+	// openFullscreen();
 	const step = +document.querySelector('select[name=step]').value;
 	const level = +document.querySelector('select[name=level]').value;
 	const trenazhor = document.querySelector('select[name=trenazhor]').value;
-	
 	startGame(trenazhor, level, step);
 });
 
@@ -204,8 +243,10 @@ function startGame(trenazhor, level, step) {
 			column: 10,
 			step: 1,
 			row: 1,
-			digit: true
+			digit: true,
+			level,
 		});
+		
 		switch (level) {
 			case 3:
 				mental.row = 3;
@@ -233,8 +274,10 @@ function startGame(trenazhor, level, step) {
 			case 10:
 				mental.row = 10;
 				break;
+			default:
+				document.querySelector('#app_simulator').innerHTML = 'hello'
 		}
-		mental.level = level;
+		
 		mental.step = step;
 		mental.startMental();
 		console.log(mental);
@@ -513,8 +556,7 @@ function startGame(trenazhor, level, step) {
 
 export function showAllTrenazer() {
 	document.querySelector('.title').innerHTML = 'Общий тренажер';
-	const main = document.querySelector('#main'),
-		table = document.querySelector('#app_simulator');
+	const table = document.querySelector('#app_simulator');
 	table.innerHTML = null;
 	
 	const carts = createHtmlElement(`<ul class="common">
@@ -528,185 +570,6 @@ export function showAllTrenazer() {
 	table.appendChild(carts);
 }
 
-function multiplicationTableFunc() {
-	document.querySelector('.title').innerHTML = `<div class="title__multiplicationTable"></div>`;
-	const main = document.querySelector('#main'),
-		table = document.querySelector('#app_simulator');
-	
-	table.innerHTML = null;
-	
-	const cart = createHtmlElement(`
-			<div class="multiplicationTableChoose">
-			<div class="counts">
-				<h4 class="text">Выбирете цифры: </h4>
-				 <div class="radios">
-				   <input type="radio" data-name="2" class="radio radio_1" value="1-2">
-				   <input type="radio" data-name="3" class="radio radio_2 active" value="3">
-				   <input type="radio" data-name="4" class="radio radio_3" value="4">
-				   <input type="radio" data-name="5" class="radio radio_4" value="5">
-				   <input type="radio" data-name="6" class="radio radio_5" value="6">
-				   <input type="radio" data-name="7" class="radio radio_6" value="7">
-				   <input type="radio" data-name="8" class="radio radio_7" value="8">
-				   <input type="radio" data-name="9" class="radio radio_8" value="9-10">
-				   <input type="radio" data-name="random" class="radio radio_Rand" value="Смешанные">
-				   <div class="ball"></div>
-				 </div>
-			</div>
-		</div>
-		`);
-	
-	table.appendChild(cart);
-	selectNumberOfEquations(cart);
-	
-	const countRadios = document.querySelectorAll('.counts .radio');
-	const ballCount = document.querySelector('.counts .ball');
-	let digitNumber = document.querySelector('.counts .radio.active');
-	
-
-// =====================================================================
-	countRadios.forEach((radio, index) => {
-		radio.addEventListener('click', function (e) {
-			if (digitNumber) digitNumber.classList.toggle('active');
-			radio.classList.toggle('active');
-			digitNumber = radio;
-			ballCount.className = `ball pos${index}`;
-		});
-	});
-// =====================================================================
-	
-	// создаем кнопку "поехали"
-	const buttonGO = createHtmlElement(`<input id="buttonGO" type="button" value="поехали!">`);
-	main.appendChild(buttonGO);
-	buttonGO.addEventListener('click', (e) => {
-		const numberOfEquations = document.querySelector('.equationCounts .radio.active');
-		let umn = new Umnozheniye({
-			M: +numberOfEquations.value,
-			r1: 1,
-			r2: 1,
-			mainCount: digitNumber.getAttribute('data-name')
-		});
-		
-		if (umn.mainCount === 'random') {
-			umn.startUmnozheniye();
-		}
-		else {
-			table.innerHTML = `<div class="video">
-									<video controls autoplay>
-				                  <source src="../video/SIMPLE.mp4"
-				                      type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-                          </video>
-                          <input id="buttonMiss" type="button" value="пропустить">\`
-                        </div>`;
-			document.querySelector("#buttonMiss").addEventListener('click', () => {
-				umn.startUmnozheniye();
-			});
-		}
-		console.log(umn);
-		buttonGO.remove();
-	});
-	
-}
-
-function flashCartFunc() {
-	document.querySelector('.title').innerHTML = `<div class="title__flashCart"></div>`;
-	const main = document.querySelector('#main'),
-		table = document.querySelector('#app_simulator');
-	table.innerHTML = null;
-	
-	const cart = createHtmlElement(`
-		<div class="flashCartChoose">
-			<div class="counts">
-				<h4 class="text">Выбирете розряд числа: </h4>
-				  <div class="radios">
-				    <input type="radio" data-name="1" class="radio radio_1" value="1">
-				    <input type="radio" data-name="2" class="radio radio_2 active" value="2">
-				    <input type="radio" data-name="3" class="radio radio_3" value="3">
-				    <input type="radio" data-name="4" class="radio radio_4" value="4">
-				    <input type="radio" data-name="5" class="radio radio_5" value="5">
-				    <input type="radio" data-name="6" class="radio radio_6" value="6">
-				    <input type="radio" data-name="7" class="radio radio_7" value="7">
-				    <input type="radio" data-name="random" class="radio radio_Rand" value="Случайные">
-				    <div class="ball"></div>
-				  </div>
-				<div class="flashCartImg"></div>
-			</div>
-		</div>
-		`);
-	table.appendChild(cart);
-	selectNumberOfEquations(cart);
-	
-	const countRadios = document.querySelectorAll('.counts .radio');
-	const ballcount = document.querySelector('.counts .ball');
-	let digitNumber = document.querySelector('.counts .radio.active');
-	let choseImg = document.querySelector('.flashCartImg');
-	choseImg.innerHTML = `<div class="chooseRozr chooseRozr_2"></div>`;
-	
-	// =====================================================================
-	countRadios.forEach((radio, index) => {
-		radio.addEventListener('click', function (e) {
-			digitNumber.classList.toggle('active');
-			radio.classList.toggle('active');
-			digitNumber = radio;
-			ballcount.className = `ball pos${index}`;
-			const z = e.target.getAttribute('data-name');
-			choseImg.innerHTML = `<div class="chooseRozr chooseRozr_${z}"></div>`;
-		});
-	});
-// =====================================================================
-	
-	// // создаем кнопку "поехали"
-	const buttonGO = createHtmlElement(`<input id="buttonGO" type="button" value="поехали!">`);
-	main.appendChild(buttonGO);
-	buttonGO.addEventListener('click', (e) => {
-		
-		const equationCounts = +document.querySelector('.equationCounts .radio.active').value;
-		let bitNumber = +digitNumber.getAttribute('data-name');
-		
-		let flashCart = new RunFlashCart({
-			arrLength: equationCounts,
-			bitNumber: bitNumber,
-			allTrenazer: true
-		});
-		
-		if (isNaN(flashCart.bitNumber)) {
-			flashCart.bitNumber = Math.floor(Math.random() * 7) + 1;
-		}
-		
-		flashCart.startFlashCart(flashCart.bitNumber, false);
-		console.log(flashCart);
-		buttonGO.remove();
-	});
-}
-
-function selectNumberOfEquations(table) {
-	const line = createHtmlElement(`
-		<div class="equationCounts">
-			<h4 class="text">Выбирете количество уравнений:</h4>
-			 <div class="radios">
-			    <input type="radio" name="radio" class="radio" value="5">
-			    <input type="radio" name="radio" class="radio active" value="10">
-			    <input type="radio" name="radio" class="radio" value="15">
-			    <input type="radio" name="radio" class="radio" value="20">
-			    <div class="ball"></div>
-			 </div>
-		</div>
-	`);
-	table.appendChild(line);
-	
-	const equationCountsRadios = document.querySelectorAll('.equationCounts .radio');
-	let numberOfEquations = document.querySelector('.equationCounts .radio.active');
-	const ballEquationCounts = document.querySelector('.equationCounts .ball');
-	
-	equationCountsRadios.forEach((radio, index) => {
-		radio.addEventListener('click', function (e) {
-			if (numberOfEquations) numberOfEquations.classList.toggle('active');
-			radio.classList.toggle('active');
-			numberOfEquations = radio;
-			ballEquationCounts.className = `ball pos${index}`;
-		});
-	});
-}
-
 export function choseTrenazer() {
 	let cartsElement = document.querySelectorAll('.common li');
 	
@@ -714,36 +577,27 @@ export function choseTrenazer() {
 		e.addEventListener('click', function () {
 			switch (e.className) {
 				case 'multiplicationTable':
-					console.log('multiplicationTable');
 					multiplicationTableFunc();
-					
 					break;
 				case 'flashCart':
-					// startGame('fleshCart', 1, 1);
 					flashCartFunc();
-					console.log('flashCart');
 					break;
 				case 'mentalArithmetic':
-					document.querySelector('.title').innerHTML = `<div class="title__mentalArithmetic"></div>`;
-					console.log('abacus');
+					mentalArithmeticFunc();
 					break;
 				case 'multiplications':
-					startGame('umnozhenye', 5, 1);
-					console.log('umnozhenye');
+					multiplicationsFunc();
 					break;
 				case 'division':
-					startGame('deleniye', 7, 1);
-					console.log('deleniye');
+					divisionFunc();
 					break;
 				case 'fractions':
-					startGame('abacus', 7, 1);
-					console.log('2222222');
+					fractionsFunc();
 					break;
 				default:
 					console.log('i dont no');
 			}
 		})
-		// console.log(e.className);
 	})
 }
 
