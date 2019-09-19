@@ -9,11 +9,11 @@ export default class Umnozheniye {
 		this.r1 = op.r1;
 		this.r2 = op.r2;
 		this.digit = op.digit || null;
+		this.titleName = op.titleName || null; // название заголовка
 		this.mainCount = op.mainCount; // рандомное число для общего тренажора
 		this.iterator = 0;
 		this.firstAnswer = true; // получение звезди за правельній ответ с первого раза
 		this.stars = document.querySelector('.stars').innerHTML;
-		
 	}
 	
 	startUmnozheniye() {
@@ -96,7 +96,10 @@ export default class Umnozheniye {
 			fontSmall = 'umnozheniye__middleFont';
 		}
 		if (this.mainCount) {
-			document.querySelector('.title').innerHTML = `<div class="title__multiplicationTable"></div>`;
+			document.querySelector('.title').textContent = 'таблица умножения';
+		}
+		else if (this.titleName) {
+			document.querySelector('.title').textContent = 'умножение';
 		}
 		else {
 			document.querySelector('.title').textContent = 'Abacus - умножение';
@@ -104,7 +107,7 @@ export default class Umnozheniye {
 		
 		const main = document.querySelector('#main'),
 			table = document.querySelector('#app_simulator'),
-			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer ${fontSmall}" type="number"/>`);
+			inputAnswer = createHtmlElement(`<input class="umnozheniye__inputAnswer ${fontSmall}" type="number" autofocus/>`);
 		
 		table.innerHTML = null;
 		
@@ -123,12 +126,21 @@ export default class Umnozheniye {
 		if (!document.querySelector('#button')) {
 			const button = createHtmlElement(`
 				<input id="button" type="button" value="ПРОВЕРИТЬ">`);
-			main.appendChild(button);
+			// setTimeout(function () {
+				main.appendChild(button);
+				button.addEventListener('click', function (e) {
+					callbackEvent(e);
+				});
+			// },1000);
 		}
 		
-		button.addEventListener('click', (e) => {
-			
-			console.log(this.stars);
+		inputAnswer.addEventListener('keyup', (e) => {
+			if (e.keyCode === 13) callbackEvent(e);
+		});
+		
+		
+		
+		let callbackEvent = (e) => {
 			
 			if (+arrData.result === +inputAnswer.value && inputAnswer.value !== '') {
 				this.iterator++;
@@ -141,7 +153,6 @@ export default class Umnozheniye {
 					// new Audio(sound.tune.Zv_3).play();
 					createStar(table, +this.stars);
 				}
-				
 				if (this.iterator === this.M) {
 					this.firstAnswer = true;
 					this.iterator = 0;
@@ -163,7 +174,8 @@ export default class Umnozheniye {
 				inputAnswer.value = '';
 				inputAnswer.style.color = '#ffffff';
 			}
-		});
+		};
+		
 		return false;
 	}
 	

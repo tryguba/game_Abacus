@@ -1,6 +1,6 @@
 /public/
 /src/sound/
-/src/video/
+/video/
 .idea/
 .gitignore/
 package-lock.json/

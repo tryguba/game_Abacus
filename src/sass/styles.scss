@@ -65,6 +65,8 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, calc(-50% + 20px));
+  display: flex;
+  justify-content: center;
 
   @mixin backgroundTitle($xxx) {
     background: url($xxx);
@@ -77,41 +79,40 @@ body {
     color: $main-color;
     font-size: 46px;
     font-weight: 900;
-    width: 662px;
-    height: 119px;
+    padding: 0 30px;
+    height: 100px;
     text-transform: uppercase;
     text-align: center;
     border-bottom-left-radius: 24px;
     border-bottom-right-radius: 24px;
     background-color: #ac8341;
     margin: -5px auto 10px;
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
     align-items: center;
 
-    &__multiplicationTable {
-      @include backgroundTitle("../img/icon-multiplicationTable.png");
-    }
-
-    &__flashCart {
-      @include backgroundTitle("../img/icon-flashCart.png");
-    }
-
-    &__multiplications {
-      @include backgroundTitle("../img/icon-multiplications.png");
-    }
-
-    &__division {
-      @include backgroundTitle("../img/icon-division.png");
-    }
-
-    &__fractions {
-      @include backgroundTitle("../img/icon-fractions.png");
-    }
-
-    &__mentalArithmetic {
-      @include backgroundTitle("../img/icon-mental.png");
-    }
+    //&__multiplicationTable {
+    //  @include backgroundTitle("../img/icon-multiplicationTable.png");
+    //}
+    //
+    //&__flashCart {
+    //  @include backgroundTitle("../img/icon-flashCart.png");
+    //}
+    //
+    //&__multiplications {
+    //  @include backgroundTitle("../img/icon-multiplications.png");
+    //}
+    //
+    //&__division {
+    //  @include backgroundTitle("../img/icon-division.png");
+    //}
+    //
+    //&__fractions {
+    //  @include backgroundTitle("../img/icon-fractions.png");
+    //}
+    //
+    //&__mentalArithmetic {
+    //  @include backgroundTitle("../img/icon-mental.png");
+    //}
   }
 }
 
@@ -742,7 +743,9 @@ body {
 
 
 .multiplicationTableChoose,
-.flashCartChoose {
+.flashCartChoose, .mentalArithmeticChoose,
+.multiplicationsChoose,
+.divisionChoose, .fractionsChoose {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -787,39 +790,39 @@ body {
     transition: transform 800ms;
   }
 
-  .ball.pos0 {
+  .ball.pos_0 {
     transform: translateX(-50px);
   }
 
-  .ball.pos1 {
+  .ball.pos_1 {
     transform: translateX(0px);
   }
 
-  .ball.pos2 {
+  .ball.pos_2 {
     transform: translateX(50px);
   }
 
-  .ball.pos3 {
+  .ball.pos_3 {
     transform: translateX(100px);
   }
 
-  .ball.pos4 {
+  .ball.pos_4 {
     transform: translateX(150px);
   }
 
-  .ball.pos5 {
+  .ball.pos_5 {
     transform: translateX(200px);
   }
 
-  .ball.pos6 {
+  .ball.pos_6 {
     transform: translateX(252px);
   }
 
-  .ball.pos7 {
+  .ball.pos_7 {
     transform: translateX(302px);
   }
 
-  .ball.pos8 {
+  .ball.pos_8 {
     transform: translateX(354px);
   }
 
@@ -833,6 +836,7 @@ body {
     font-weight: 700;
     font-size: 1.2em;
     color: #603913;
+    width: 50%;
   }
 
   .select {
@@ -850,23 +854,25 @@ body {
   }
 }
 
+
+@mixin bgChooseRozr($url) {
+  background: url($url) no-repeat center;
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+}
+
+
 .flashCartChoose {
   .counts .radios {
     width: 380px;
   }
 
   .chooseRozr {
-    @mixin bgChooseRozr($url) {
-      background: url($url) no-repeat center /*rgba(255, 255, 255, 0.3)*/
-    ;
-      background-size: contain;
-      width: 100%;
-      height: 100%;
-    }
+
 
     &_1 {
       @include bgChooseRozr("../img/first.png");
-      //background-color: rgba(255, 255, 255, 0.3);
     }
 
     &_2 {
@@ -895,10 +901,185 @@ body {
     }
 
     &_random {
-      @include bgChooseRozr("../img/2-layers.png");
-      animation: obertZirka 3s ease-in-out infinite;
+      animation: obertZirka 3s ease infinite;
     }
 
+  }
+}
+
+.mentalArithmeticChoose, .fractionsChoose {
+  .digitNumber,
+  .numberOperations,
+  .amountOfTime,
+  .equationCounts {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+    .radios {
+      .ball {
+        left: 0;
+      }
+
+      .ball.pos_0 {
+        transform: translateX(0px);
+      }
+
+      .ball.pos_1 {
+        transform: translateX(50px);
+      }
+
+      .ball.pos_2 {
+        transform: translateX(100px);
+      }
+
+      .ball.pos_3 {
+        transform: translateX(150px);
+      }
+
+      .ball.pos_4 {
+        transform: translateX(200px);
+      }
+
+      .ball.pos_5 {
+        transform: translateX(250px);
+      }
+
+      .ball.pos_6 {
+        transform: translateX(300px);
+      }
+
+      .ball.pos_7 {
+        transform: translateX(350px);
+      }
+
+      .ball.pos_8 {
+        transform: translateX(400px);
+      }
+
+      .ball.pos_9 {
+        transform: translateX(450px);
+      }
+    }
+  }
+
+  .digitNumber {
+    .radios {
+      width: 425px;
+
+      .radio::before {
+        width: auto;
+      }
+
+      .ball {
+        left: 0;
+      }
+
+      .ball.pos_0 {
+        transform: translateX(0px);
+      }
+
+      .ball.pos_1 {
+        transform: translateX(200px);
+      }
+
+      .ball.pos_2 {
+        transform: translateX(400px);
+      }
+    }
+
+  }
+
+  .numberOperations, .amountOfTime {
+
+    .radios {
+      width: 475px;
+
+      .radio:nth-child(9)::before {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .equationCounts {
+    margin-top: 0;
+
+    .radios {
+      .radio::before {
+        width: auto;
+      }
+
+      .ball {
+        left: 50px;
+      }
+
+      .ball.pos_0 {
+        transform: translateX(-50px);
+      }
+
+      .ball.pos_1 {
+        transform: translateX(0px);
+      }
+
+      .ball.pos_2 {
+        transform: translateX(50px);
+      }
+
+      .ball.pos_3 {
+        transform: translateX(100px);
+      }
+    }
+  }
+}
+
+.multiplicationsChoose, .divisionChoose {
+  .radios {
+    width: 530px;
+
+    .radio:nth-child(9)::before {
+      margin-left: 0;
+    }
+
+    .ball.pos_9 {
+      transform: translateX(402px);
+    }
+
+    .ball.pos_10 {
+      transform: translateX(452px);
+    }
+  }
+}
+
+// деление
+.divisionChoose {
+  .radios {
+    width: 480px;
+  }
+}
+
+// дроби
+.fractionsChoose {
+  .digitNumber {
+    .radios {
+      width: 300px;
+
+      .radio::before {
+        width: 50px;
+      }
+
+      .ball.pos_1 {
+        transform: translateX(90px);
+      }
+
+      .ball.pos_2 {
+        transform: translateX(180px);
+      }
+
+      .ball.pos_3 {
+        transform: translateX(273px);
+      }
+    }
   }
 }
 
@@ -911,12 +1092,13 @@ body {
   margin-top: -15px;
   font-size: 1.8em;
   color: #603913;
-  width: 50px;
+  width: 65px;
+  max-width: 300px;
   text-align: center;
 }
 
 .radios .radio:nth-child(9)::before {
-  margin-left: 50px;
+  margin-left: 65px;
   width: auto;
 }
 
@@ -968,18 +1150,24 @@ body {
 
 @keyframes obertZirka {
   0% {
-    transform: /*rotate(0deg) */
-            scale(1.0);
-
+    @include bgChooseRozr("../img/first.png");
+    transform: scale(1) rotateY(0);
   }
-
+  25% {
+    @include bgChooseRozr("../img/second.png");
+    transform: scale(1) rotateY(180deg)
+  }
   50% {
-    transform: /*rotate(360deg)*/
-            scale(1.5);
+    @include bgChooseRozr("../img/third.png");
+    transform: scale(1) rotateY(0);
+  }
+  75% {
+    @include bgChooseRozr("../img/four.png");
+    transform: scale(1) rotateY(180deg);
   }
   100% {
-    transform: /*rotate(360deg)*/
-            scale(1.0);
+    @include bgChooseRozr("../img/five.png");
+    transform: scale(1) rotateY(0);
   }
 }
 
